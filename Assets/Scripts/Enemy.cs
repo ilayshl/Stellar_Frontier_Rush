@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     private void Update() {
         //Move right/left- when hitting the edge of screen, flip and go down 1 row
-        transform.position
+        //transform.position
     }
 
     public void OnHit(int dmg)
