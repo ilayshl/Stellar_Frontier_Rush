@@ -5,8 +5,10 @@ using UnityEngine;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject[] pickups;
+    private float xEdge = 7.5f;
+    private int moveDir = 1;
     private HitPoints hp;
     private WaveManager waveManager;
     private SpriteRenderer sr;
@@ -18,25 +20,57 @@ public class Enemy : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Update() {
-        //Move right/left- when hitting the edge of screen, flip and go down 1 row
+    private void Update()
+    {
+        //IncreaseDifficulty();
+        Move();
+        CheckForScreenEdges();
     }
 
+    private void Move()
+    {
+        transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
+    }
+
+    private void CheckForScreenEdges()
+    {
+        if ((transform.position.x >= xEdge && moveDir > 0)
+        || (transform.position.x <= -xEdge && moveDir < 0))
+        {
+            RowDown();
+        }
+    }
+
+    private void RowDown()
+    {
+        moveDir *= -1;
+        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
+    }
+    
     public void OnHit(int dmg)
     {
         hp.LoseHealth(dmg);
-        if(hp.isDead) {
+        if (hp.isDead)
+        {
             waveManager.EnemyKilled();
             Destroy(gameObject);
         }
+        if(hp.Health() == 1){
+        if(sr.color == Color.green){
+            moveSpeed*=2;
+        }
+        }
     }
 
-    private void OnDestroy() {
-        if(Random.Range(0, 100) <= 33) {
+    private void OnDestroy()
+    {
+        if (Random.Range(0, 100) <= 33)
+        {
             Debug.Log("Spawned a pickup!");
             //Instantiate(pickups[Random.Range(0, pickups.Length)]);
         }
-        if(sr.color ==Color.black) {
+        if (sr.color == Color.black)
+        {
             Debug.Log("allahu akbnar");
         }
     }

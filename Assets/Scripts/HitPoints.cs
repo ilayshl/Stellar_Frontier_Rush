@@ -9,7 +9,9 @@ public class HitPoints : MonoBehaviour
     [SerializeField] private int initialHP;
     private int currentHP;
 
-
+    public int Health(){
+        return currentHP;
+    }
 
     void Start()
     {
