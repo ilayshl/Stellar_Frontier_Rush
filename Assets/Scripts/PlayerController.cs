@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
     private Shoot shoot;
+    private float fireSpeed = 0.5f;
+    private float lastShotTime;
 
     private void Awake() {
         shoot = GetComponent<Shoot>();
@@ -31,8 +33,21 @@ public class PlayerController : MonoBehaviour
     }
 
     void CheckForFiring(){
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButton(0)){
+            if(Time.time > lastShotTime + fireSpeed){
+            lastShotTime = Time.time;
             shoot.ShootBullet(transform.position, transform.rotation);
+            
+            }
         }
+    }
+
+    public void IncreaseSpeed(float increase) {
+        moveSpeed+=increase;
+    }
+
+    //Lower value = lower interval between shots
+    public void IncreaseFireSpeed(float increase) {
+        fireSpeed-=increase;
     }
 }

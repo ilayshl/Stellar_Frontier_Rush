@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bae853a1e1c04faf90ae4486de22500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   trajectory: {x: 0, y: 1, z: 0}
-  dmg: 0
+  dmg: 1

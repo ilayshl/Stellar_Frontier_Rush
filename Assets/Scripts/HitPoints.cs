@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Health
+/// </summary>
 public class HitPoints : MonoBehaviour
 {
+    public bool isDead = false;
     [SerializeField] private int initialHP;
     private int currentHP;
+
+
 
     void Start()
     {
@@ -19,8 +23,9 @@ public class HitPoints : MonoBehaviour
 
     public void LoseHealth(int hpLost){
         currentHP-=hpLost;
+        Debug.Log(currentHP);
         if(currentHP<=0){
-            Destroy(this);
+            isDead=true;
         }
     }
 }
