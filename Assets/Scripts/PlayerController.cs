@@ -14,25 +14,20 @@ public class PlayerController : MonoBehaviour
         shoot = GetComponent<Shoot>();
     }
 
-    void Start()
-    {
-        Debug.Log("OK");
-    }
-
     void Update()
     {
         MoveToMouse();
         CheckForFiring();
     }
 
-    void MoveToMouse(){
+    private void MoveToMouse(){
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 currentPosition = transform.position;
         transform.position =
         Vector2.MoveTowards(currentPosition, mousePosition,  moveSpeed * Time.deltaTime);
     }
 
-    void CheckForFiring(){
+    private void CheckForFiring(){
         if(Input.GetMouseButton(0)){
             if(Time.time > lastShotTime + fireSpeed){
             lastShotTime = Time.time;

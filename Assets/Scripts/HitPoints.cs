@@ -5,17 +5,21 @@ using UnityEngine;
 /// </summary>
 public class HitPoints : MonoBehaviour
 {
-    public bool isDead = false;
     [SerializeField] private int initialHP;
+    private bool isDead = false;
     private int currentHP;
+
+
+    void Start() {
+        currentHP=initialHP;
+    }
 
     public int Health(){
         return currentHP;
     }
 
-    void Start()
-    {
-        currentHP=initialHP;
+    public bool IsDead() {
+        return isDead;
     }
 
     public void GainHealth(int hpGained){
@@ -25,7 +29,6 @@ public class HitPoints : MonoBehaviour
 
     public void LoseHealth(int hpLost){
         currentHP-=hpLost;
-        Debug.Log(currentHP);
         if(currentHP<=0){
             isDead=true;
         }

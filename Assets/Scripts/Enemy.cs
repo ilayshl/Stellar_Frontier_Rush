@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 1;
     [SerializeField] private GameObject[] pickups;
     private float xEdge = 7.5f;
     private int moveDir = 1;
@@ -31,6 +31,9 @@ public class Enemy : MonoBehaviour
     {
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
+    public void SetSpeed(float addition) {
+        moveSpeed+=addition;
+    }
 
     private void CheckForScreenEdges()
     {
@@ -50,7 +53,7 @@ public class Enemy : MonoBehaviour
     public void OnHit(int dmg)
     {
         hp.LoseHealth(dmg);
-        if (hp.isDead)
+        if (hp.IsDead())
         {
             waveManager.EnemyKilled();
             Destroy(gameObject);

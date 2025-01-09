@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1629056640189282887, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.33
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1629056640189282887, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.6889133
+      value: 2.4260871
       objectReference: {fileID: 0}
     - target: {fileID: 1629056640189282887, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.3130436
+      value: 2.0869567
       objectReference: {fileID: 0}
     - target: {fileID: 1629056640189282887, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,6 +71,18 @@ PrefabInstance:
     - target: {fileID: 2256056451987205291, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_Name
       value: Goliath
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262569903007054022, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262569903007054022, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.g
+      value: 0.10849059
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262569903007054022, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.r
+      value: 0.76309544
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
