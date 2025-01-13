@@ -55,26 +55,13 @@ public class Enemy : MonoBehaviour
         hp.LoseHealth(dmg);
         if (hp.IsDead())
         {
-            waveManager.EnemyKilled();
+            waveManager.EnemyKilled(this.transform);
             Destroy(gameObject);
         }
         if(hp.Health() == 1){
         if(sr.color == Color.green){
             moveSpeed*=2;
         }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (Random.Range(0, 100) <= 33)
-        {
-            Debug.Log("Spawned a pickup!");
-            //Instantiate(pickups[Random.Range(0, pickups.Length)]);
-        }
-        if (sr.color == Color.black)
-        {
-            Debug.Log("allahu akbnar");
         }
     }
 }

@@ -7,8 +7,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private Vector3 trajectory;
     [SerializeField] private int dmg;
+    [SerializeField] private Vector3 trajectory;
     private void Start()
     {
         Invoke("DestroyBullet", 7f);
@@ -32,13 +32,30 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void DestroyBullet(){
-        if(!this.IsDestroyed()){
+    private void DestroyBullet()
+    {
+        if (!this.IsDestroyed())
+        {
             Destroy(gameObject);
         }
     }
 
-    public void SetDamage(int newDamage) {
-        dmg=newDamage;
+    public void SetDamage(int newDamage)
+    {
+        dmg = newDamage;
+    }
+
+    /// <summary>
+    /// Decides the new direction of the bullet in Vector3;
+    /// Change Y values for different directions
+    /// </summary>
+    /// <param name="newDirection"></param>
+    public void ChangeDirection(Vector3 newDirection)
+    {
+        trajectory = newDirection;
+        if (newDirection == Vector3.up)
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 }

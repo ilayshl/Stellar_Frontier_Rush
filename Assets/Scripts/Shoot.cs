@@ -5,16 +5,16 @@ using UnityEngine;
 /// </summary>
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject[] bullet;
 
     public void ShootBullet(Vector3 position, Quaternion direction) {
-        var newBullet = Instantiate(bullet, position, direction);
+        var newBullet = Instantiate(bullet[0], position, direction);
     }
 
-    public void ShootBullet(Vector3 position, Quaternion direction, int dmg){
-        var newBullet = Instantiate(bullet, position, direction);
-        if(TryGetComponent<Bullet>(out Bullet bulletScript)) {
-            bulletScript.SetDamage(dmg);
-        }
+    public void ShootBullet(int index, Vector3 position, Quaternion direction){
+        var newBullet = Instantiate(bullet[index], position, direction);
+        /*if(TryGetComponent<Bullet>(out Bullet bulletScript)) {
+            bulletScript.ChangeDirection();
+        }*/
     }
 }

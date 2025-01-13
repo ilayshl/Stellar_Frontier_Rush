@@ -1,21 +1,25 @@
 using UnityEngine;
 
 /// <summary>
-/// Spawns waves with a delay every time the last enemy from last wave is killed.
+/// Spawns waves after a delay every time the last enemy from last wave is killed.
 /// </summary>
-public class WaveManager: MonoBehaviour {
+public class WaveManager : MonoBehaviour
+{
     [SerializeField] private GameObject firstWave;
     [SerializeField] private GameObject[] waves;
     [SerializeField] private GameObject[] enemyToSpawn;
+    [SerializeField] private GameObject[] pickups;
 
     private int enemiesAlive;
     private float newWaveCooldown = 5;
 
-    void Start() {
+    void Start()
+    {
         SpawnFirstWave();
     }
 
-    private void SpawnFirstWave() {
+    private void SpawnFirstWave()
+    {
         var wave = Instantiate(firstWave);
         ReplacePlaceholders(wave.transform, 0);
         Destroy(wave);
@@ -24,28 +28,39 @@ public class WaveManager: MonoBehaviour {
     //Checks for each enemy's death; if it's the last of the wave, spawns new wave after a delay.
     //Delay is calculated by the the higher between 0, or the inital wave cooldown - difficulty increment.
     //Lower newWaveCooldown equals more difficult.
-    public void EnemyKilled() {
+    public void EnemyKilled(Transform enemy)
+    {
         enemiesAlive--;
-        if(enemiesAlive<=0) {
-            Invoke("SpawnNextWave", Mathf.Max(0, newWaveCooldown-(DifficultyIncrement()/3)));
+        if (RollForPercentage(20))
+        {
+            SpawnPickup(enemy);
+        }
+        if (enemiesAlive <= 0)
+        {
+            Invoke("SpawnNextWave", Mathf.Max(0, newWaveCooldown - (DifficultyIncrement() / 3)));
         }
     }
 
-    private void SpawnNextWave() {
+    private void SpawnNextWave()
+    {
         var wave = Instantiate(waves[GetRandomIndex(waves)]);
         ReplacePlaceholders(wave.transform, GetRandomIndex(enemyToSpawn));
         Destroy(wave);
     }
 
     //Replaces each placeholder in the Wave Prefab and sets the enemies as children of WaveManager instead of WavePrefab.
-    private void ReplacePlaceholders(Transform source, int enemyType) {
-        foreach(Transform point in source) {
-            if(point.gameObject.CompareTag("Placeholder")) {
+    private void ReplacePlaceholders(Transform source, int enemyType)
+    {
+        foreach (Transform point in source)
+        {
+            if (point.gameObject.CompareTag("Placeholder"))
+            {
                 var position = point.transform.position;
                 var enemyInstance = Instantiate(enemyToSpawn[enemyType], position, Quaternion.identity, transform);
                 Destroy(point.gameObject);
                 enemiesAlive++;
-                if(enemyInstance.TryGetComponent<Enemy>(out Enemy enemy)) {
+                if (enemyInstance.TryGetComponent<Enemy>(out Enemy enemy))
+                {
                     enemy.SetSpeed(DifficultyIncrement());
                 }
             }
@@ -53,18 +68,41 @@ public class WaveManager: MonoBehaviour {
     }
 
     //For every 10 seconds, add 0.5 moveSpeed to each enemy, thus making them more difficult.
-    private float DifficultyIncrement() {
+    private float DifficultyIncrement()
+    {
         int currentTime = (int)Time.time;
         float increment = 0;
-        for(int i = 1; i<=currentTime; i++) {
-            if(i%10==0) {
-                increment+=0.5f;
+        for (int i = 1; i <= currentTime; i++)
+        {
+            if (i % 10 == 0)
+            {
+                increment += 0.5f;
             }
         }
         return increment;
     }
 
-    private int GetRandomIndex(GameObject[] source) {
+    private int GetRandomIndex(GameObject[] source)
+    {
         return Random.Range(0, source.Length);
+    }
+
+    //Checks for a percentage out of 100.
+    private bool RollForPercentage(int percentage)
+    {
+        int i = Random.Range(0, 100);
+        if (i <= percentage)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void SpawnPickup(Transform transform)
+    {
+        Instantiate(pickups[GetRandomIndex(pickups)], transform.position, Quaternion.identity);
     }
 }

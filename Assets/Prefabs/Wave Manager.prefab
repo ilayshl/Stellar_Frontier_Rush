@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7195031119734729167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3279891926476213098}
+  - component: {fileID: -2176419446851469866}
+  m_Layer: 0
+  m_Name: Wave Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3279891926476213098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195031119734729167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2176419446851469866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195031119734729167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9326e2d88d084e49b44dfb6790950fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstWave: {fileID: 8434700634503624197, guid: 2bbc884f85755b343b5e6f2a653c9f36, type: 3}
+  waves:
+  - {fileID: 8434700634503624197, guid: cb825ad64a8e48144937cc21a91378c3, type: 3}
+  - {fileID: 8434700634503624197, guid: c3205ed78e7f2914fb9550866d5c07da, type: 3}
+  - {fileID: 8434700634503624197, guid: 9d3d694823fde7c4bbe6d7b4581aaaaf, type: 3}
+  - {fileID: 8434700634503624197, guid: a2a19134e52938640bd995d98041c97b, type: 3}
+  enemyToSpawn:
+  - {fileID: 2256056451987205291, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+  - {fileID: 6438548338378059615, guid: a9216106c2acb2749adda8ffce0179d4, type: 3}
+  - {fileID: 2682441173563211428, guid: f56ef9cb93666cf4483b9628aa668d37, type: 3}
+  - {fileID: 880971650083764676, guid: 75569ecaca4fa7440a9944a73bcda847, type: 3}
+  pickups:
+  - {fileID: 8524525033209199046, guid: 24ff6814aa40441b68fdb09e05108ee0, type: 3}
+  - {fileID: 8524525033209199046, guid: 45d2463ca40044283bb0866e02069663, type: 3}
+  - {fileID: 8524525033209199046, guid: 704a82ec07faa47cea4a635d37823790, type: 3}
