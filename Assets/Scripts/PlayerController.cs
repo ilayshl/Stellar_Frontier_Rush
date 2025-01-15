@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Shoot shoot;
     private float shootInterval = 0.7f;
     private float lastShotTime;
-    int fire = 0;
+    int bulletType = 0;
 
     private void Awake()
     {
@@ -38,12 +38,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time > lastShotTime + shootInterval)
             {
                 lastShotTime = Time.time;
-                shoot.ShootBullet(fire, transform.position, transform.rotation);
-                fire++;
-                if (fire == 3)
-                {
-                    fire = 0;
-                }
+                shoot.ShootBullet(bulletType, transform.position, transform.rotation);
             }
         }
     }
@@ -53,10 +48,15 @@ public class PlayerController : MonoBehaviour
         moveSpeed += increase;
     }
 
-    //Lower value = lower interval between shots
+    //Percentage of how faster the player will shoot; lower shootInterval = faster fire rate.
     public void IncreaseFireSpeed(float increase)
     {
-        shootInterval -= increase;
+        shootInterval *= 1-(increase/100);
         if (shootInterval < 0.1) { shootInterval = 0.1f; }
+    }
+
+    public void IncreaseDamage(int increase) {
+        bulletType+=increase;
+        bulletType = Mathf.Min(bulletType, shoot.BulletTypes()-1);
     }
 }

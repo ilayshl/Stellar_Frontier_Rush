@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.OnHit(dmg);
+            enemy.OnHit(dmg+1);
             DestroyBullet();
         }
     }

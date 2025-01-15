@@ -1,3 +1,4 @@
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject firstWave;
     [SerializeField] private GameObject[] waves;
     [SerializeField] private GameObject[] enemyToSpawn;
-    [SerializeField] private GameObject[] pickups;
+    [SerializeField] private GameObject pickup;
+    [SerializeField] private GameObject deathParticle;
 
     private int enemiesAlive;
     private float newWaveCooldown = 5;
@@ -16,6 +18,12 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         SpawnFirstWave();
+    }
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.S)) {
+            SpawnPickup(this.transform);
+        }
     }
 
     private void SpawnFirstWave()
@@ -28,17 +36,20 @@ public class WaveManager : MonoBehaviour
     //Checks for each enemy's death; if it's the last of the wave, spawns new wave after a delay.
     //Delay is calculated by the the higher between 0, or the inital wave cooldown - difficulty increment.
     //Lower newWaveCooldown equals more difficult.
-    public void EnemyKilled(Transform enemy)
-    {
+    public void EnemyKilled(Transform enemy) {
+        SpawnDeathParticle(enemy);
         enemiesAlive--;
-        if (RollForPercentage(20))
-        {
+        if(RollForPercentage(20)) {
             SpawnPickup(enemy);
         }
-        if (enemiesAlive <= 0)
-        {
-            Invoke("SpawnNextWave", Mathf.Max(0, newWaveCooldown - (DifficultyIncrement() / 3)));
+        if(enemiesAlive<=0) {
+            Invoke("SpawnNextWave", Mathf.Max(0, newWaveCooldown-(DifficultyIncrement()/3)));
         }
+    }
+
+    private void SpawnDeathParticle(Transform enemy) {
+        var particles = Instantiate(deathParticle, enemy.position, Quaternion.identity);
+        Destroy(particles.gameObject, 1f);
     }
 
     private void SpawnNextWave()
@@ -103,6 +114,6 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnPickup(Transform transform)
     {
-        Instantiate(pickups[GetRandomIndex(pickups)], transform.position, Quaternion.identity);
+        Instantiate(pickup, transform.position, Quaternion.identity);
     }
 }

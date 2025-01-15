@@ -6,18 +6,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1;
-    [SerializeField] private GameObject[] pickups;
     private float xEdge = 7.5f;
     private int moveDir = 1;
     private HitPoints hp;
     private WaveManager waveManager;
     private SpriteRenderer sr;
+    private Animator animator;
 
     private void Awake()
     {
         hp = GetComponent<HitPoints>();
         waveManager = GetComponentInParent<WaveManager>();
         sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -53,6 +54,7 @@ public class Enemy : MonoBehaviour
     public void OnHit(int dmg)
     {
         hp.LoseHealth(dmg);
+        animator.SetTrigger("onHit");
         if (hp.IsDead())
         {
             waveManager.EnemyKilled(this.transform);
