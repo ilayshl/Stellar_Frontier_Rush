@@ -20,16 +20,16 @@ public class PickupManager: MonoBehaviour {
                 Debug.Log("+Health");
                 break;
                 case 1:
-                pController.IncreaseFireSpeed(5);
-                Debug.Log("+Fire speed");
-                break;
-                case 2:
-                pController.IncreaseSpeed(1);
-                Debug.Log("+Movement speed");
-                break;
-                case 3:
                 pController.IncreaseDamage(1);
                 Debug.Log("+Damage");
+                break;
+                case 2:
+                pController.IncreaseFireRate(5);
+                Debug.Log("+Fire rate");
+                break;
+                case 3:
+                pController.IncreaseSpeed(1);
+                Debug.Log("+Movement speed");
                 break;
 
             }

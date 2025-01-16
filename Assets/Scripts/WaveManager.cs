@@ -17,7 +17,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        SpawnFirstWave();
+        Invoke("SpawnFirstWave", 2.5f);
     }
 
     private void Update() {

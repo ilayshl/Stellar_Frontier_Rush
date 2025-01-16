@@ -53,11 +53,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //Percentage of how faster the player will shoot; lower shootInterval = faster fire rate.
-    public void IncreaseFireSpeed(float increase)
+    public void IncreaseFireRate(float increase)
     {
         shootInterval *= 1-(increase/100);
         if (shootInterval < 0.1) { shootInterval = 0.1f; }
-        uiManager.SetText(2, System.Math.Round(shootInterval, 2).ToString());
+        float dps = 1 / shootInterval;
+        uiManager.SetText(2, System.Math.Round(dps, 2).ToString());
     }
 
     public void IncreaseDamage(int increase) {
