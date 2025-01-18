@@ -7,8 +7,10 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private int dmg;
+
     [SerializeField] private Vector3 trajectory;
+    private int dmg = 1;
+
     private void Start()
     {
         Invoke("DestroyBullet", 7f);
@@ -27,7 +29,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.OnHit(dmg+1);
+            enemy.OnHit(dmg + 1);
             DestroyBullet();
         }
     }

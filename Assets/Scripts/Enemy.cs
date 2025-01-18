@@ -32,8 +32,9 @@ public class Enemy : MonoBehaviour
     {
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
-    public void SetSpeed(float addition) {
-        moveSpeed+=addition;
+    public void SetSpeed(float addition)
+    {
+        moveSpeed += addition;
     }
 
     private void CheckForScreenEdges()
@@ -50,7 +51,8 @@ public class Enemy : MonoBehaviour
         moveDir *= -1;
         transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
     }
-    
+
+    //Makes the enemy take x damage, if dead, triggers death events.
     public void OnHit(int dmg)
     {
         hp.LoseHealth(dmg);
@@ -60,10 +62,12 @@ public class Enemy : MonoBehaviour
             waveManager.EnemyKilled(this.transform);
             Destroy(gameObject);
         }
-        if(hp.Health() == 1){
-        if(sr.color == Color.green){
-            moveSpeed*=2;
-        }
+        if (hp.Health() == 1)
+        {
+            if (sr.color == Color.green)
+            {
+                moveSpeed *= 2;
+            }
         }
     }
 }
