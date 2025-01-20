@@ -28,6 +28,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    //Spawns wave number 1 with the normal type of enemies.
     private void SpawnFirstWave()
     {
         var wave = Instantiate(firstWave);
@@ -52,12 +53,14 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    //Spawns GameObject of Death Particles at given transform.position.
     private void SpawnDeathParticle(Transform enemy)
     {
         var particles = Instantiate(deathParticle, enemy.position, Quaternion.identity);
         Destroy(particles.gameObject, 1f);
     }
 
+    //Spawns the next wave of enemies.
     private void SpawnNextWave()
     {
         var wave = Instantiate(waves[GetRandomIndex(waves)]);
@@ -66,8 +69,10 @@ public class WaveManager : MonoBehaviour
     }
 
     //Replaces each placeholder in the Wave Prefab and sets the enemies as children of WaveManager instead of WavePrefab.
+    //Also, decides on the direction of the wave (either left or right).
     private void ReplacePlaceholders(Transform source, int enemyType)
     {
+        int direction = RollForDirection();
         foreach (Transform point in source)
         {
             if (point.gameObject.CompareTag("Placeholder"))
@@ -79,6 +84,7 @@ public class WaveManager : MonoBehaviour
                 if (enemyInstance.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     enemy.SetSpeed(DifficultyIncrement());
+                    enemy.SetDirection(direction);
                 }
             }
         }
@@ -99,6 +105,7 @@ public class WaveManager : MonoBehaviour
         return increment;
     }
 
+    //Gets a random index int of a given GameObject array.
     private int GetRandomIndex(GameObject[] source)
     {
         return Random.Range(0, source.Length);
@@ -118,8 +125,20 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    //Spawns a pickup at given transform.position.
     private void SpawnPickup(Transform transform)
     {
         Instantiate(pickup, transform.position, Quaternion.identity);
+    }
+
+    //Gives a value of 1 (continue in the same direction) or -1 (flips the direction).
+    private int RollForDirection()
+    {
+        int direction = 1;
+        if (RollForPercentage(50))
+        {
+            direction *= -1;
+        }
+        return direction;
     }
 }

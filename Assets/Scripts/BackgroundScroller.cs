@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Responsible of the infinite scrolling backgrounds of the game.
+/// </summary>
 public class BackgroundScroller : MonoBehaviour
 {
     [SerializeField] private float scrollSpeed;
@@ -11,7 +14,7 @@ public class BackgroundScroller : MonoBehaviour
         textureUnitSize = texture.height / sprite.pixelsPerUnit;
     }
 
-    // Update is called once per frame
+    //Moves the object down endlessly.
     void Update()
     {
         transform.position -= new Vector3(0, scrollSpeed * Time.deltaTime, 0);

@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         CheckForFiring();
     }
 
+    //Moves the object towards the cursor location with moveSpeed.
     private void MoveToMouse()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         Vector2.MoveTowards(currentPosition, mousePosition, moveSpeed * Time.deltaTime);
     }
 
+    //Checks if left mouse button is pressed to shoot if possible by shootInterval.
     private void CheckForFiring()
     {
         if (Input.GetMouseButton(0))
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Increases moveSpeed.
     public void IncreaseSpeed(float increase)
     {
         moveSpeed += increase;
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
         uiManager.SetText(2, System.Math.Round(dps, 2).ToString());
     }
 
+    //Increases the damage impact of the object's bullets.
     public void IncreaseDamage(int increase)
     {
         bulletType += increase;

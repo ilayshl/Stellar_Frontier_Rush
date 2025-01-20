@@ -23,20 +23,23 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //IncreaseDifficulty();
         Move();
         CheckForScreenEdges();
     }
 
+    //Changes transform.position by the direction and moveSpeed.
     private void Move()
     {
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
+
+    //Sets moveSpeed of the enemy.
     public void SetSpeed(float addition)
     {
         moveSpeed += addition;
     }
 
+    //Changes direction when touching screen edges.
     private void CheckForScreenEdges()
     {
         if ((transform.position.x >= xEdge && moveDir > 0)
@@ -46,9 +49,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //Moves 1 row down (closer to the player) and changes the movement direction.
     private void RowDown()
     {
-        moveDir *= -1;
+        SetDirection(-1);
         transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
     }
 
@@ -69,5 +73,10 @@ public class Enemy : MonoBehaviour
                 moveSpeed *= 2;
             }
         }
+    }
+
+    //Sets the direction of the object by an int value- negative is left, positive is right.
+    public void SetDirection(int direction){
+        moveDir *= direction;
     }
 }

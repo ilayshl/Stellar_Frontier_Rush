@@ -1,6 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Responsible of the creation and behaviour of the pickups.
+/// </summary>
 public class PickupManager : MonoBehaviour
 {
     [SerializeField] private Sprite[] sprites; //0- Health, 1- Firespeed, 2-Movespeed;
@@ -17,6 +19,8 @@ public class PickupManager : MonoBehaviour
         sr.sprite = sprites[pickupType];
     }
 
+    //Checks for the pickup type and collision object's type on collision with another object
+    //then, in case of a player, grants it the specific pickup buff.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<PlayerController>(out PlayerController pController))

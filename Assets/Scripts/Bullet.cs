@@ -20,11 +20,13 @@ public class Bullet : MonoBehaviour
         SetTrajectory(trajectory);
     }
 
+    //Sets the movement direction of the object.
     private void SetTrajectory(Vector3 direction)
     {
         transform.position += direction * speed * Time.deltaTime;
     }
 
+    //Damages whatever the object hits, then gets destroyed.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
@@ -34,6 +36,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    //Destroys the object.
     private void DestroyBullet()
     {
         if (!this.IsDestroyed())
@@ -42,6 +45,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    //Sets the damage that the object deals when it collides with another collider.
     public void SetDamage(int newDamage)
     {
         dmg = newDamage;
