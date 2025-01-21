@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Placeholder
   - Canvas
+  - Base
   layers:
   - Default
   - TransparentFX
