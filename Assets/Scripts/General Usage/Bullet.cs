@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -49,19 +48,5 @@ public class Bullet : MonoBehaviour
     public void SetDamage(int newDamage)
     {
         dmg = newDamage;
-    }
-
-    /// <summary>
-    /// Decides the new direction of the bullet in Vector3;
-    /// Change Y values for different directions
-    /// </summary>
-    /// <param name="newDirection"></param>
-    public void ChangeDirection(Vector3 newDirection)
-    {
-        trajectory = newDirection;
-        if (newDirection == Vector3.up)
-        {
-            transform.rotation = Quaternion.identity;
-        }
     }
 }

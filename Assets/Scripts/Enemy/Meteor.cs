@@ -5,11 +5,13 @@ using UnityEngine;
 /// </summary>
 public class Meteor : MonoBehaviour
 {
-    [SerializeField] private float rotateSpeed;
+    [SerializeField] private float rotationSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int dmg;
     [SerializeField] private Sprite[] variants;
     [SerializeField] private GameObject deathParticle;
+    [SerializeField] private AudioClip[] hitSounds;
+    [SerializeField] private AudioClip deathSound;
     private int rotationDirection = 1; //1 = right, -1 = left.
     private int variantIndex; //0= Normal, 1= Damage, 2= Fire rate, 3= Move speed
     private Transform targetObject;
@@ -59,7 +61,7 @@ public class Meteor : MonoBehaviour
     //Rotates the object.
     private void RotateObject()
     {
-        Vector3 rotation = new Vector3(0, 0, rotateSpeed * rotationDirection * Time.deltaTime);
+        Vector3 rotation = new Vector3(0, 0, rotationSpeed * rotationDirection * Time.deltaTime);
         transform.Rotate(rotation);
     }
 
@@ -95,19 +97,25 @@ public class Meteor : MonoBehaviour
         hp.LoseHealth(dmg);
         if (hp.IsDead())
         {
+            waveManager.PlaySound(deathSound);
             waveManager.MeteorDestroyed(this.transform, variantIndex);
             waveManager.SpawnDeathParticles(this.transform, deathParticle);
             Destroy(gameObject);
         }
+        else
+        {
+            int randomIndex = Random.Range(0, hitSounds.Length);
+            waveManager.PlaySound(hitSounds[randomIndex]);
+        }
     }
 
     /// <summary>
-    /// Adds moveSpeed to the enemy.
+    /// Adds moveSpeed and rotationSpeed to the enemy.
     /// </summary>
     /// <param name="addition"></param>
     public void AddSpeed(float addition)
     {
-        moveSpeed += addition / 2;
-        rotateSpeed += addition;
+        moveSpeed += addition / 3;
+        rotationSpeed += addition;
     }
 }

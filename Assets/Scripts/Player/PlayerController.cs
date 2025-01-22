@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Transform rightCannon, leftCannon;
+    [SerializeField] private AudioClip[] bulletSounds;
     private Shoot shoot;
     private float shootInterval = 0.7f;
     private float lastShotTime;
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Increases moveSpeed by the amount given. Starting moveSpeed is 10.
+    /// Increases moveSpeed by the amount given.
     /// </summary>
     /// <param name="increase"></param>
     public void IncreaseSpeed(float increase)

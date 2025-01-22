@@ -6,6 +6,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     [SerializeField] private GameObject[] bullet;
+    [SerializeField] private AudioClip[] shootingSounds;
 
     /// <summary>
     /// Returns read-only of current bullet type from the array of bullets.
@@ -29,6 +30,10 @@ public class Shoot : MonoBehaviour
         if (newBullet.TryGetComponent<Bullet>(out Bullet bulletScript))
         {
             bulletScript.SetDamage(index+1); //Index starts at 0, therefore +1.
+        }
+        if(TryGetComponent<SoundManager>(out SoundManager soundManager))
+        {
+            soundManager.PlaySound(shootingSounds[index]);
         }
     }
 }

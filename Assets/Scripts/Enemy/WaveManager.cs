@@ -7,16 +7,24 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GameObject firstWave;
     [SerializeField] private GameObject[] wavesSwing;
-    [SerializeField] private GameObject[] swingEnemyToSpawn;
+    [SerializeField] private GameObject[] enemySwingToSpawn;
     [SerializeField] private GameObject[] wavesDirect;
-    [SerializeField] private GameObject[] directEnemyToSpawn;
+    [SerializeField] private GameObject[] enemyDirectToSpawn;
     [SerializeField] private GameObject pickup;
-    //[SerializeField] private GameObject deathParticle;
 
     private int enemiesAlive;
     private int waveCounter;
     private float newWaveCooldown = 5;
-    float difficultyTimer;
+    private float difficultyTimer;
+    private bool isSpawningWave = false;
+
+    private const int directWaveThreshold = 4;
+
+    private SoundManager soundManager;
+
+    private void Awake() {
+        soundManager = GetComponent<SoundManager>();
+    }
 
     void Start()
     {
@@ -37,7 +45,7 @@ public class WaveManager : MonoBehaviour
     private void SpawnFirstWave()
     {
         var wave = Instantiate(firstWave);
-        ReplacePlaceholders(wave.transform, swingEnemyToSpawn, 0);
+        ReplacePlaceholders(wave.transform, enemySwingToSpawn, 0);
         Destroy(wave);
     }
 
@@ -48,8 +56,8 @@ public class WaveManager : MonoBehaviour
         enemiesAlive--;
         if (enemiesAlive <= 0)
         {
-            float difficultyIncrementForWaves = DifficultyIncrement() / 3;
-            Invoke("GetNextWave", Mathf.Max(0, newWaveCooldown - difficultyIncrementForWaves));
+            float waveSpawnRate = DifficultyIncrement() / 3;
+            Invoke("GetNextWave", Mathf.Max(0, newWaveCooldown - waveSpawnRate));
         }
     }
 
@@ -88,19 +96,23 @@ public class WaveManager : MonoBehaviour
     public void SpawnDeathParticles(Transform enemy, GameObject particleSystem)
     {
         var particles = Instantiate(particleSystem, enemy.position, Quaternion.identity);
-        Destroy(particles.gameObject, 1f);
+        Destroy(particles.gameObject, 2f);
     }
 
     //Decides which type of wave should be spawned next
     private void GetNextWave()
     {
-        if (waveCounter % 4 == 0 && waveCounter != 0)
+        if(!isSpawningWave)
         {
-            SpawnNextWave(wavesDirect, directEnemyToSpawn);
+        isSpawningWave=true;
+        if (waveCounter % directWaveThreshold == 0 && waveCounter != 0)
+        {
+            SpawnNextWave(wavesDirect, enemyDirectToSpawn);
         }
         else
         {
-            SpawnNextWave(wavesSwing, swingEnemyToSpawn);
+            SpawnNextWave(wavesSwing, enemySwingToSpawn);
+        }
         }
     }
 
@@ -110,6 +122,7 @@ public class WaveManager : MonoBehaviour
         var waveToSpawn = Instantiate(waves[GetRandomIndex(waves)]);
         ReplacePlaceholders(waveToSpawn.transform, enemies, GetRandomIndex(enemies));
         Destroy(waveToSpawn);
+        isSpawningWave=false;
     }
 
     //Replaces each placeholder in the Wave Prefab and sets the enemies as children of WaveManager instead of WavePrefab.
@@ -123,7 +136,7 @@ public class WaveManager : MonoBehaviour
             {
                 var position = point.transform.position;
                 GameObject enemyInstance;
-                if (waveCounter % 4 == 0 && waveCounter != 0)
+                if (waveCounter % directWaveThreshold == 0 && waveCounter != 0)
                 {
                     enemyInstance = Instantiate(enemies[GetRandomIndex(enemies)], position, Quaternion.identity, transform);
                 if (enemyInstance.TryGetComponent<Meteor>(out Meteor meteor))
@@ -172,7 +185,7 @@ public class WaveManager : MonoBehaviour
     private bool RollForPercentage(int percentage)
     {
         int i = Random.Range(0, 100);
-        if (i <= percentage)
+        if (i < percentage)
         {
             return true;
         }
@@ -182,7 +195,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    //Spawns a pickup in the given position.
+    //Spawns a pickup in the given position and returns itself as a variable.
     private GameObject SpawnPickup(Transform transform){
         return Instantiate(pickup, transform.position, Quaternion.identity);
     }
@@ -196,5 +209,9 @@ public class WaveManager : MonoBehaviour
             direction *= -1;
         }
         return direction;
+    }
+
+    public void PlaySound(AudioClip sound){
+        soundManager.PlaySound(sound);
     }
 }

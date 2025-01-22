@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private GameObject deathParticle;
+    [SerializeField] private AudioClip[] hitSounds;
+    [SerializeField] private AudioClip deathSound;
     private float xEdge = 7.5f;
     private int moveDir = 1;
     private HitPoints hp;
@@ -30,7 +33,8 @@ public class Enemy : MonoBehaviour
     }
 
     //Returns value of const int dmg.
-    public int Damage(){
+    public int Damage()
+    {
         return dmg;
     }
 
@@ -85,9 +89,15 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("onHit");
         if (hp.IsDead())
         {
+            waveManager.PlaySound(deathSound);
             waveManager.EnemyKilled(this.transform);
             waveManager.SpawnDeathParticles(this.transform, deathParticle);
             Destroy(gameObject);
+        }
+        else
+        {
+            int randomIndex = Random.Range(0, hitSounds.Length);
+            waveManager.PlaySound(hitSounds[randomIndex]);
         }
         if (hp.Health() == 1)
         {

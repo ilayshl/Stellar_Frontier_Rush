@@ -7,36 +7,40 @@ using UnityEngine.SceneManagement;
 public class Base : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private AudioClip[] impactSounds;
+
     private HitPoints hp;
     private SpriteRenderer sr;
+    private SoundManager soundManager;
+
     private const int initialHP = 10;
 
     private void Awake()
     {
         hp = GetComponent<HitPoints>();
         sr = GetComponent<SpriteRenderer>();
+        soundManager = GetComponent<SoundManager>();
     }
 
     // Damages the object upon collision.
     private void OnTriggerEnter2D(Collider2D other)
     {
+        int randomIndex = Random.Range(0, impactSounds.Length);
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);
-            if (hp.IsDead())
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+            soundManager.PlaySound(impactSounds[randomIndex]);
         }
         else if (other.TryGetComponent<Meteor>(out Meteor meteor))
         {
             ChangeHealth(-meteor.Damage());
             meteor.OnHit(100);
-            if (hp.IsDead())
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+            soundManager.PlaySound(impactSounds[randomIndex]);
+        }
+        if (hp.IsDead())
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

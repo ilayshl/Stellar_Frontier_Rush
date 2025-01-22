@@ -15,6 +15,10 @@ public class PickupManager : MonoBehaviour
         ChoosePickupType(sprites.Length);
     }
 
+    private void Start() {
+        Destroy(gameObject, 10);
+    }
+
     //Rolls for random index from 0 to a given int.
     private void ChoosePickupType(int range) {
         pickupType=Random.Range(0, range);

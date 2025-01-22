@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,11 +113,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b5f923a191326478ebc81ffecd5e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 20
+  rotationSpeed: 3
   moveSpeed: 1
   dmg: 1
   variants: []
   deathParticle: {fileID: 7047838003272070809, guid: 65d2dd81ada3ec74bb4ca6a3d917b0c6, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 1f39afb49d04b124d82b8eda577d908a, type: 3}
+  - {fileID: 8300000, guid: 5c72511f96b4d0948b1ff5a9555187d4, type: 3}
+  deathSound: {fileID: 8300000, guid: 49f42719482ff2342b33caed061ca24c, type: 3}
 --- !u!50 &-7553677185009021467
 Rigidbody2D:
   serializedVersion: 4
