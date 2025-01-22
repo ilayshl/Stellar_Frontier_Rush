@@ -211,6 +211,10 @@ public class WaveManager : MonoBehaviour
         return direction;
     }
 
+    /// <summary>
+    /// Plays an AudioClip via SoundManager.
+    /// </summary>
+    /// <param name="sound"></param>
     public void PlaySound(AudioClip sound){
         soundManager.PlaySound(sound);
     }

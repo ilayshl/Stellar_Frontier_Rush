@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Holds the AudioSource component.
+/// Holds the AudioSource component and ChangePitch method to avoid repeating the same sounds.
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
@@ -9,23 +9,33 @@ public class SoundManager : MonoBehaviour
 
     private const int pitchDefault = 1;
 
-    private void Awake() {
-    source = GetComponent<AudioSource>();    
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(AudioClip sound){
+    /// <summary>
+    /// Plays the given sound once with a randomized pitch.
+    /// </summary>
+    /// <param name="sound"></param>
+    public void PlaySound(AudioClip sound)
+    {
         ResetPitch();
         ChangePitch();
         source.PlayOneShot(sound);
 
     }
 
-    private void ResetPitch(){
-        source.pitch=pitchDefault;
+    //Resets the pitch back to its original value.
+    private void ResetPitch()
+    {
+        source.pitch = pitchDefault;
     }
 
-    private void ChangePitch(){
+    //Changes the pitch by an offset of 0.1 in either direction.
+    private void ChangePitch()
+    {
         float offset = Random.Range(-0.1f, 0.1f);
-        source.pitch+=offset;
+        source.pitch += offset;
     }
 }

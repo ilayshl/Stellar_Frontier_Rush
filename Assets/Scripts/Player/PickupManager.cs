@@ -15,14 +15,17 @@ public class PickupManager : MonoBehaviour
         ChoosePickupType(sprites.Length);
     }
 
-    private void Start() {
+    private void Start()
+    {
         Destroy(gameObject, 10);
+        Invoke("ActivateCollider", 1);
     }
 
     //Rolls for random index from 0 to a given int.
-    private void ChoosePickupType(int range) {
-        pickupType=Random.Range(0, range);
-        sr.sprite=sprites[pickupType];
+    private void ChoosePickupType(int range)
+    {
+        pickupType = Random.Range(0, range);
+        sr.sprite = sprites[pickupType];
     }
 
     /// <summary>
@@ -30,7 +33,8 @@ public class PickupManager : MonoBehaviour
     /// 0- Health, 1- Damage, 2- Fire rate, 3- Movement speed.
     /// </summary>
     /// <param name="index"></param>
-    public void SetPickupType(int index){
+    public void SetPickupType(int index)
+    {
         pickupType = index;
         sr.sprite = sprites[index];
     }
@@ -44,7 +48,7 @@ public class PickupManager : MonoBehaviour
             switch (pickupType)
             {
                 case 0:
-                pController.IncreaseHealth(1);
+                    pController.IncreaseHealth(1);
                     break;
                 case 1:
                     pController.IncreaseDamage(1);
@@ -58,6 +62,19 @@ public class PickupManager : MonoBehaviour
 
             }
             Destroy(gameObject);
+        }
+    }
+
+    //Activates the Collider component os the player can collide with it.
+    private void ActivateCollider()
+    {
+        if (TryGetComponent<Collider2D>(out Collider2D collider))
+        {
+            collider.enabled = true;
+        }
+        else
+        {
+            Debug.LogError("Couldn't activate the collider of the pickup.");
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+using System; //idk why it's dark gray, it is used in the script
 using UnityEngine;
 
 /// <summary>

@@ -17,13 +17,22 @@ public class Shoot : MonoBehaviour
         return bullet.Length;
     }
 
-    //Creates new basic bullet.
+    /// <summary>
+    /// Creates new basic bullet.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
     public void ShootBullet(Vector3 position, Quaternion direction)
     {
         var newBullet = Instantiate(bullet[0], position, direction);
     }
 
-    //Creates new specified type of bullet and sets its damage.
+    /// <summary>
+    /// Creates new specified type of bullet and sets its damage.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
     public void ShootBullet(int index, Vector3 position, Quaternion direction)
     {
         var newBullet = Instantiate(bullet[Mathf.Min(index, bullet.Length)], position, direction);

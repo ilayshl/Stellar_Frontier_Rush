@@ -12,6 +12,7 @@ public class Base : MonoBehaviour
     private HitPoints hp;
     private SpriteRenderer sr;
     private SoundManager soundManager;
+    private Animator animator;
 
     private const int initialHP = 10;
 
@@ -20,28 +21,37 @@ public class Base : MonoBehaviour
         hp = GetComponent<HitPoints>();
         sr = GetComponent<SpriteRenderer>();
         soundManager = GetComponent<SoundManager>();
+        animator = GetComponent<Animator>();
     }
 
     // Damages the object upon collision.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        int randomIndex = Random.Range(0, impactSounds.Length);
+        
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);
-            soundManager.PlaySound(impactSounds[randomIndex]);
+            OnHit();
+            
         }
         else if (other.TryGetComponent<Meteor>(out Meteor meteor))
         {
             ChangeHealth(-meteor.Damage());
             meteor.OnHit(100);
-            soundManager.PlaySound(impactSounds[randomIndex]);
+            OnHit();
         }
         if (hp.IsDead())
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    //For when the base takes damage.
+    private void OnHit(){
+        int randomIndex = Random.Range(0, impactSounds.Length);
+        soundManager.PlaySound(impactSounds[randomIndex]);
+        animator.SetTrigger("isHurt");
     }
 
     /// <summary>
