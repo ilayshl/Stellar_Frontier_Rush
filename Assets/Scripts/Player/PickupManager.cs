@@ -12,7 +12,7 @@ public class PickupManager : MonoBehaviour
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        ChoosePickupType(sprites.Length);
+        SetRandomPickupType(sprites.Length);
     }
 
     private void Start()
@@ -22,7 +22,7 @@ public class PickupManager : MonoBehaviour
     }
 
     //Rolls for random index from 0 to a given int.
-    private void ChoosePickupType(int range)
+    private void SetRandomPickupType(int range)
     {
         pickupType = Random.Range(0, range);
         sr.sprite = sprites[pickupType];

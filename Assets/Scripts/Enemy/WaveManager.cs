@@ -87,6 +87,11 @@ public class WaveManager : MonoBehaviour
         }
         OnEnemyDeath();
     }
+    
+    //Spawns a pickup in the given position and returns itself as a variable.
+    private GameObject SpawnPickup(Transform transform){
+        return Instantiate(pickup, transform.position, Quaternion.identity);
+    }
 
     /// <summary>
     /// Spawns GameObject at given transform.position and destroys it after.
@@ -175,12 +180,6 @@ public class WaveManager : MonoBehaviour
         return increment;
     }
 
-    //Returns a random index int of a given GameObject array.
-    private int GetRandomIndex(GameObject[] source)
-    {
-        return Random.Range(0, source.Length);
-    }
-
     //Checks for a percentage out of 100.
     private bool RollForPercentage(int percentage)
     {
@@ -193,11 +192,6 @@ public class WaveManager : MonoBehaviour
         {
             return false;
         }
-    }
-
-    //Spawns a pickup in the given position and returns itself as a variable.
-    private GameObject SpawnPickup(Transform transform){
-        return Instantiate(pickup, transform.position, Quaternion.identity);
     }
 
     //Gives a value of 1 (continue in the same direction) or -1 (flips the direction).
@@ -217,5 +211,11 @@ public class WaveManager : MonoBehaviour
     /// <param name="sound"></param>
     public void PlaySound(AudioClip sound){
         soundManager.PlaySound(sound);
+    }
+    
+    //Returns a random index int of a given GameObject array.
+    private int GetRandomIndex(GameObject[] source)
+    {
+        return Random.Range(0, source.Length);
     }
 }

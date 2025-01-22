@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -44,6 +43,23 @@ public class Enemy : MonoBehaviour
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
 
+    //Changes direction when touching screen edges.
+    private void CheckForScreenEdges()
+    {
+        if ((transform.position.x >= xEdge && moveDir > 0)
+        || (transform.position.x <= -xEdge && moveDir < 0))
+        {
+            RowDown();
+        }
+    }
+
+    //Moves 1 row down (closer to the player) and changes the movement direction.
+    private void RowDown()
+    {
+        SetDirection(-1);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
+    }
+
     /// <summary>
     /// Adds moveSpeed to the enemy.
     /// </summary>
@@ -60,23 +76,6 @@ public class Enemy : MonoBehaviour
     public void SetDirection(int direction)
     {
         moveDir *= direction;
-    }
-
-    //Changes direction when touching screen edges.
-    private void CheckForScreenEdges()
-    {
-        if ((transform.position.x >= xEdge && moveDir > 0)
-        || (transform.position.x <= -xEdge && moveDir < 0))
-        {
-            RowDown();
-        }
-    }
-
-    //Moves 1 row down (closer to the player) and changes the movement direction.
-    private void RowDown()
-    {
-        SetDirection(-1);
-        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
     }
 
     /// <summary>

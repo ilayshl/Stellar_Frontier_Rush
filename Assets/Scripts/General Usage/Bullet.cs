@@ -6,7 +6,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-
     [SerializeField] private Vector3 trajectory;
     private int dmg;
 

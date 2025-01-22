@@ -27,13 +27,13 @@ public class Base : MonoBehaviour
     // Damages the object upon collision.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);
             OnHit();
-            
+
         }
         else if (other.TryGetComponent<Meteor>(out Meteor meteor))
         {
@@ -45,13 +45,6 @@ public class Base : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
-    //For when the base takes damage.
-    private void OnHit(){
-        int randomIndex = Random.Range(0, impactSounds.Length);
-        soundManager.PlaySound(impactSounds[randomIndex]);
-        animator.SetTrigger("isHurt");
     }
 
     /// <summary>
@@ -79,5 +72,13 @@ public class Base : MonoBehaviour
     private void UpdateHealthText(int value)
     {
         uiManager.SetText(0, value.ToString());
+    }
+
+    //For when the base takes damage.
+    private void OnHit()
+    {
+        int randomIndex = Random.Range(0, impactSounds.Length);
+        soundManager.PlaySound(impactSounds[randomIndex]);
+        animator.SetTrigger("isHurt");
     }
 }

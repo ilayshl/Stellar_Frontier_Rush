@@ -14,7 +14,7 @@ public class BackgroundScroller : MonoBehaviour
         textureUnitSize = texture.height / sprite.pixelsPerUnit;
     }
 
-    //Moves the object down endlessly.
+    //Moves the object down endlessly by moving it upwards.
     void Update()
     {
         transform.position -= new Vector3(0, scrollSpeed * Time.deltaTime, 0);

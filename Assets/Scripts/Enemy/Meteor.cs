@@ -39,15 +39,6 @@ public class Meteor : MonoBehaviour
         RotateObject();
         MoveTowardsTarget(targetObject);
     }
-
-    //Decides if the rotation should be positive (right) or negative (left).
-    private void RollForRotationDirection()
-    {
-        if (Random.Range(0, 2) == 1)
-        {
-            rotationDirection *= -1;
-        }
-    }
     
     /// <summary>
     /// Returns the damage value of the enemy.
@@ -74,20 +65,6 @@ public class Meteor : MonoBehaviour
         Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
     }
 
-    //Rolls percentage, if hits sets the object as a Variant.
-    private void RollForVariant(int percentage)
-    {
-        if (Random.Range(0, 100) <= percentage)
-        {
-            variantIndex = Random.Range(1, variants.Length);
-        }
-        else
-        {
-            variantIndex = 0;
-        }
-        sr.sprite = variants[variantIndex];
-    }
-
     /// <summary>
     /// Takes damage and checks if Health equals or lower than 0.
     /// </summary>
@@ -107,6 +84,29 @@ public class Meteor : MonoBehaviour
             int randomIndex = Random.Range(0, hitSounds.Length);
             waveManager.PlaySound(hitSounds[randomIndex]);
         }
+    }
+
+    //Decides if the rotation should be positive (right) or negative (left).
+    private void RollForRotationDirection()
+    {
+        if (Random.Range(0, 2) == 1)
+        {
+            rotationDirection *= -1;
+        }
+    }
+    
+    //Rolls percentage, if hits sets the object as a Variant.
+    private void RollForVariant(int percentage)
+    {
+        if (Random.Range(0, 100) <= percentage)
+        {
+            variantIndex = Random.Range(1, variants.Length);
+        }
+        else
+        {
+            variantIndex = 0;
+        }
+        sr.sprite = variants[variantIndex];
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] private AudioClip[] shootingSounds;
 
     /// <summary>
-    /// Returns read-only of current bullet type from the array of bullets.
+    /// Returns read-only of the length of the array of bullets.
     /// </summary>
     /// <returns></returns>
     public int BulletTypes()
@@ -18,7 +18,7 @@ public class Shoot : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates new basic bullet.
+    /// Creates new basic bullet. --for enemies that can shoot, currently unused.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
