@@ -17,13 +17,13 @@ public class Meteor : MonoBehaviour
     private Transform targetObject;
 
     private HitPoints hp;
-    private WaveManager waveManager;
+    private EnemyManager enemyManager;
     private SpriteRenderer sr;
 
     void Awake()
     {
         hp = GetComponent<HitPoints>();
-        waveManager = GetComponentInParent<WaveManager>();
+        enemyManager = GetComponentInParent<EnemyManager>();
         sr = GetComponent<SpriteRenderer>();
     }
 
@@ -32,6 +32,7 @@ public class Meteor : MonoBehaviour
         targetObject = FindFirstObjectByType<Base>().transform;
         RollForVariant(50);
         RollForRotationDirection();
+        enemyManager.AddToCurrentWave(gameObject);
     }
 
     void Update()
@@ -74,15 +75,15 @@ public class Meteor : MonoBehaviour
         hp.LoseHealth(dmg);
         if (hp.IsDead())
         {
-            waveManager.PlaySound(deathSound);
-            waveManager.MeteorDestroyed(this.transform, variantIndex);
-            waveManager.SpawnDeathParticles(this.transform, deathParticle);
+            enemyManager.PlaySound(deathSound);
+            enemyManager.MeteorDestroyed(gameObject, variantIndex);
+            enemyManager.SpawnDeathParticles(this.transform, deathParticle);
             Destroy(gameObject);
         }
         else
         {
             int randomIndex = Random.Range(0, hitSounds.Length);
-            waveManager.PlaySound(hitSounds[randomIndex]);
+            enemyManager.PlaySound(hitSounds[randomIndex]);
         }
     }
 

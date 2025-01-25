@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Transform rightCannon, leftCannon;
-    [SerializeField] private AudioClip[] bulletSounds;
     private Shoot shoot;
     private float shootInterval = 0.7f;
     private float lastShotTime;
@@ -48,7 +47,7 @@ public class PlayerController : MonoBehaviour
             if (Time.time > lastShotTime + shootInterval)
             {
                 lastShotTime = Time.time;
-                shoot.ShootBullet(bulletType, GetActiveCannon(), transform.rotation);
+                shoot.ShootBullet(GetActiveCannon(), bulletType);
                 lastShotFromRight=!lastShotFromRight;
             }
         }

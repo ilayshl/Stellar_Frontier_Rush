@@ -18,13 +18,14 @@ public class Shoot : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates new basic bullet. --for enemies that can shoot, currently unused.
+    /// Creates new basic bullet. --made for enemies that can shoot, currently unused.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
-    public void ShootBullet(Vector3 position, Quaternion direction)
+    public void ShootBullet(Vector3 position)
     {
-        var newBullet = Instantiate(bullet[0], position, direction);
+        var newBullet = Instantiate(bullet[0], position, Quaternion.identity);
+        PlayShootingSound(0);
     }
 
     /// <summary>
@@ -33,15 +34,21 @@ public class Shoot : MonoBehaviour
     /// <param name="index"></param>
     /// <param name="position"></param>
     /// <param name="direction"></param>
-    public void ShootBullet(int index, Vector3 position, Quaternion direction)
+    public void ShootBullet(Vector3 position, int index)
     {
-        var newBullet = Instantiate(bullet[Mathf.Min(index, bullet.Length)], position, direction);
+        int cappedBulletType = Mathf.Min(index, bullet.Length);
+        var newBullet = Instantiate(bullet[cappedBulletType], position, Quaternion.identity);
         if (newBullet.TryGetComponent<Bullet>(out Bullet bulletScript))
         {
-            bulletScript.SetDamage(index+1); //Index starts at 0, therefore +1.
+            bulletScript.SetDamage(index + 1); //Index starts at 0, therefore +1.
         }
-        if(TryGetComponent<SoundManager>(out SoundManager soundManager))
-        {
+        PlayShootingSound(index);
+    }
+
+    //Plays sound of a specific index in shootingSounds.
+    private void PlayShootingSound(int index)
+    {
+        if (TryGetComponent<SoundManager>(out SoundManager soundManager)){
             soundManager.PlaySound(shootingSounds[index]);
         }
     }

@@ -6,25 +6,16 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GameObject firstWave;
-    [SerializeField] private GameObject[] wavesSwing;
-    [SerializeField] private GameObject[] enemySwingToSpawn;
-    [SerializeField] private GameObject[] wavesDirect;
-    [SerializeField] private GameObject[] enemyDirectToSpawn;
-    [SerializeField] private GameObject pickup;
-
-    private int enemiesAlive;
+    [SerializeField] private GameObject[] wavesSwing; //Side to side gradually descending
+    [SerializeField] private GameObject[] enemySwingToSpawn; //Aliens
+    [SerializeField] private GameObject[] wavesDirect; //Head on to the base
+    [SerializeField] private GameObject[] enemyDirectToSpawn; //Meteors
     private int waveCounter;
     private float newWaveCooldown = 5;
     private float difficultyTimer;
     private bool isSpawningWave = false;
 
-    private const int directWaveThreshold = 4;
-
-    private SoundManager soundManager;
-
-    private void Awake() {
-        soundManager = GetComponent<SoundManager>();
-    }
+    private const int DIRECTWAVERATE = 4;
 
     void Start()
     {
@@ -34,10 +25,6 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)) //Meant for play-testing
-        {
-            SpawnPickup(this.transform);
-        }
         difficultyTimer += Time.deltaTime;
     }
 
@@ -49,68 +36,21 @@ public class WaveManager : MonoBehaviour
         Destroy(wave);
     }
 
-    // Checks for each enemy's death; if it's the last of the wave, spawns new wave after a delay.
-    // Lower newWaveCooldown equals less time between waves.
-    private void OnEnemyDeath()
-    {
-        enemiesAlive--;
-        if (enemiesAlive <= 0)
-        {
+    /// <summary>
+    /// Initiates next wave creation after a delay.
+    /// </summary>
+    public void StartNextWaveSequence(){
             float waveSpawnRate = DifficultyIncrement() / 3;
             Invoke("GetNextWave", Mathf.Max(0, newWaveCooldown - waveSpawnRate));
-        }
     }
 
-    /// <summary>
-    /// Basic enemy killed- rolls for Pickup spawn after death.
-    /// </summary>
-    /// <param name="enemyTransform"></param>
-    public void EnemyKilled(Transform enemyTransform){
-        if (RollForPercentage(20))
-            {
-                SpawnPickup(enemyTransform);
-            }
-            OnEnemyDeath();
-    }
-
-    /// <summary>
-    /// Meteor enemy destroyed- if it was a variant, spawns a corresponding pickup.
-    /// </summary>
-    /// <param name="meteorTransform"></param>
-    /// <param name="meteorType"></param>
-    public void MeteorDestroyed(Transform meteorTransform, int meteorType){
-        if(meteorType>0)
-        {
-            var pickupSpawned = SpawnPickup(meteorTransform);
-            PickupManager pickupManager = pickupSpawned.GetComponent<PickupManager>();
-            pickupManager.SetPickupType(meteorType);
-        }
-        OnEnemyDeath();
-    }
-    
-    //Spawns a pickup in the given position and returns itself as a variable.
-    private GameObject SpawnPickup(Transform transform){
-        return Instantiate(pickup, transform.position, Quaternion.identity);
-    }
-
-    /// <summary>
-    /// Spawns GameObject at given transform.position and destroys it after.
-    /// </summary>
-    /// <param name="enemy"></param>
-    /// <param name="particleSystem"></param>
-    public void SpawnDeathParticles(Transform enemy, GameObject particleSystem)
-    {
-        var particles = Instantiate(particleSystem, enemy.position, Quaternion.identity);
-        Destroy(particles.gameObject, 2f);
-    }
-
-    //Decides which type of wave should be spawned next
+    // Decides which type of wave should be spawned next
     private void GetNextWave()
     {
         if(!isSpawningWave)
         {
         isSpawningWave=true;
-        if (waveCounter % directWaveThreshold == 0 && waveCounter != 0)
+        if (waveCounter % DIRECTWAVERATE == 0 && waveCounter != 0)
         {
             SpawnNextWave(wavesDirect, enemyDirectToSpawn);
         }
@@ -134,14 +74,14 @@ public class WaveManager : MonoBehaviour
     //Also, decides on the direction of the wave (either left or right).
     private void ReplacePlaceholders(Transform source, GameObject[] enemies, int enemyType)
     {
-        int direction = RollForDirection();
+        int direction = DecideDirection();
         foreach (Transform point in source)
         {
             if (point.gameObject.CompareTag("Placeholder"))
             {
                 var position = point.transform.position;
                 GameObject enemyInstance;
-                if (waveCounter % directWaveThreshold == 0 && waveCounter != 0)
+                if (waveCounter % DIRECTWAVERATE == 0 && waveCounter != 0)
                 {
                     enemyInstance = Instantiate(enemies[GetRandomIndex(enemies)], position, Quaternion.identity, transform);
                 if (enemyInstance.TryGetComponent<Meteor>(out Meteor meteor))
@@ -159,14 +99,12 @@ public class WaveManager : MonoBehaviour
                     }
                 }
                 Destroy(point.gameObject);
-                enemiesAlive++;
-
             }
         }
         waveCounter++;
     }
 
-    //Every 10 seconds, add 0.7 moveSpeed to each enemy.
+    //Every 10 seconds, adds 0.7 moveSpeed to each enemy.
     private float DifficultyIncrement()
     {
         float increment = 0;
@@ -180,37 +118,15 @@ public class WaveManager : MonoBehaviour
         return increment;
     }
 
-    //Checks for a percentage out of 100.
-    private bool RollForPercentage(int percentage)
-    {
-        int i = Random.Range(0, 100);
-        if (i < percentage)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     //Gives a value of 1 (continue in the same direction) or -1 (flips the direction).
-    private int RollForDirection()
+    private int DecideDirection()
     {
         int direction = 1;
-        if (RollForPercentage(50))
+        if (Random.Range(0, 100) <= 50)
         {
             direction *= -1;
         }
         return direction;
-    }
-
-    /// <summary>
-    /// Plays an AudioClip via SoundManager.
-    /// </summary>
-    /// <param name="sound"></param>
-    public void PlaySound(AudioClip sound){
-        soundManager.PlaySound(sound);
     }
     
     //Returns a random index int of a given GameObject array.

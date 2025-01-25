@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private float xEdge = 7.5f;
     private int moveDir = 1;
     private HitPoints hp;
-    private WaveManager waveManager;
+    private EnemyManager enemyManager;
     private SpriteRenderer sr;
     private Animator animator;
     private const int dmg = 1;
@@ -20,9 +20,13 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         hp = GetComponent<HitPoints>();
-        waveManager = GetComponentInParent<WaveManager>();
+        enemyManager = GetComponentInParent<EnemyManager>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start() {
+        enemyManager.AddToCurrentWave(gameObject);
     }
 
     private void Update()
@@ -88,15 +92,15 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("onHit");
         if (hp.IsDead())
         {
-            waveManager.PlaySound(deathSound);
-            waveManager.EnemyKilled(this.transform);
-            waveManager.SpawnDeathParticles(this.transform, deathParticle);
+            enemyManager.PlaySound(deathSound);
+            enemyManager.EnemyKilled(gameObject);
+            enemyManager.SpawnDeathParticles(this.transform, deathParticle);
             Destroy(gameObject);
         }
         else
         {
             int randomIndex = Random.Range(0, hitSounds.Length);
-            waveManager.PlaySound(hitSounds[randomIndex]);
+            enemyManager.PlaySound(hitSounds[randomIndex]);
         }
         if (hp.Health() == 1)
         {

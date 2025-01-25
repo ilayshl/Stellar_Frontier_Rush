@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     private AudioSource source;
 
-    private const int pitchDefault = 1;
+    private const int PITCHDEFAULT = 1;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays the given sound once with a randomized pitch.
+    /// Plays the given sound once with a randomized pitch to prevent sound fatigue.
     /// </summary>
     /// <param name="sound"></param>
     public void PlaySound(AudioClip sound)
@@ -23,13 +23,12 @@ public class SoundManager : MonoBehaviour
         ResetPitch();
         ChangePitch();
         source.PlayOneShot(sound);
-
     }
 
     //Resets the pitch back to its original value.
     private void ResetPitch()
     {
-        source.pitch = pitchDefault;
+        source.pitch = PITCHDEFAULT;
     }
 
     //Changes the pitch by an offset of 0.1 in either direction.
