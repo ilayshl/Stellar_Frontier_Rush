@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class Bullet : MonoBehaviour
 {
+    public bool canDamagePlayer = false;
     [SerializeField] private float speed;
     [SerializeField] private Vector3 trajectory;
     private int dmg;
@@ -28,15 +29,26 @@ public class Bullet : MonoBehaviour
     //Damages whatever the object hits, then gets destroyed.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<Enemy>(out Enemy enemy))
+        if (!canDamagePlayer)
         {
-            enemy.OnHit(dmg);
-            Destroy(gameObject);
+            if (other.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy.OnHit(dmg);
+                Destroy(gameObject);
+            }
+            else if (other.TryGetComponent<Meteor>(out Meteor meteor))
+            {
+                meteor.OnHit(dmg);
+                Destroy(gameObject);
+            }
         }
-        else if (other.TryGetComponent<Meteor>(out Meteor meteor))
+        else
         {
-            meteor.OnHit(dmg);
-            Destroy(gameObject);
+            if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
+            {
+                //pCollider.OnHit(dmg);
+                Destroy(gameObject);
+            }
         }
     }
 

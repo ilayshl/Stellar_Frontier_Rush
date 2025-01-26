@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5785930903324354105}
   - component: {fileID: 6420464406955650149}
   - component: {fileID: 7199258613969055354}
+  - component: {fileID: 6757852737748191267}
   m_Layer: 0
   m_Name: BulletsPrefab
   m_TagString: Untagged
@@ -134,5 +135,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  dmg: 1
   trajectory: {x: 0, y: 0, z: 0}
+--- !u!50 &6757852737748191267
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276325052766506951}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

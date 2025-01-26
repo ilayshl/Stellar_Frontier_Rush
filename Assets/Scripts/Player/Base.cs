@@ -41,10 +41,6 @@ public class Base : MonoBehaviour
             meteor.OnHit(100);
             OnHit();
         }
-        if (hp.IsDead())
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     /// <summary>
@@ -66,6 +62,7 @@ public class Base : MonoBehaviour
             Debug.LogError("Healing for a value of 0. Check your code.");
         }
         UpdateHealthText(hp.Health());
+        CheckIfDead();
     }
 
     //Updates the text UI of Health to match the given value.
@@ -80,5 +77,13 @@ public class Base : MonoBehaviour
         int randomIndex = Random.Range(0, impactSounds.Length);
         soundManager.PlaySound(impactSounds[randomIndex]);
         animator.SetTrigger("isHurt");
+    }
+
+    private void CheckIfDead()
+    {
+        if (hp.IsDead())
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

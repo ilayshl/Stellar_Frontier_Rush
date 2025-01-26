@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
-    public void StartButton(){
-        Debug.Log("start");
+    public void StartButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void AboutButton(){
+    public void AboutButton()
+    {
         Debug.Log("about");
     }
 
-    public void ExitButton(){
+    public void ExitButton()
+    {
         Application.Quit();
     }
 }
