@@ -6,7 +6,13 @@ using UnityEngine;
 public class BackgroundScroller : MonoBehaviour
 {
     [SerializeField] private float scrollSpeed;
+    [SerializeField] private bool isAffectedByTime;
+    [SerializeField] private int secondsPerIncrement;
     private float textureUnitSize;
+    private float timePassed;
+
+    private const float SPEEDMULTIPLY = 1.05f;
+
     void Start()
     {
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
@@ -22,6 +28,16 @@ public class BackgroundScroller : MonoBehaviour
         {
             float offsetY = transform.position.y % textureUnitSize;
             transform.position = new Vector3(transform.position.x, offsetY, 0);
+        }
+
+        if (isAffectedByTime)
+        {
+            timePassed += Time.deltaTime;
+            if ((int)timePassed % secondsPerIncrement == 0 && (int)timePassed != 0)
+            {
+                timePassed = 0;
+                scrollSpeed *= SPEEDMULTIPLY;
+            }
         }
     }
 }
