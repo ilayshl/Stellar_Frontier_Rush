@@ -11,7 +11,7 @@ public class PlayerCollider : MonoBehaviour
     private void Awake()
     {
         playerBase = FindFirstObjectByType<Base>();
-        soundManager = GetComponent<SoundManager>();
+        soundManager = GetComponentInParent<SoundManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

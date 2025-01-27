@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
 
     private UIManager uiManager;
     private Base playerBase;
+    private Animator animator;
 
     private void Awake()
     {
         shoot = GetComponent<Shoot>();
         uiManager = FindFirstObjectByType<UIManager>();
         playerBase = FindFirstObjectByType<Base>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
             {
                 lastShotTime = Time.time;
                 shoot.ShootBullet(GetActiveCannon(), bulletType);
+                animator.SetTrigger("isShooting");
                 lastShotFromRight=!lastShotFromRight;
             }
         }
