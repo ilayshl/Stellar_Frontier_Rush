@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class Meteor : MonoBehaviour
 {
+    public int myScore = 50;
+
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int dmg;
@@ -14,8 +16,8 @@ public class Meteor : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     private int rotationDirection = 1; //1 = right, -1 = left.
     private int variantIndex; //0= Normal, 1= Damage, 2= Fire rate, 3= Move speed
-    private Transform targetObject;
 
+    private Transform targetObject;
     private HitPoints hp;
     private EnemyManager enemyManager;
     private SpriteRenderer sr;
@@ -40,7 +42,7 @@ public class Meteor : MonoBehaviour
         RotateObject();
         MoveTowardsTarget(targetObject);
     }
-    
+
     /// <summary>
     /// Returns the damage value of the enemy.
     /// </summary>
@@ -75,10 +77,7 @@ public class Meteor : MonoBehaviour
         hp.LoseHealth(dmg);
         if (hp.IsDead())
         {
-            enemyManager.PlaySound(deathSound);
-            enemyManager.MeteorDestroyed(gameObject, variantIndex);
-            enemyManager.SpawnDeathParticles(this.transform, deathParticle);
-            Destroy(gameObject);
+            OnDeath();
         }
         else
         {
@@ -95,7 +94,7 @@ public class Meteor : MonoBehaviour
             rotationDirection *= -1;
         }
     }
-    
+
     //Rolls percentage, if hits sets the object as a Variant.
     private void RollForVariant(int percentage)
     {
@@ -118,5 +117,14 @@ public class Meteor : MonoBehaviour
     {
         moveSpeed += addition / 3;
         rotationSpeed += addition;
+    }
+
+    private void OnDeath()
+    {
+        enemyManager.PlaySound(deathSound);
+        enemyManager.MeteorDestroyed(gameObject, variantIndex);
+        enemyManager.AddScore(myScore);
+        enemyManager.SpawnDeathParticles(this.transform, deathParticle);
+        Destroy(gameObject);
     }
 }

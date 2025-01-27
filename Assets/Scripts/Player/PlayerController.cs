@@ -8,12 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Transform rightCannon, leftCannon;
-    private Shoot shoot;
     private float shootInterval = 0.7f;
     private float lastShotTime;
     private int bulletType = 0;
     private bool lastShotFromRight = false;
 
+    private Shoot shoot;
     private UIManager uiManager;
     private Base playerBase;
     private Animator animator;

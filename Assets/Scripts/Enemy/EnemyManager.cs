@@ -10,11 +10,13 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject> currentWave = new List<GameObject>();
     private WaveManager waveManager;
     private SoundManager soundManager;
+    private ScoreManager scoreManager;
 
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
         soundManager = GetComponent<SoundManager>();
+        scoreManager = GetComponent<ScoreManager>();
     }
 
     private void Update()
@@ -25,7 +27,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    //Removes the given object from the current wave list.
+    //Removes the given object from the current wave list, for when the enemy dies.
     private void RemoveFromCurrentWave(GameObject enemy)
     {
         if (currentWave.Contains(enemy))
@@ -94,6 +96,14 @@ public class EnemyManager : MonoBehaviour
     {
         var particles = Instantiate(particleSystem, enemy.position, Quaternion.identity);
         Destroy(particles.gameObject, 2f);
+    }
+
+    /// <summary>
+    /// Adds int to the Score UI.
+    /// </summary>
+    /// <param name="addition"></param>
+    public void AddScore(int addition){
+        scoreManager.AddScore(addition);
     }
 
     /// <summary>

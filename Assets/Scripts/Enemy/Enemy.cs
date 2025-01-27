@@ -5,17 +5,21 @@ using UnityEngine;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
+    public int myScore = 50;
+
     [SerializeField] private float moveSpeed = 1;
     [SerializeField] private GameObject deathParticle;
     [SerializeField] private AudioClip[] hitSounds;
     [SerializeField] private AudioClip deathSound;
+
     private float xEdge = 7.5f;
     private int moveDir = 1;
     private HitPoints hp;
     private EnemyManager enemyManager;
     private SpriteRenderer sr;
     private Animator animator;
-    private const int dmg = 1;
+
+    private const int DAMAGE = 1;
 
     private void Awake()
     {
@@ -25,7 +29,8 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         enemyManager.AddToCurrentWave(gameObject);
     }
 
@@ -35,10 +40,12 @@ public class Enemy : MonoBehaviour
         CheckForScreenEdges();
     }
 
-    //Returns value of const int dmg.
-    public int Damage()
-    {
-        return dmg;
+    /// <summary>
+    /// Returns the damage of the enemy.
+    /// </summary>
+    /// <returns></returns>
+    public int Damage(){
+        return DAMAGE;
     }
 
     //Changes transform.position by the direction and moveSpeed.
@@ -92,10 +99,7 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("onHit");
         if (hp.IsDead())
         {
-            enemyManager.PlaySound(deathSound);
-            enemyManager.EnemyKilled(gameObject);
-            enemyManager.SpawnDeathParticles(this.transform, deathParticle);
-            Destroy(gameObject);
+            OnDeath();
         }
         else
         {
@@ -110,5 +114,14 @@ public class Enemy : MonoBehaviour
                 moveSpeed *= berserkerBonus;
             }
         }
+    }
+
+    private void OnDeath()
+    {
+        enemyManager.PlaySound(deathSound);
+        enemyManager.EnemyKilled(gameObject);
+        enemyManager.AddScore(myScore);
+        enemyManager.SpawnDeathParticles(this.transform, deathParticle);
+        Destroy(gameObject);
     }
 }

@@ -93,6 +93,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999229778645943631, guid: 5dc4d3dba296d5546a4b67cdb20dd683, type: 3}
+      propertyPath: myScore
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999229778645943631, guid: 5dc4d3dba296d5546a4b67cdb20dd683, type: 3}
       propertyPath: deathParticle
       value: 
       objectReference: {fileID: 7047838003272070809, guid: 65d2dd81ada3ec74bb4ca6a3d917b0c6, type: 3}

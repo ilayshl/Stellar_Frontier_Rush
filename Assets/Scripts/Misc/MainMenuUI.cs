@@ -3,9 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
+    [SerializeField] private Animator blackScreen;
+
     public void StartButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        blackScreen.SetTrigger("startButton");
+        Invoke("StartGame", 2);
     }
 
     public void AboutButton()
@@ -16,5 +19,9 @@ public class MainMenuUI : MonoBehaviour
     public void ExitButton()
     {
         Application.Quit();
+    }
+
+    public void StartGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

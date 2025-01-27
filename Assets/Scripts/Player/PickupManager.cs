@@ -43,8 +43,9 @@ public class PickupManager : MonoBehaviour
     //then, in case of a player, grants it the specific pickup buff.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<PlayerController>(out PlayerController pController))
+        if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pConllider))
         {
+            PlayerController pController = pConllider.GetComponentInParent<PlayerController>();
             switch (pickupType)
             {
                 case 0:
@@ -59,7 +60,6 @@ public class PickupManager : MonoBehaviour
                 case 3:
                     pController.IncreaseSpeed(1);
                     break;
-
             }
             Destroy(gameObject);
         }

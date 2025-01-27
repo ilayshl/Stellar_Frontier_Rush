@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Berserker
       objectReference: {fileID: 0}
+    - target: {fileID: 2934916427815663107, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: myScore
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8262569903007054022, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_Color.b
       value: 0
