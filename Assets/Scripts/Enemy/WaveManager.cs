@@ -16,6 +16,7 @@ public class WaveManager : MonoBehaviour
     private bool isSpawningWave = false;
 
     private const int DIRECTWAVERATE = 4;
+    private const int SCREEN = 16;
 
     void Start()
     {
@@ -91,11 +92,13 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    enemyInstance = Instantiate(enemies[enemyType], position, Quaternion.identity, transform);
+                    Vector3 newPosition = new Vector3(position.x+SCREEN*-direction, position.y, position.z);
+                    enemyInstance = Instantiate(enemies[enemyType], newPosition, Quaternion.identity, transform);
                     if (enemyInstance.TryGetComponent<Enemy>(out Enemy enemy))
                     {
                         enemy.AddSpeed(DifficultyIncrement());
                         enemy.SetDirection(direction);
+
                     }
                 }
                 Destroy(point.gameObject);
