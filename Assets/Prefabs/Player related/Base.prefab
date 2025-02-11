@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1053863459303522572}
   - component: {fileID: 4805523695617371890}
   - component: {fileID: 3046993686809930169}
-  - component: {fileID: 643025280129469060}
   - component: {fileID: 5970209369459471295}
   - component: {fileID: 4391645469456894200}
   - component: {fileID: 1935043544842968696}
@@ -87,7 +86,7 @@ SpriteRenderer:
   m_DrawMode: 0
   m_Size: {x: 10.24, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
+  m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
@@ -103,25 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86faeae2987a84b09a14b861e6a5dd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialHP: 10
   uiManager: {fileID: 0}
   impactSounds:
   - {fileID: 8300000, guid: 086f0996c68370d4fa59d9fd800675ae, type: 3}
   - {fileID: 8300000, guid: e7daddda011890f4fa80f643f3ab350b, type: 3}
   - {fileID: 8300000, guid: 7fa2b637748df2d46b0dc816301b8d27, type: 3}
   - {fileID: 8300000, guid: 27e47c66d32581c4f883f93abfae1ad8, type: 3}
---- !u!114 &643025280129469060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5968312043603271691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd32bc97c6f4744d8bdbeb19034e8041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHP: 10
+  deathExplosion: {fileID: 0}
 --- !u!50 &5970209369459471295
 Rigidbody2D:
   serializedVersion: 4

@@ -3,15 +3,16 @@ using UnityEngine;
 /// <summary>
 /// Health of an object.
 /// </summary>
-public class HitPoints : MonoBehaviour
+public class HitPoints
 {
-    [SerializeField] private int initialHP;
+    private int initialHP;
     private bool isDead = false;
     private int currentHP;
 
-    //Initializes HP.
-    void Start() {
-        currentHP=initialHP;
+
+    public HitPoints(int initialHP)
+    {
+        this.currentHP = initialHP;
     }
 
     /// <summary>

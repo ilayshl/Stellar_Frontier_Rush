@@ -31,14 +31,9 @@ public class Bullet : MonoBehaviour
     {
         if (!canDamagePlayer)
         {
-            if (other.TryGetComponent<Enemy>(out Enemy enemy))
+            if (other.CompareTag("Enemy"))
             {
                 enemy.OnHit(dmg);
-                Destroy(gameObject);
-            }
-            else if (other.TryGetComponent<Meteor>(out Meteor meteor))
-            {
-                meteor.OnHit(dmg);
                 Destroy(gameObject);
             }
         }

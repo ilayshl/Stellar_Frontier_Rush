@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,19 +7,19 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class Base : MonoBehaviour
 {
+    [SerializeField] private int initialHP = 10;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private AudioClip[] impactSounds;
+    [SerializeField] private GameObject deathExplosion;
 
     private HitPoints hp;
     private SpriteRenderer sr;
     private SoundManager soundManager;
     private Animator animator;
 
-    private const int initialHP = 10;
-
     private void Awake()
     {
-        hp = GetComponent<HitPoints>();
+        hp = new HitPoints(initialHP);
         sr = GetComponent<SpriteRenderer>();
         soundManager = GetComponent<SoundManager>();
         animator = GetComponent<Animator>();
@@ -79,11 +80,30 @@ public class Base : MonoBehaviour
         animator.SetTrigger("isHurt");
     }
 
+    //Checks if HP equals or is lower than 0.
     private void CheckIfDead()
     {
         if (hp.IsDead())
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            animator.SetTrigger("isDead");
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    /// <summary>
+    /// Spawns death particles at random position inside the object's collider.
+    /// </summary>
+    public void SpawnDeathParticles()
+    {
+        Collider2D baseCollider = GetComponent<Collider2D>();
+        float randomX = Random.Range(baseCollider.bounds.min.x, baseCollider.bounds.max.x);
+        float randomY = Random.Range(baseCollider.bounds.min.y, baseCollider.bounds.max.y);
+        Vector3 spawnPosition = new Vector3(randomX, randomY, 0);
+        var particles = Instantiate(deathExplosion, spawnPosition, Quaternion.identity);
+        float randomScale = Random.Range(0.6f, 0.7f);
+        particles.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+        Destroy(particles, 2);
+        int randomIndex = Random.Range(0, impactSounds.Length);
+        soundManager.PlaySound(impactSounds[randomIndex]);
     }
 }

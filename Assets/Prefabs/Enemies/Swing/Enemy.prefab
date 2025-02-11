@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629056640189282887}
   - component: {fileID: 8262569903007054022}
-  - component: {fileID: 2934916427815663107}
-  - component: {fileID: -8438791946711694254}
+  - component: {fileID: 1850792790177001016}
   - component: {fileID: 4098723073480373020}
   - component: {fileID: 9122825344226346105}
   - component: {fileID: 6598283430457261040}
@@ -90,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2934916427815663107
+--- !u!114 &1850792790177001016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,29 +98,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2256056451987205291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0285a2e401d400f804e313edf06db9, type: 3}
+  m_Script: {fileID: 11500000, guid: 132bff9469ee08a41975a378d18aaaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myScore: 50
   moveSpeed: 1
-  deathParticle: {fileID: 3945224587742912939, guid: 8f3f4ce25609f9e4da96ef5cd6912cc2, type: 3}
+  initialHP: 4
+  dmg: 1
   hitSounds:
   - {fileID: 8300000, guid: a6b65792093ea8d49bdc1f8dabac124b, type: 3}
   - {fileID: 8300000, guid: e0a1534fc73b729478b3b721e4697aed, type: 3}
   deathSound: {fileID: 8300000, guid: 6abe2c8891848ef4faccf7753885e736, type: 3}
---- !u!114 &-8438791946711694254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2256056451987205291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd32bc97c6f4744d8bdbeb19034e8041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialHP: 3
+  deathParticle: {fileID: 3945224587742912939, guid: 8f3f4ce25609f9e4da96ef5cd6912cc2, type: 3}
 --- !u!50 &4098723073480373020
 Rigidbody2D:
   serializedVersion: 4

@@ -7,77 +7,37 @@ public class Enemy : MonoBehaviour
 {
     public int myScore = 50;
 
-    [SerializeField] private float moveSpeed = 1;
-    [SerializeField] private GameObject deathParticle;
+    [SerializeField] protected float moveSpeed = 1;
+    [SerializeField] protected int initialHP = 4;
+    [SerializeField] private int dmg;
     [SerializeField] private AudioClip[] hitSounds;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private GameObject deathParticle;
 
-    private float xEdge = 7.5f;
-    private int moveDir = 1;
+    protected int moveDir = 1;
+    protected EnemyManager enemyManager;
+    protected SpriteRenderer sr;
     private HitPoints hp;
-    private EnemyManager enemyManager;
-    private SpriteRenderer sr;
-    private Animator animator;
-
-    private const int DAMAGE = 1;
 
     private void Awake()
     {
-        hp = GetComponent<HitPoints>();
+        hp = new HitPoints(initialHP);
         enemyManager = GetComponentInParent<EnemyManager>();
         sr = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        enemyManager.AddToCurrentWave(gameObject);
-    }
-
-    private void Update()
-    {
-        Move();
-        CheckForScreenEdges();
+        enemyManager.AddToCurrentWave(this);
     }
 
     /// <summary>
     /// Returns the damage of the enemy.
     /// </summary>
     /// <returns></returns>
-    public int Damage(){
-        return DAMAGE;
-    }
-
-    //Changes transform.position by the direction and moveSpeed.
-    private void Move()
+    public int Damage()
     {
-        transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
-    }
-
-    //Changes direction when touching screen edges.
-    private void CheckForScreenEdges()
-    {
-        if ((transform.position.x >= xEdge && moveDir > 0)
-        || (transform.position.x <= -xEdge && moveDir < 0))
-        {
-            RowDown();
-        }
-    }
-
-    //Moves 1 row down (closer to the player) and changes the movement direction.
-    private void RowDown()
-    {
-        SetDirection(-1);
-        transform.position = new Vector3(transform.position.x, transform.position.y - 1f, 0);
-    }
-
-    /// <summary>
-    /// Adds moveSpeed to the enemy.
-    /// </summary>
-    /// <param name="addition"></param>
-    public void AddSpeed(float addition)
-    {
-        moveSpeed += addition;
+        return dmg;
     }
 
     /// <summary>
@@ -93,10 +53,9 @@ public class Enemy : MonoBehaviour
     /// Makes the enemy take x damage, if dead, triggers death events.
     /// </summary>
     /// <param name="dmg"></param>
-    public void OnHit(int dmg)
+    public virtual void OnHit(int dmg)
     {
         hp.LoseHealth(dmg);
-        animator.SetTrigger("onHit");
         if (hp.IsDead())
         {
             OnDeath();
@@ -106,22 +65,32 @@ public class Enemy : MonoBehaviour
             int randomIndex = Random.Range(0, hitSounds.Length);
             enemyManager.PlaySound(hitSounds[randomIndex]);
         }
-        if (hp.Health() == 1)
+        /*if (hp.Health() == 1)
         {
             if (sr.color == Color.green) //If enemy is Berserker
             {
                 float berserkerBonus = 1.5f;
                 moveSpeed *= berserkerBonus;
             }
-        }
+        }*/
     }
 
-    private void OnDeath()
+    protected virtual void OnDeath()
     {
         enemyManager.PlaySound(deathSound);
-        enemyManager.EnemyKilled(gameObject);
+        enemyManager.EnemyKilled(this);
         enemyManager.AddScore(myScore);
         enemyManager.SpawnDeathParticles(this.transform, deathParticle);
         Destroy(gameObject);
     }
+
+    /// <summary>
+    /// Adds moveSpeed to the enemy.
+    /// </summary>
+    /// <param name="addition"></param>
+    public virtual void AddSpeed(float addition)
+    {
+        moveSpeed += addition;
+    }
+
 }

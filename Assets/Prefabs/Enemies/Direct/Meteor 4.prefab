@@ -101,6 +101,10 @@ PrefabInstance:
       value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 8999229778645943631, guid: 5dc4d3dba296d5546a4b67cdb20dd683, type: 3}
+      propertyPath: initialHP
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999229778645943631, guid: 5dc4d3dba296d5546a4b67cdb20dd683, type: 3}
       propertyPath: variants.Array.size
       value: 4
       objectReference: {fileID: 0}

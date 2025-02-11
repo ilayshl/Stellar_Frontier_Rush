@@ -16,16 +16,9 @@ public class PlayerCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            if (other.TryGetComponent<Enemy>(out Enemy enemy))
-            {
-                enemy.OnHit(PLAYERDAMAGE);
-            }
-            else if (other.TryGetComponent<Meteor>(out Meteor meteor))
-            {
-                meteor.OnHit(PLAYERDAMAGE);
-            }
+            enemy.OnHit(PLAYERDAMAGE);
             playerBase.ChangeHealth(-PLAYERDAMAGE);
             soundManager.PlaySound(hurtSound);
         }
