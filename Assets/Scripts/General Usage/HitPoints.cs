@@ -10,7 +10,7 @@ public class HitPoints
     private int currentHP;
 
 
-    public HitPoints(int initialHP)
+    public HitPoints(int initialHP = 5)
     {
         this.currentHP = initialHP;
     }
@@ -48,6 +48,22 @@ public class HitPoints
         currentHP-=Mathf.Abs(hpLost);
         if(currentHP<=0){
             isDead=true;
+        }
+    }
+
+    /// <summary>
+    /// Specifically sets current health to a value.
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetHealth(int value)
+    {
+        if(value>0)
+        {
+        currentHP = value;
+        }
+        else
+        {
+            Debug.Log("Health can't be set to 0 or lower.");
         }
     }
 }

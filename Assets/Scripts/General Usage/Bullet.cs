@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
     {
         if (!canDamagePlayer)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.OnHit(dmg);
                 Destroy(gameObject);

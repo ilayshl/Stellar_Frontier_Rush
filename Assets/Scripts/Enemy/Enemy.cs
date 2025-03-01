@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     protected SpriteRenderer sr;
     private HitPoints hp;
 
+    private EnemyType type {get; set;}
+
     private void Awake()
     {
         hp = new HitPoints(initialHP);
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        enemyManager.AddToCurrentWave(this);
+        enemyManager.AddToCurrentWave(this.type);
     }
 
     /// <summary>
@@ -78,7 +80,7 @@ public class Enemy : MonoBehaviour
     protected virtual void OnDeath()
     {
         enemyManager.PlaySound(deathSound);
-        enemyManager.EnemyKilled(this);
+        enemyManager.EnemyKilled(this.type);
         enemyManager.AddScore(myScore);
         enemyManager.SpawnDeathParticles(this.transform, deathParticle);
         Destroy(gameObject);
