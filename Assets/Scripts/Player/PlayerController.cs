@@ -1,4 +1,5 @@
 using System; //idk why it's dark gray, it is used in the script
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -54,6 +55,14 @@ public class PlayerController : MonoBehaviour
                 lastShotFromRight=!lastShotFromRight;
             }
         }
+    }
+
+    private IEnumerator Shoot()
+    {
+        //while the pressed key is MouseButton 0, shoot.
+        //yield return shootInterval;
+        //outside the while scope- activeCoroutine = null;
+        yield return null;
     }
 
     //Returns which cannon to shot from based on the last cannon that shot.

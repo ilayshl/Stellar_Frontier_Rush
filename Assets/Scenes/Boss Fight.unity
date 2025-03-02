@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  player: {fileID: 0}
+  playerTransform: {fileID: 449851540}
 --- !u!212 &167358307
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oscillationSpeed: 3
-  oscillationMagnitute: 0.5
+  oscillationMagnitute: 0.3
   offset: 0
 --- !u!1 &325287437
 GameObject:
@@ -585,6 +585,11 @@ MonoBehaviour:
   - {fileID: 1225193502}
   - {fileID: 2100075033}
   - {fileID: 1580435486}
+--- !u!4 &449851540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1889978082082108153, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+  m_PrefabInstance: {fileID: 1438319417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

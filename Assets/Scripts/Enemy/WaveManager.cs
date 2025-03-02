@@ -71,6 +71,8 @@ public class WaveManager : MonoBehaviour
         isSpawningWave=false;
     }
 
+    //private void SpawnWave(EnemyType type, )
+
     //Replaces each placeholder in the Wave Prefab and sets the enemies as children of WaveManager instead of WavePrefab.
     //Also, decides on the direction of the wave (either left or right).
     private void ReplacePlaceholders(Transform source, GameObject[] enemies, int enemyType)
