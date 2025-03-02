@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 167358308}
   - component: {fileID: 167358307}
   - component: {fileID: 167358306}
+  - component: {fileID: 167358309}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -304,7 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794690abd029049999dd239f5086796c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 2
+  player: {fileID: 0}
 --- !u!212 &167358307
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -366,12 +368,27 @@ Transform:
   m_GameObject: {fileID: 167358305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14, y: 3.05, z: 0.055067323}
-  m_LocalScale: {x: 1.7071, y: 1.7071, z: 1.7071}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 3.34, z: 0}
+  m_LocalScale: {x: 1.37, y: 1.37, z: 1.37}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &167358309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167358305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744d4a8fe9ae71a4ab72bd6f89a18701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oscillationSpeed: 3
+  oscillationMagnitute: 0.5
+  offset: 0
 --- !u!1 &325287437
 GameObject:
   m_ObjectHideFlags: 0

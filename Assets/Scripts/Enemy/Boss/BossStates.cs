@@ -1,19 +1,11 @@
 public enum BossStates
 {
-Idle,
+Intro,
+Swing,
 Return,
 Shoot,
 Charge,
-Swoosh,
+Sweep,
+Spawn,
 Split,
-}
-
-public enum ShootPatterns
-{
-
-}
-
-public enum BossMovements
-{
-    Swing, //side to side
 }

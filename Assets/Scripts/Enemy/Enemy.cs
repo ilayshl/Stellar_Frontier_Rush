@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     protected SpriteRenderer sr;
     private HitPoints hp;
 
-    private EnemyType type {get; set;}
+    private EnemyType type;
 
     private void Awake()
     {
