@@ -20,7 +20,7 @@ public class Meteor : Enemy
         RollForRotationDirection();
     }
 
-    void Update()
+    private void Update()
     {
         RotateObject();
         MoveTowardsTarget(targetObject);

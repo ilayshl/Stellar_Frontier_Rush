@@ -727,26 +727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1676649283}
---- !u!1 &855946820 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5968312043603271691, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
-  m_PrefabInstance: {fileID: 3527368297051872718}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &855946830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855946820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744d4a8fe9ae71a4ab72bd6f89a18701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oscillationSpeed: 2
-  oscillationMagnitute: 0.15
-  offset: 0
 --- !u!1 &897867713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1930,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5698739343533279995, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0acb3ee7ca09eff4088f5cd86298b1f1, type: 3}
+    - target: {fileID: 5698739343533279995, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2775,6 +2763,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 129283781245094865, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: offset
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 129283781245094865, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: oscillationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1053863459303522572, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2815,14 +2811,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 540
       objectReference: {fileID: 0}
+    - target: {fileID: 1935043544842968696, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3046993686809930169, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 440129904}
-    - target: {fileID: 3046993686809930169, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
-      propertyPath: deathExplosion
+    - target: {fileID: 4805523695617371890, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7047838003272070809, guid: bfbfbec66cbc32e4e83fa9818fcad1ab, type: 3}
+      objectReference: {fileID: 21300000, guid: 8fdfd58246d6c744380f30e991663281, type: 3}
+    - target: {fileID: 4805523695617371890, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5968312043603271691, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
       propertyPath: m_Name
       value: Base
@@ -2830,10 +2834,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5968312043603271691, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 855946830}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

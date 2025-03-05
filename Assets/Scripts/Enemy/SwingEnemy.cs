@@ -23,7 +23,6 @@ public class SwingEnemy : Enemy
     {
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
-
     
     //Changes direction when touching screen edges.
     private void CheckForScreenEdges()

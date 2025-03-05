@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public bool canDamagePlayer = false;
     [SerializeField] private float speed;
     [SerializeField] private Vector3 trajectory;
-    private int dmg;
+    private int dmg = 2;
 
     private void Start()
     {
@@ -36,12 +36,18 @@ public class Bullet : MonoBehaviour
                 enemy.OnHit(dmg);
                 Destroy(gameObject);
             }
+            else if (other.TryGetComponent<BossCollider>(out BossCollider boss))
+            {
+                boss.OnHit(dmg);
+                Debug.Log("hit the boss");
+                Destroy(gameObject);
+            }
         }
         else
         {
             if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
             {
-                //pCollider.OnHit(dmg);
+                pCollider.OnHit(dmg);
                 Destroy(gameObject);
             }
         }

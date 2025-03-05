@@ -79,10 +79,34 @@ PrefabInstance:
     - target: {fileID: 5785930903324354105, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 99b46758cb0f74dc9a64551980d4285d, type: 3}
+      objectReference: {fileID: 21300000, guid: 951af54b1a09e854abee6f689062373a, type: 3}
     - target: {fileID: 5785930903324354105, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Size.x
+      value: 0.44335374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2710153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.009934264
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.27411288
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6420464406955650149, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_ContactCaptureLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7199258613969055354, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
       propertyPath: trajectory.y

@@ -18,13 +18,13 @@ public class Shoot : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates new basic bullet. --made for enemies that can shoot, currently unused.
+    /// Creates new basic bullet. --made for enemies that can shoot.
     /// </summary>
     /// <param name="position"></param>
     /// <param name="direction"></param>
     public void ShootBullet(Vector3 position)
     {
-        var newBullet = Instantiate(bullet[0], position, Quaternion.identity);
+        var newBullet = Instantiate(bullet[0], position, bullet[0].transform.localRotation);
         PlayShootingSound(0);
     }
 
@@ -37,7 +37,7 @@ public class Shoot : MonoBehaviour
     public void ShootBullet(Vector3 position, int index)
     {
         int cappedBulletType = Mathf.Min(index, bullet.Length);
-        var newBullet = Instantiate(bullet[cappedBulletType], position, Quaternion.identity);
+        var newBullet = Instantiate(bullet[cappedBulletType], position, bullet[cappedBulletType].transform.localRotation);
         if (newBullet.TryGetComponent<Bullet>(out Bullet bulletScript))
         {
             bulletScript.SetDamage(index + 1); //Index starts at 0, therefore +1.

@@ -10,15 +10,23 @@ using UnityEngine;
 // and would apprecite your feedback on how it's played so far.
 public class BossManager : MonoBehaviour
 {
+    public HitPoints hp = new HitPoints();
     [SerializeField] private float moveSpeed = 2;
-    [SerializeField] private Transform playerTransform;
-    private HitPoints hp = new HitPoints();
+    [SerializeField] private Transform shootTransform;
+    private Transform playerTransform;
     private BossStates _state = new BossStates();
+    private Shoot _shoot;
     private Vector2 startingPosition;
     private int moveDir = 1;
 
     private const int BOSS_HEALTH = 100;
     private const float EDGEX = 7.5f;
+
+    void Awake()
+    {
+        playerTransform = FindFirstObjectByType<PlayerController>().transform;
+        _shoot = GetComponent<Shoot>();
+    }
 
     void Start()
     {
@@ -65,11 +73,11 @@ public class BossManager : MonoBehaviour
     private IEnumerator Intro()
     {
         Vector2 currentPosition = transform.position;
-        while(Vector2.Distance(currentPosition, startingPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, startingPosition) > 0.05f)
         {
-        currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
-        transform.position = currentPosition;
-        yield return null;
+            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
+            transform.position = currentPosition;
+            yield return null;
         }
         ChangeState(BossStates.Swing);
     }
@@ -77,12 +85,12 @@ public class BossManager : MonoBehaviour
     private IEnumerator Swing()
     {
         int randomTime = Random.Range(3, 6);
-        float timePassed=0;
-        while(_state == BossStates.Swing && timePassed<randomTime)
+        float timePassed = 0;
+        while (_state == BossStates.Swing && timePassed < randomTime)
         {
             transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
             CheckForScreenEdges();
-            timePassed+=Time.deltaTime;
+            timePassed += Time.deltaTime;
             yield return null;
         }
         RandomAttack();
@@ -95,11 +103,11 @@ public class BossManager : MonoBehaviour
     private IEnumerator Return()
     {
         Vector2 currentPosition = transform.position;
-        while(Vector2.Distance(currentPosition, startingPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, startingPosition) > 0.05f)
         {
-        currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
-        transform.position = currentPosition;
-        yield return null;
+            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
+            transform.position = currentPosition;
+            yield return null;
         }
         ChangeState();
     }
@@ -111,9 +119,9 @@ public class BossManager : MonoBehaviour
     private IEnumerator Shoot()
     {
         int random = Random.Range(1, 4);
-        for(int i=0; i < random; i++)
+        for (int i = 0; i < random; i++)
         {
-            Debug.Log("Fire Projectile " + i);
+            ShootProjectile();
             yield return new WaitForSeconds(0.75f);
         }
         ChangeState();
@@ -127,15 +135,15 @@ public class BossManager : MonoBehaviour
     {
         Vector2 targetPosition = playerTransform.position;
         Vector2 currentPosition = transform.position;
-        while(Vector2.Distance(currentPosition, targetPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
         {
-        currentPosition = Vector2.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
-        transform.position = currentPosition;
-        yield return null;
+            currentPosition = Vector2.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = currentPosition;
+            yield return null;
         }
         ChangeState(BossStates.Return);
     }
-    
+
     /// <summary>
     /// Goes up, then sweeps at the player's y location for a random amount of times.
     /// </summary>
@@ -145,17 +153,17 @@ public class BossManager : MonoBehaviour
         yield return StartCoroutine(GoUp());
         int random = Random.Range(1, 3);
         Vector2 offset = new Vector3(16, 0);
-        for(int i=0; i<random; i++)
+        for (int i = 0; i < random; i++)
         {
-        Vector2 targetPosition = (Vector2)playerTransform.position + (offset * moveDir);
-        Vector2 currentPosition = (Vector2)playerTransform.position + (-offset * moveDir);
-        while(Vector2.Distance(currentPosition, targetPosition) > 0.05f)
-        {
-        currentPosition = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime * 7);
-        transform.position = currentPosition;
-        yield return null;
-        }
-        ChangeDirection();
+            Vector2 targetPosition = (Vector2)playerTransform.position + (offset * moveDir);
+            Vector2 currentPosition = (Vector2)playerTransform.position + (-offset * moveDir);
+            while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
+            {
+                currentPosition = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime * 7);
+                transform.position = currentPosition;
+                yield return null;
+            }
+            ChangeDirection();
         }
         ChangeState(BossStates.Return);
     }
@@ -190,11 +198,11 @@ public class BossManager : MonoBehaviour
         Vector2 targetPosition = transform.position + new Vector3(0, 4, 0);
         Vector2 currentPosition = transform.position;
         //Goes up from the screen
-        while(Vector2.Distance(currentPosition, targetPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
         {
-        currentPosition = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime * 3);
-        transform.position = currentPosition;
-        yield return null;
+            currentPosition = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime * 3);
+            transform.position = currentPosition;
+            yield return null;
         }
     }
 
@@ -219,11 +227,21 @@ public class BossManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets the boss' location to its default.
+    /// Resets the object's rotation to its default.
     /// </summary>
     private void ResetRotation()
     {
         transform.localRotation = Quaternion.identity;
     }
 
+   private void ShootProjectile()
+   {
+    _shoot.ShootBullet(shootTransform.position);
+   }
+
+   public void OnDeath()
+   {
+    Debug.Log("boss is dead");
+    hp.SetHealth(100);
+   }
 }

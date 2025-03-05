@@ -6,7 +6,7 @@ public class PlayerCollider : MonoBehaviour
     private Base playerBase;
     private SoundManager soundManager;
 
-    private const int PLAYERDAMAGE = 1;
+    private const int PLAYER_DAMAGE = 1;
 
     private void Awake()
     {
@@ -18,9 +18,14 @@ public class PlayerCollider : MonoBehaviour
     {
         if (other.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.OnHit(PLAYERDAMAGE);
-            playerBase.ChangeHealth(-PLAYERDAMAGE);
-            soundManager.PlaySound(hurtSound);
+            enemy.OnHit(PLAYER_DAMAGE);
+            OnHit(PLAYER_DAMAGE);
         }
+    }
+
+    public void OnHit(int damage)
+    {
+        playerBase.ChangeHealth(-damage);
+        soundManager.PlaySound(hurtSound);
     }
 }

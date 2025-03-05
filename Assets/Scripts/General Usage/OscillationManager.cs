@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Oscillates up and down an object by the oscillationStrength.
+/// Oscillates up and down an object by the oscillationSpeed and Magnitude.
 /// </summary>
 public class OscillationManager : MonoBehaviour
 {

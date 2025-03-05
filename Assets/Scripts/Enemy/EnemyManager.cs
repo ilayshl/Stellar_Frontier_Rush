@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject pickup;
-    private List<EnemyType> currentWave = new List<EnemyType>();
+    private List<Enemy> currentWave = new List<Enemy>();
     private WaveManager waveManager;
     private SoundManager soundManager;
     private ScoreManager scoreManager;
@@ -28,11 +28,11 @@ public class EnemyManager : MonoBehaviour
     }
 
     //Removes the given object from the current wave list, for when the enemy dies.
-    private void RemoveFromCurrentWave(EnemyType type)
+    private void RemoveFromCurrentWave(Enemy enemy)
     {
-        if (currentWave.Contains(type))
+        if (currentWave.Contains(enemy))
         {
-            currentWave.Remove(type);
+            currentWave.Remove(enemy);
         }
         if (currentWave.Count <= 0)
         {
@@ -44,11 +44,11 @@ public class EnemyManager : MonoBehaviour
     /// Add a GameObject to the current wave list.
     /// </summary>
     /// <param name="enemy"></param>
-    public void AddToCurrentWave(EnemyType type)
+    public void AddToCurrentWave(Enemy enemy)
     {
-        if (!currentWave.Contains(type))
+        if (!currentWave.Contains(enemy))
         {
-            currentWave.Add(type);
+            currentWave.Add(enemy);
         }
     }
 
@@ -56,9 +56,9 @@ public class EnemyManager : MonoBehaviour
     /// Basic enemy killed- rolls for Pickup spawn after death.
     /// </summary>
     /// <param name="enemyTransform"></param>
-    public void EnemyKilled(EnemyType type)
+    public void EnemyKilled(Enemy enemy)
     { 
-        RemoveFromCurrentWave(type);
+        RemoveFromCurrentWave(enemy);
     }
 
     //Spawns a pickup in the given position and returns itself as a variable.
