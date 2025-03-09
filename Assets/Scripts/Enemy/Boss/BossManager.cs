@@ -19,12 +19,15 @@ public class BossManager : MonoBehaviour
     private Vector2 startingPosition;
     private int moveDir = 1;
 
+    private WaveManager waveManager;
+
     private const int BOSS_HEALTH = 100;
     private const float EDGEX = 7.5f;
 
     void Awake()
     {
         playerTransform = FindFirstObjectByType<PlayerController>().transform;
+        waveManager = FindFirstObjectByType<WaveManager>();
         _shoot = GetComponent<Shoot>();
     }
 
@@ -118,6 +121,7 @@ public class BossManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Shoot()
     {
+        yield return new WaitForSeconds(.5f);
         int random = Random.Range(1, 4);
         for (int i = 0; i < random; i++)
         {
@@ -135,7 +139,7 @@ public class BossManager : MonoBehaviour
     {
         Vector2 targetPosition = playerTransform.position;
         Vector2 currentPosition = transform.position;
-        while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, targetPosition) > 0.1f)
         {
             currentPosition = Vector2.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
             transform.position = currentPosition;
@@ -174,7 +178,14 @@ public class BossManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(.5f);
+        int random = Random.Range(1, 4);
+        for (int i = 0; i < random; i++)
+        {
+            Vector3 spawnPosition = transform.position - new Vector3(0, 1.2f, 0);
+            waveManager.SpawnEnemy(null, spawnPosition, moveDir);
+            yield return new WaitForSeconds(1.5f);
+        }
         ChangeState();
     }
 

@@ -43,9 +43,9 @@ public class PickupManager : MonoBehaviour
     //then, in case of a player, grants it the specific pickup buff.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pConllider))
+        if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
         {
-            PlayerController pController = pConllider.GetComponentInParent<PlayerController>();
+            PlayerController pController = pCollider.GetComponentInParent<PlayerController>();
             switch (pickupType)
             {
                 case 0:

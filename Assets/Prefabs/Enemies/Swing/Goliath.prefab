@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1850792790177001016, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: moveSpeed
-      value: 0.8
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 2183614713437343536, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

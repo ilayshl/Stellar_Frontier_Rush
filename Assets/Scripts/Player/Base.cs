@@ -29,7 +29,7 @@ public class Base : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.TryGetComponent<Enemy>(out Enemy enemy))
+        if (other.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
         {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);

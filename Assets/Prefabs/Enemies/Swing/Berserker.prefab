@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: myScore
       value: 65
       objectReference: {fileID: 0}
+    - target: {fileID: 1850792790177001016, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: moveSpeed
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2256056451987205291, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_Name
       value: Berserker

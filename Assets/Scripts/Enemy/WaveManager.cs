@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Spawns waves after a delay every time the last enemy from last wave is killed.
@@ -10,12 +11,15 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject[] enemySwingToSpawn; //Aliens
     [SerializeField] private GameObject[] wavesDirect; //Head on to the base
     [SerializeField] private GameObject[] enemyDirectToSpawn; //Meteors
-    private int waveCounter;
+    [SerializeField] private GameObject[] bossEnemy; //The boss
+    [SerializeField] private GameObject[] bossWave; //Starting position for boss
+    private int waveCounter = 1;
     private float newWaveCooldown = 5;
     private float difficultyTimer;
     private bool isSpawningWave = false;
 
-    private const int DIRECTWAVERATE = 4;
+    private const int DIRECT_WAVE_RATE = 4;
+    private const int BOSS_WAVE_RATE = 10;
     private const int SCREEN = 16;
 
     void Start()
@@ -40,25 +44,30 @@ public class WaveManager : MonoBehaviour
     /// <summary>
     /// Initiates next wave creation after a delay.
     /// </summary>
-    public void StartNextWaveSequence(){
-            float waveSpawnRate = DifficultyIncrement() / 3;
-            Invoke("GetNextWave", Mathf.Max(0, newWaveCooldown - waveSpawnRate));
+    public void StartNextWaveSequence()
+    {
+        float waveSpawnRate = DifficultyIncrement() / 3;
+        Invoke("GetNextWave", Mathf.Max(0, newWaveCooldown - waveSpawnRate));
     }
 
     // Decides which type of wave should be spawned next
     private void GetNextWave()
     {
-        if(!isSpawningWave)
+        if (!isSpawningWave)
         {
-        isSpawningWave=true;
-        if (waveCounter % DIRECTWAVERATE == 0 && waveCounter != 0)
-        {
-            SpawnNextWave(wavesDirect, enemyDirectToSpawn);
-        }
-        else
-        {
-            SpawnNextWave(wavesSwing, enemySwingToSpawn);
-        }
+            isSpawningWave = true;
+            if (waveCounter % BOSS_WAVE_RATE == 0)
+            {
+                SpawnNextWave(bossWave, bossEnemy);
+            }
+            else if (waveCounter % DIRECT_WAVE_RATE == 0)
+            {
+                SpawnNextWave(wavesDirect, enemyDirectToSpawn);
+            }
+            else
+            {
+                SpawnNextWave(wavesSwing, enemySwingToSpawn);
+            }
         }
     }
 
@@ -68,7 +77,7 @@ public class WaveManager : MonoBehaviour
         var waveToSpawn = Instantiate(waves[GetRandomIndex(waves)]);
         ReplacePlaceholders(waveToSpawn.transform, enemies, GetRandomIndex(enemies));
         Destroy(waveToSpawn);
-        isSpawningWave=false;
+        isSpawningWave = false;
     }
 
     //private void SpawnWave(EnemyType type, )
@@ -83,25 +92,18 @@ public class WaveManager : MonoBehaviour
             if (point.gameObject.CompareTag("Placeholder"))
             {
                 var position = point.transform.position;
-                GameObject enemyInstance;
-                if (waveCounter % DIRECTWAVERATE == 0 && waveCounter != 0)
+                if (waveCounter % BOSS_WAVE_RATE == 0)
                 {
-                    enemyInstance = Instantiate(enemies[GetRandomIndex(enemies)], position, Quaternion.identity, transform);
-                if (enemyInstance.TryGetComponent<Meteor>(out Meteor meteor))
-                    {
-                        meteor.AddSpeed(DifficultyIncrement()/2);
-                    }
+                    SpawnEnemy(enemies[enemyType], position, direction);
+                }
+                else if (waveCounter % DIRECT_WAVE_RATE == 0 && waveCounter != 0)
+                {
+                    SpawnEnemy(enemies[GetRandomIndex(enemies)], position, direction);
                 }
                 else
                 {
-                    Vector3 newPosition = new Vector3(position.x+SCREEN*-direction, position.y, position.z);
-                    enemyInstance = Instantiate(enemies[enemyType], newPosition, Quaternion.identity, transform);
-                    if (enemyInstance.TryGetComponent<Enemy>(out Enemy enemy))
-                    {
-                        enemy.AddSpeed(DifficultyIncrement());
-                        enemy.SetDirection(direction);
-
-                    }
+                    position = new Vector3(position.x + SCREEN * -direction, position.y, position.z);
+                    SpawnEnemy(enemies[enemyType], position, direction);
                 }
                 Destroy(point.gameObject);
             }
@@ -133,10 +135,31 @@ public class WaveManager : MonoBehaviour
         }
         return direction;
     }
-    
+
     //Returns a random index int of a given GameObject array.
     private int GetRandomIndex(GameObject[] source)
     {
         return Random.Range(0, source.Length);
+    }
+
+    public GameObject SpawnEnemy(GameObject enemy, Vector3 position, int direction)
+    {
+        //Boss spawns null because it has no pointers for enemies
+        if (enemy == null)
+        {
+            enemy = enemySwingToSpawn[GetRandomIndex(enemySwingToSpawn)];
+        }
+
+        GameObject enemyInstance = Instantiate(enemy, position, Quaternion.identity, transform);
+        if (enemyInstance.TryGetComponent<SwingEnemy>(out SwingEnemy swingEnemy))
+        {
+            swingEnemy.AddSpeed(DifficultyIncrement());
+            swingEnemy.SetDirection(direction);
+        }
+        else if (enemyInstance.TryGetComponent<Meteor>(out Meteor meteor))
+        {
+            meteor.AddSpeed(DifficultyIncrement() / 2);
+        }
+        return enemyInstance;
     }
 }

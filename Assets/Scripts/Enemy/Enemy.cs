@@ -2,9 +2,12 @@ using UnityEngine;
 
 /// <summary>
 /// Responsible for enemies in the game and dropping pickups on death.
+/// SUPPOSED TO BE THE PARENT SCRIPT FOR METEOR, SWINGENEMY AND BOSS BUT CURRENTLY
+/// I DON'T KNOW HOW TO USE INHERITANCE
 /// </summary>
 public class Enemy : MonoBehaviour
 {
+    /*
     public int myScore = 50;
 
     [SerializeField] protected float moveSpeed = 1;
@@ -18,45 +21,47 @@ public class Enemy : MonoBehaviour
     protected EnemyManager enemyManager;
     protected SpriteRenderer sr;
     private HitPoints hp;
+    */
 
-    private void Awake()
+    /* private void Awake()
     {
-        hp = new HitPoints(initialHP);
         enemyManager = GetComponentInParent<EnemyManager>();
         sr = GetComponent<SpriteRenderer>();
-    }
+    } */
 
-    private void Start()
+    /* private void Start()
     {
+        hp = new HitPoints(initialHP);
         enemyManager.AddToCurrentWave(this);
-    }
+    } */
 
-    /// <summary>
+    /* /// <summary>
     /// Returns the damage of the enemy.
     /// </summary>
     /// <returns></returns>
     public int Damage()
     {
         return dmg;
-    }
+    } */
 
-    /// <summary>
+    /* /// <summary>
     /// Sets the direction of the object by an int value- negative is left, positive is right.
     /// </summary>
     /// <param name="direction"></param>
     public void SetDirection(int direction)
     {
         moveDir *= direction;
-    }
+    } */
 
-    /// <summary>
+   /*  /// <summary>
     /// Makes the enemy take x damage, if dead, triggers death events.
     /// </summary>
     /// <param name="dmg"></param>
     public virtual void OnHit(int dmg)
     {
+        Debug.Log("check1");
         this.hp.LoseHealth(dmg);
-        if (this.hp.IsDead())
+        if (hp.IsDead())
         {
             OnDeath();
         }
@@ -72,25 +77,25 @@ public class Enemy : MonoBehaviour
                 float berserkerBonus = 1.5f;
                 moveSpeed *= berserkerBonus;
             }
-        }*/
-    }
+        }
+    }*/
 
-    protected virtual void OnDeath()
+    /* protected virtual void OnDeath()
     {
         enemyManager.PlaySound(deathSound);
         enemyManager.EnemyKilled(this);
         enemyManager.AddScore(myScore);
         enemyManager.SpawnDeathParticles(this.transform, deathParticle);
         Destroy(gameObject);
-    }
+    } */
 
-    /// <summary>
+    /* /// <summary>
     /// Adds moveSpeed to the enemy.
     /// </summary>
     /// <param name="addition"></param>
     public virtual void AddSpeed(float addition)
     {
         this.moveSpeed += addition;
-    }
+    } */
 
 }
