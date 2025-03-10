@@ -24,7 +24,12 @@ public class PlayerCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
+        if(other.TryGetComponent<BossCollider>(out BossCollider boss))
+        {
+            boss.OnHit(PLAYER_DAMAGE);
+            OnHit(PLAYER_DAMAGE);
+        }
+        else if (other.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
         {
             enemy.OnHit(PLAYER_DAMAGE);
             OnHit(PLAYER_DAMAGE);

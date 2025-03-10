@@ -127,7 +127,6 @@ public class Meteor : Enemy
     {
         if (variantIndex > 0)
         {
-            Debug.Log(variantIndex);
             var pickupSpawned = enemyManager.SpawnPickup(transform);
             PickupManager pickupManager = pickupSpawned.GetComponent<PickupManager>();
             pickupManager.SetPickupType(variantIndex);

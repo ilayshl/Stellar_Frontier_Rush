@@ -120,4 +120,9 @@ public class PlayerController : MonoBehaviour
     {
         playerBase.ChangeHealth(value);
     }
+
+    public int Damage()
+    {
+        return bulletType+1;
+    }
 }

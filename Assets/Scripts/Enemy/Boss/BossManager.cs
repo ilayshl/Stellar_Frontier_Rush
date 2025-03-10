@@ -10,15 +10,19 @@ using UnityEngine;
 // and would apprecite your feedback on how it's played so far.
 public class BossManager : MonoBehaviour
 {
-    public HitPoints hp = new HitPoints();
+    public HitPoints hp;
+    public int myScore = 300;
     [SerializeField] private float moveSpeed = 2;
     [SerializeField] private Transform shootTransform;
+    [SerializeField] private GameObject deathParticle;
     private Transform playerTransform;
     private BossStates _state = new BossStates();
     private Shoot _shoot;
     private Vector2 startingPosition;
     private int moveDir = 1;
+    private bool isOriginalBoss;
 
+    private EnemyManager enemyManager;
     private WaveManager waveManager;
 
     private const int BOSS_HEALTH = 100;
@@ -27,25 +31,37 @@ public class BossManager : MonoBehaviour
     void Awake()
     {
         playerTransform = FindFirstObjectByType<PlayerController>().transform;
-        waveManager = FindFirstObjectByType<WaveManager>();
+        enemyManager = FindFirstObjectByType<EnemyManager>();
+        waveManager = enemyManager.GetComponent<WaveManager>();
         _shoot = GetComponent<Shoot>();
+        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
+        hp = new HitPoints(playerDamage * BOSS_HEALTH);
     }
 
     void Start()
     {
-        InitiateBoss(1);
+        enemyManager.AddToCurrentWave(gameObject);
     }
 
     /// <summary>
     /// For the pre-split boss- initiate the fight.
     /// </summary>
     /// <param name="healthMultiplier"></param>
-    public void InitiateBoss(int healthMultiplier)
+    public void InitiateBoss(bool isFirstBoss)
     {
         startingPosition = transform.position;
-        hp.SetHealth(healthMultiplier * BOSS_HEALTH);
-        transform.position += (Vector3)new Vector2(0, 10);
-        ChangeState(BossStates.Intro);
+        if (isFirstBoss)
+        {
+            transform.position += (Vector3)new Vector2(0, 10);
+            ChangeState(BossStates.Intro);
+        }
+        else
+        {
+            hp.SetHealth(hp.currentHP / 2);
+            ChangeState(BossStates.Swing);
+        }
+        this.isOriginalBoss = isFirstBoss;
+    
     }
 
     /// <summary>
@@ -57,7 +73,6 @@ public class BossManager : MonoBehaviour
     {
         this._state = state;
         StartCoroutine(state.ToString());
-        Debug.Log(state.ToString());
     }
 
     /// <summary>
@@ -95,6 +110,14 @@ public class BossManager : MonoBehaviour
             CheckForScreenEdges();
             timePassed += Time.deltaTime;
             yield return null;
+        }
+        if (isOriginalBoss)
+        {
+            if (hp.currentHP <= hp.initialHP / 2)
+            {
+                ChangeState(BossStates.Split);
+                yield break;
+            }
         }
         RandomAttack();
     }
@@ -184,7 +207,7 @@ public class BossManager : MonoBehaviour
         {
             Vector3 spawnPosition = transform.position - new Vector3(0, 1.2f, 0);
             waveManager.SpawnEnemy(null, spawnPosition, moveDir);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(.5f);
         }
         ChangeState();
     }
@@ -196,8 +219,10 @@ public class BossManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Split()
     {
-        yield return new WaitForSeconds(3);
-        ChangeState();
+        GetComponentInChildren<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(SpawnSplits());
+        OnDeath();
     }
 
     /// <summary>
@@ -217,6 +242,18 @@ public class BossManager : MonoBehaviour
         }
     }
 
+    private IEnumerator SpawnSplits()
+    {
+        Vector3 offset = new Vector3(0.5f, 0, 0);
+        for (int i = 0; i < 2; i++)
+        {
+            offset *= -1;
+            var splitBoss = Instantiate(this.gameObject, transform.position + offset, Quaternion.identity);
+            splitBoss.GetComponent<BossManager>().InitiateBoss(false);
+            splitBoss.transform.localScale *= 0.7f;
+        }
+        yield return new WaitForEndOfFrame();
+    }
     /// <summary>
     /// Checks if x position is touching the screen edges.
     /// </summary>
@@ -245,14 +282,23 @@ public class BossManager : MonoBehaviour
         transform.localRotation = Quaternion.identity;
     }
 
-   private void ShootProjectile()
-   {
-    _shoot.ShootBullet(shootTransform.position);
-   }
+    /// <summary>
+    /// Shoots a projectile out of shootTransform's position.
+    /// </summary>
+    private void ShootProjectile()
+    {
+        _shoot.ShootBullet(shootTransform.position);
+    }
 
-   public void OnDeath()
-   {
-    Debug.Log("boss is dead");
-    hp.SetHealth(100);
-   }
+    /// <summary>
+    /// When health reaches 0, dies.
+    /// </summary>
+    public void OnDeath()
+    {
+        enemyManager.SpawnDeathParticles(this.transform, deathParticle);
+        enemyManager.EnemyKilled(gameObject);
+        enemyManager.AddScore(myScore);
+        enemyManager.SpawnPickup(transform);
+        Destroy(gameObject);
+    }
 }

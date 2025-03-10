@@ -119,7 +119,7 @@ public class WaveManager : MonoBehaviour
         {
             if (i % 10 == 0)
             {
-                increment += 0.7f;
+                increment += 0.5f;
             }
         }
         return increment;
@@ -149,7 +149,7 @@ public class WaveManager : MonoBehaviour
         {
             enemy = enemySwingToSpawn[GetRandomIndex(enemySwingToSpawn)];
         }
-
+        
         GameObject enemyInstance = Instantiate(enemy, position, Quaternion.identity, transform);
         if (enemyInstance.TryGetComponent<SwingEnemy>(out SwingEnemy swingEnemy))
         {
@@ -159,6 +159,10 @@ public class WaveManager : MonoBehaviour
         else if (enemyInstance.TryGetComponent<Meteor>(out Meteor meteor))
         {
             meteor.AddSpeed(DifficultyIncrement() / 2);
+        }
+        else if (enemyInstance.TryGetComponent<BossManager>(out BossManager bossManager))
+        {
+            bossManager.InitiateBoss(true);
         }
         return enemyInstance;
     }

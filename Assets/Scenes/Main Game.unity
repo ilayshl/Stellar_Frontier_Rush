@@ -1719,6 +1719,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2176419446851469866, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
+      propertyPath: bossWave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2176419446851469866, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
+      propertyPath: bossEnemy.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2176419446851469866, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
+      propertyPath: bossWave.Array.data[0]
+      value: 
+      objectReference: {fileID: 8434700634503624197, guid: 8438778e5baf67342b7e258277e9ddf6, type: 3}
+    - target: {fileID: -2176419446851469866, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
+      propertyPath: bossEnemy.Array.data[0]
+      value: 
+      objectReference: {fileID: 2507315659561295232, guid: 2ed8ee483c3ee9f4d8767ba27a862080, type: 3}
     - target: {fileID: 3279891926476213098, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

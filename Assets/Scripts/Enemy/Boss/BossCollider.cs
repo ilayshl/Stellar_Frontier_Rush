@@ -4,11 +4,12 @@ public class BossCollider : MonoBehaviour
 {
     private Animator _animator;
     private BossManager _bossManager;
-    // Start is called before the first frame update
+
     void Awake()
     {
         _bossManager = GetComponentInParent<BossManager>();
         _animator = GetComponent<Animator>();
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public void OnHit(int dmg)

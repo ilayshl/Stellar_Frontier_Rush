@@ -5,23 +5,15 @@ using UnityEngine;
 /// </summary>
 public class HitPoints
 {
-    private int _initialHP;
+    public int initialHP {get; private set;}
+    public int currentHP {get; private set;}
     private bool _isDead = false;
-    private int _currentHP;
 
 
     public HitPoints(int initialHP = 10)
     {
-        this._currentHP = initialHP;
-        this._initialHP = initialHP;
-    }
-
-    /// <summary>
-    /// Returns read-only Health int.
-    /// </summary>
-    /// <returns></returns>
-    public int Health(){
-        return _currentHP;
+        this.currentHP = initialHP;
+        this.initialHP = initialHP;
     }
     
     /// <summary>
@@ -37,8 +29,8 @@ public class HitPoints
     /// </summary>
     /// <param name="hpGained"></param>
     public void GainHealth(int hpGained){
-        _currentHP+=hpGained;
-        _currentHP = Mathf.Min(_currentHP, _initialHP);
+        currentHP+=hpGained;
+        currentHP = Mathf.Min(currentHP, initialHP);
     }
 
     /// <summary>
@@ -46,8 +38,8 @@ public class HitPoints
     /// </summary>
     /// <param name="hpLost"></param>
     public void LoseHealth(int hpLost){
-        _currentHP-=Mathf.Abs(hpLost);
-        if(_currentHP<=0){
+        currentHP-=Mathf.Abs(hpLost);
+        if(currentHP<=0){
             _isDead=true;
         }
     }
@@ -60,7 +52,7 @@ public class HitPoints
     {
         if(value>0)
         {
-        _currentHP = value;
+        currentHP = value;
         }
         else
         {

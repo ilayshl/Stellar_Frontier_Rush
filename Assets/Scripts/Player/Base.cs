@@ -62,7 +62,7 @@ public class Base : MonoBehaviour
         {
             Debug.LogError("Healing for a value of 0. Check your code.");
         }
-        UpdateHealthText(hp.Health());
+        UpdateHealthText(hp.currentHP);
         CheckIfDead();
     }
 
