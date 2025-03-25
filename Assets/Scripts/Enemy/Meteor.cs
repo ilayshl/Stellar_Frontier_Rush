@@ -5,55 +5,26 @@ using UnityEngine;
 /// </summary>
 public class Meteor : Enemy
 {
-    public int myScore = 50;
-
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Sprite[] variants;
-    [SerializeField] protected float moveSpeed = 1;
-    [SerializeField] protected int initialHP = 4;
-    [SerializeField] private int dmg;
-    [SerializeField] private AudioClip[] hitSounds;
-    [SerializeField] private AudioClip deathSound;
-    [SerializeField] private GameObject deathParticle;
-
-    protected int moveDir = 1;
-    protected EnemyManager enemyManager;
-    protected SpriteRenderer sr;
-    private HitPoints hp;
 
     private int rotationDirection = 1; //1 = right, -1 = left.
     private int variantIndex; //0= Normal, 1= Damage, 2= Fire rate, 3= Move speed
 
     private Transform targetObject;
 
-    void Awake()
+    protected override void Start()
     {
-        enemyManager = GetComponentInParent<EnemyManager>();
-        sr = GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
-        hp = new HitPoints(initialHP);
+        base.Start();
         targetObject = FindFirstObjectByType<Base>().transform;
         RollForVariant(50);
         RollForRotationDirection();
-        enemyManager.AddToCurrentWave(gameObject);
     }
 
     private void Update()
     {
         RotateObject();
         MoveTowardsTarget(targetObject);
-    }
-
-    /// <summary>
-    /// Returns the damage of the enemy.
-    /// </summary>
-    /// <returns></returns>
-    public int Damage()
-    {
-        return dmg;
     }
 
     //Rotates the object.
@@ -95,35 +66,7 @@ public class Meteor : Enemy
         sr.sprite = variants[variantIndex];
     }
 
-    /// <summary>
-    /// Adds moveSpeed and rotationSpeed to the enemy.
-    /// </summary>
-    /// <param name="addition"></param>
-    public void AddSpeed(float addition)
-    {
-        moveSpeed += addition / 3;
-        rotationSpeed += addition;
-    }
-
-    /// <summary>
-    /// Makes the enemy take x damage, if dead, triggers death events.
-    /// </summary>
-    /// <param name="dmg"></param>
-    public void OnHit(int dmg)
-    {
-        hp.LoseHealth(dmg);
-        if (hp.IsDead())
-        {
-            OnDeath();
-        }
-        else
-        {
-            int randomIndex = Random.Range(0, hitSounds.Length);
-            enemyManager.PlaySound(hitSounds[randomIndex]);
-        }
-    }
-
-    private void OnDeath()
+    protected override void OnDeath()
     {
         if (variantIndex > 0)
         {
@@ -131,10 +74,6 @@ public class Meteor : Enemy
             PickupManager pickupManager = pickupSpawned.GetComponent<PickupManager>();
             pickupManager.SetPickupType(variantIndex);
         }
-        enemyManager.PlaySound(deathSound);
-        enemyManager.EnemyKilled(gameObject);
-        enemyManager.AddScore(myScore);
-        enemyManager.SpawnDeathParticles(this.transform, deathParticle);
-        Destroy(gameObject);
+        base.OnDeath();
     }
 }

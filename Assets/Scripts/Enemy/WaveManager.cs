@@ -31,6 +31,16 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         difficultyTimer += Time.deltaTime;
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            foreach(Transform enemyObject in transform)
+            {
+                if(enemyObject.TryGetComponent<Enemy>(out Enemy enemy))
+                {
+                    enemy.OnHit(100);
+                }
+            }
+        }
     }
 
     //Spawns wave number 1 with the normal type of enemies.

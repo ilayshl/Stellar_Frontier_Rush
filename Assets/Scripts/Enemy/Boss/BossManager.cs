@@ -8,39 +8,31 @@ using UnityEngine;
 // but it's just the foundation of its behavior.
 // I'm having so much fun planning and coding it,
 // and would apprecite your feedback on how it's played so far.
-public class BossManager : MonoBehaviour
+public class BossManager : Enemy
 {
-    public HitPoints hp;
-    public int myScore = 300;
-    [SerializeField] private float moveSpeed = 2;
-    [SerializeField] private Transform shootTransform;
-    [SerializeField] private GameObject deathParticle;
+    [SerializeField] private Transform shootTransform; //Shooting starting position
     private Transform playerTransform;
     private BossStates _state = new BossStates();
     private Shoot _shoot;
     private Vector2 startingPosition;
-    private int moveDir = 1;
     private bool isOriginalBoss;
+    private WaveManager _waveManager;
 
-    private EnemyManager enemyManager;
-    private WaveManager waveManager;
-
-    private const int BOSS_HEALTH = 100;
     private const float EDGEX = 7.5f;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerTransform = FindFirstObjectByType<PlayerController>().transform;
-        enemyManager = FindFirstObjectByType<EnemyManager>();
-        waveManager = enemyManager.GetComponent<WaveManager>();
+        _waveManager = enemyManager.GetComponent<WaveManager>();
         _shoot = GetComponent<Shoot>();
-        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
-        hp = new HitPoints(playerDamage * BOSS_HEALTH);
+        GetComponent<Collider2D>().enabled = true;
     }
 
-    void Start()
+    public int StartingHealth()
     {
-        enemyManager.AddToCurrentWave(gameObject);
+        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
+        return playerDamage * initialHP;
     }
 
     /// <summary>
@@ -206,7 +198,7 @@ public class BossManager : MonoBehaviour
         for (int i = 0; i < random; i++)
         {
             Vector3 spawnPosition = transform.position - new Vector3(0, 1.2f, 0);
-            waveManager.SpawnEnemy(null, spawnPosition, moveDir);
+            _waveManager.SpawnEnemy(null, spawnPosition, moveDir);
             yield return new WaitForSeconds(.5f);
         }
         ChangeState();
@@ -290,15 +282,18 @@ public class BossManager : MonoBehaviour
         _shoot.ShootBullet(shootTransform.position);
     }
 
+    public override void OnHit(int dmg)
+    {
+        animator.SetTrigger("onHit");
+        base.OnHit(dmg);
+    }
+
     /// <summary>
     /// When health reaches 0, dies.
     /// </summary>
-    public void OnDeath()
+    protected override void OnDeath()
     {
-        enemyManager.SpawnDeathParticles(this.transform, deathParticle);
-        enemyManager.EnemyKilled(gameObject);
-        enemyManager.AddScore(myScore);
         enemyManager.SpawnPickup(transform);
-        Destroy(gameObject);
+        base.OnDeath();
     }
 }

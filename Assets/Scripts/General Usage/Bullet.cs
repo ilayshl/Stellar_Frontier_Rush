@@ -31,11 +31,11 @@ public class Bullet : MonoBehaviour
     {
         if (!canDamagePlayer)
         {
-            if (other.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
+            if (other.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.OnHit(dmg);
                 Destroy(gameObject);
-            } else if (other.TryGetComponent<Meteor>(out Meteor meteor))
+            } /*else if (other.TryGetComponent<Meteor>(out Meteor meteor))
             {
                 meteor.OnHit(dmg);
                 Destroy(gameObject);
@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
             {
                 boss.OnHit(dmg);
                 Destroy(gameObject);
-            }
+            }*/
         }
         else
         {

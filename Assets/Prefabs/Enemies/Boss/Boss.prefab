@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5705220935681869010}
-  - component: {fileID: 6374246746935527927}
-  - component: {fileID: 9051330324278138861}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -34,38 +32,6 @@ Transform:
   - {fileID: 6165925935888150081}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6374246746935527927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2507315659561295232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794690abd029049999dd239f5086796c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myScore: 300
-  moveSpeed: 3
-  shootTransform: {fileID: 5628328518311216567}
-  deathParticle: {fileID: 7047838003272070809, guid: 3e48be1b2e8806c41a8b2f0196e7456b, type: 3}
---- !u!114 &9051330324278138861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2507315659561295232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a26a5dc1979b41219dc6c9f3ecf66b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet:
-  - {fileID: 3923303819207962161, guid: 9729e413637772d44bc9f19796c1bc85, type: 3}
-  shootingSounds:
-  - {fileID: 8300000, guid: 57ab4fc099689b241b013ee7442ecf8e, type: 3}
 --- !u!1 &4306200722097295260
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,10 +42,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6165925935888150081}
   - component: {fileID: 8706088487279734265}
-  - component: {fileID: 7363945814981241404}
+  - component: {fileID: 3784035185097779739}
   - component: {fileID: 4221513255203471082}
   - component: {fileID: 985578291803713773}
   - component: {fileID: 5974997764983997637}
+  - component: {fileID: 1028620660886966807}
   m_Layer: 0
   m_Name: Boss Collider
   m_TagString: Untagged
@@ -155,7 +122,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7363945814981241404
+--- !u!114 &3784035185097779739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,9 +131,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4306200722097295260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a71d815c771a84a920d0715206b9d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 794690abd029049999dd239f5086796c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myScore: 300
+  moveSpeed: 3
+  initialHP: 70
+  dmg: 2
+  hitSounds: []
+  deathSound: {fileID: 8300000, guid: 49f42719482ff2342b33caed061ca24c, type: 3}
+  deathParticle: {fileID: 7047838003272070809, guid: 3e48be1b2e8806c41a8b2f0196e7456b, type: 3}
+  shootTransform: {fileID: 5628328518311216567}
 --- !u!114 &4221513255203471082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oscillationSpeed: 3
   oscillationMagnitute: 0.3
-  offset: 0
+  offset: 0.1
 --- !u!95 &985578291803713773
 Animator:
   serializedVersion: 5
@@ -193,7 +168,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1a8aed6cb72e0b14ea6c602335765b03, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -372,6 +347,22 @@ PolygonCollider2D:
       - {x: 0.42, y: -0.84}
       - {x: 0.29999998, y: -0.84}
   m_UseDelaunayMesh: 0
+--- !u!114 &1028620660886966807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306200722097295260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a26a5dc1979b41219dc6c9f3ecf66b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet:
+  - {fileID: 3923303819207962161, guid: 9729e413637772d44bc9f19796c1bc85, type: 3}
+  shootingSounds:
+  - {fileID: 8300000, guid: 57ab4fc099689b241b013ee7442ecf8e, type: 3}
 --- !u!1 &7509484856483269149
 GameObject:
   m_ObjectHideFlags: 0

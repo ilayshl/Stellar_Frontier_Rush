@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject pickup;
-    private List<GameObject> currentWave = new List<GameObject>();
+    private List<Enemy> currentWave = new List<Enemy>();
     private WaveManager waveManager;
     private SoundManager soundManager;
     private ScoreManager scoreManager;
@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     //Removes the given object from the current wave list, for when the enemy dies.
-    private void RemoveFromCurrentWave(GameObject enemy)
+    private void RemoveFromCurrentWave(Enemy enemy)
     {
         if (currentWave.Contains(enemy))
         {
@@ -44,7 +44,7 @@ public class EnemyManager : MonoBehaviour
     /// Add a GameObject to the current wave list.
     /// </summary>
     /// <param name="enemy"></param>
-    public void AddToCurrentWave(GameObject enemy)
+    public void AddToCurrentWave(Enemy enemy)
     {
         if (!currentWave.Contains(enemy))
         {
@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
     /// Basic enemy killed- rolls for Pickup spawn after death.
     /// </summary>
     /// <param name="enemyTransform"></param>
-    public void EnemyKilled(GameObject enemy)
+    public void EnemyKilled(Enemy enemy)
     { 
         RemoveFromCurrentWave(enemy);
     }
