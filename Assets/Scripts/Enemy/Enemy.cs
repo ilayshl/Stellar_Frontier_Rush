@@ -18,17 +18,8 @@ public class Enemy : MonoBehaviour
     protected EnemyManager enemyManager;
     protected SpriteRenderer sr;
     protected Animator animator;
-    private HitPoints _hp;
+    protected HitPoints hp;
 
-    protected HitPoints hp
-    {
-        get { return _hp; }
-        set
-        {
-            Debug.Log($"hp changed on {gameObject.name}: {(_hp == null ? "null" : _hp.currentHP)} -> {(value == null ? "null" : value.currentHP)}");
-            _hp = value;
-        }
-    }
     protected virtual void Awake()
     {
         enemyManager = GetComponentInParent<EnemyManager>();

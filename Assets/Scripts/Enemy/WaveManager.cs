@@ -41,6 +41,11 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            waveCounter++;
+            Debug.Log("New wave: "+waveCounter);
+        }
     }
 
     //Spawns wave number 1 with the normal type of enemies.
@@ -173,6 +178,7 @@ public class WaveManager : MonoBehaviour
         else if (enemyInstance.TryGetComponent<BossManager>(out BossManager bossManager))
         {
             bossManager.InitiateBoss(true);
+            Debug.Log("boss initiated");
         }
         return enemyInstance;
     }

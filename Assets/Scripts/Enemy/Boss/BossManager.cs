@@ -4,10 +4,6 @@ using UnityEngine;
 /// <summary>
 /// Responsible for boss behavior. 
 /// </summary>
-// For now, it has no hitbox/collider and most of its attacks don't work because of that, 
-// but it's just the foundation of its behavior.
-// I'm having so much fun planning and coding it,
-// and would apprecite your feedback on how it's played so far.
 public class BossManager : Enemy
 {
     [SerializeField] private Transform shootTransform; //Shooting starting position
@@ -29,6 +25,11 @@ public class BossManager : Enemy
         GetComponent<Collider2D>().enabled = true;
     }
 
+    protected override void Start()
+    {
+        enemyManager.AddToCurrentWave(this);
+    }
+
     public int StartingHealth()
     {
         int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
@@ -41,6 +42,7 @@ public class BossManager : Enemy
     /// <param name="healthMultiplier"></param>
     public void InitiateBoss(bool isFirstBoss)
     {
+        this.hp = new HitPoints(StartingHealth());
         startingPosition = transform.position;
         if (isFirstBoss)
         {
@@ -53,7 +55,6 @@ public class BossManager : Enemy
             ChangeState(BossStates.Swing);
         }
         this.isOriginalBoss = isFirstBoss;
-    
     }
 
     /// <summary>
@@ -211,7 +212,7 @@ public class BossManager : Enemy
     /// <returns></returns>
     private IEnumerator Split()
     {
-        GetComponentInChildren<Collider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(SpawnSplits());
         OnDeath();
@@ -240,7 +241,7 @@ public class BossManager : Enemy
         for (int i = 0; i < 2; i++)
         {
             offset *= -1;
-            var splitBoss = Instantiate(this.gameObject, transform.position + offset, Quaternion.identity);
+            var splitBoss = Instantiate(this.gameObject, transform.position + offset, Quaternion.identity, _waveManager.gameObject.transform);
             splitBoss.GetComponent<BossManager>().InitiateBoss(false);
             splitBoss.transform.localScale *= 0.7f;
         }
@@ -286,6 +287,7 @@ public class BossManager : Enemy
     {
         animator.SetTrigger("onHit");
         base.OnHit(dmg);
+        Debug.Log("current hp: " + hp.currentHP);
     }
 
     /// <summary>
