@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SwingEnemy : Enemy
 {
-    private Animator _animator;
-
     private const float EDGEX = 7.5f;
  
     void Update()
@@ -11,24 +9,6 @@ public class SwingEnemy : Enemy
         Move();
         CheckForScreenEdges();
     }
-
-    /*/// <summary>
-    /// Returns the damage of the enemy.
-    /// </summary>
-    /// <returns></returns>
-    public int Damage()
-    {
-        return dmg;
-    }*/
-
-    /*/// <summary>
-    /// Sets the direction of the object by an int value- negative is left, positive is right.
-    /// </summary>
-    /// <param name="direction"></param>
-    public void SetDirection(int direction)
-    {
-        moveDir *= direction;
-    }*/
 
     //Changes transform.position by the direction and moveSpeed.
     private void Move()

@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Responsible for the Meteor enemy in the game that goes straight for the base.
+/// The Meteor enemy goes straight for the base and hits it harder than a Swing enemy.
 /// </summary>
 public class Meteor : Enemy
 {

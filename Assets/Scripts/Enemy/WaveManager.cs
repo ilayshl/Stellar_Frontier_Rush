@@ -157,6 +157,13 @@ public class WaveManager : MonoBehaviour
         return Random.Range(0, source.Length);
     }
 
+    /// <summary>
+    /// Spawns an enemy.
+    /// </summary>
+    /// <param name="enemy"></param>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
+    /// <returns></returns>
     public GameObject SpawnEnemy(GameObject enemy, Vector3 position, int direction)
     {
         //Boss spawns null because it has no pointers for enemies

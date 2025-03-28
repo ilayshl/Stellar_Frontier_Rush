@@ -26,7 +26,11 @@ public class Bullet : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    //Damages whatever the object hits, then gets destroyed.
+    /// <summary>
+    /// Damages whatever the object hits, then gets destroyed.
+    /// Action may vary, depending on what object the bullet hit.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!canDamagePlayer)
@@ -35,16 +39,7 @@ public class Bullet : MonoBehaviour
             {
                 enemy.OnHit(dmg);
                 Destroy(gameObject);
-            } /*else if (other.TryGetComponent<Meteor>(out Meteor meteor))
-            {
-                meteor.OnHit(dmg);
-                Destroy(gameObject);
             }
-            else if (other.TryGetComponent<BossCollider>(out BossCollider boss))
-            {
-                boss.OnHit(dmg);
-                Destroy(gameObject);
-            }*/
         }
         else
         {

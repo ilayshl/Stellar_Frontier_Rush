@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     protected Animator animator;
     protected HitPoints hp;
 
+    //Awake and Start are protected virtual so they cab be overriden.
     protected virtual void Awake()
     {
         enemyManager = GetComponentInParent<EnemyManager>();
@@ -73,6 +74,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When hp reaches 0.
+    /// </summary>
     protected virtual void OnDeath()
     {
         enemyManager.PlaySound(deathSound);

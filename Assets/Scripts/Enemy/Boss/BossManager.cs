@@ -8,11 +8,11 @@ public class BossManager : Enemy
 {
     [SerializeField] private Transform shootTransform; //Shooting starting position
     private Transform playerTransform;
-    private BossStates _state = new BossStates();
     private Shoot _shoot;
     private Vector2 startingPosition;
     private bool isOriginalBoss;
     private WaveManager _waveManager;
+    private Coroutine _currentCoroutine;
 
     private const float EDGEX = 7.5f;
 
@@ -30,7 +30,11 @@ public class BossManager : Enemy
         enemyManager.AddToCurrentWave(this);
     }
 
-    public int StartingHealth()
+    /// <summary>
+    /// Returns the starting health of the boss, decided by the player's current damage stat.
+    /// </summary>
+    /// <returns></returns>
+    private int StartingHealth()
     {
         int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
         return playerDamage * initialHP;
@@ -64,8 +68,8 @@ public class BossManager : Enemy
     // The argument of BossStates is then converted to a string in order to call a corresponding coroutine.
     private void ChangeState(BossStates state = BossStates.Swing)
     {
-        this._state = state;
-        StartCoroutine(state.ToString());
+       if(_currentCoroutine != null ) { StopCoroutine(_currentCoroutine); }
+        _currentCoroutine = StartCoroutine(state.ToString());
     }
 
     /// <summary>
@@ -97,7 +101,7 @@ public class BossManager : Enemy
     {
         int randomTime = Random.Range(3, 6);
         float timePassed = 0;
-        while (_state == BossStates.Swing && timePassed < randomTime)
+        while (timePassed < randomTime)
         {
             transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
             CheckForScreenEdges();
@@ -235,6 +239,11 @@ public class BossManager : Enemy
         }
     }
 
+    /// <summary>
+    /// Spawns the split bosses in the current location.
+    /// This needs to be a coroutine to make runtime actions work better.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpawnSplits()
     {
         Vector3 offset = new Vector3(0.5f, 0, 0);
@@ -283,6 +292,10 @@ public class BossManager : Enemy
         _shoot.ShootBullet(shootTransform.position);
     }
 
+    /// <summary>
+    /// Makes the enemy take x damage.
+    /// </summary>
+    /// <param name="dmg"></param>
     public override void OnHit(int dmg)
     {
         animator.SetTrigger("onHit");

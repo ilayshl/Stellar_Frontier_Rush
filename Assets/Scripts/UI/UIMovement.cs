@@ -17,6 +17,9 @@ private void Awake() {
     screenMiddle = rectTransform.anchoredPosition;
     }
 
+    /// <summary>
+    /// Takes the delta movement of the mouse and compares it to the UI location in the opposite direction.
+    /// </summary>
     private void LateUpdate() {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 deltaMovement = screenMiddle-mousePosition;

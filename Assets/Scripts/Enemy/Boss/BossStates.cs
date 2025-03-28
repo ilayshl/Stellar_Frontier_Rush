@@ -1,3 +1,6 @@
+/// <summary>
+/// All of the Boss' possible actions or moves.
+/// </summary>
 public enum BossStates
 {
 Intro, //Goes down from above the screen;
