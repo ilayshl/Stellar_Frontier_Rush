@@ -99,7 +99,7 @@ public class BossManager : Enemy
 
     private IEnumerator Swing()
     {
-        int randomTime = Random.Range(3, 6);
+        int randomTime = Random.Range(3, 5);
         float timePassed = 0;
         while (timePassed < randomTime)
         {

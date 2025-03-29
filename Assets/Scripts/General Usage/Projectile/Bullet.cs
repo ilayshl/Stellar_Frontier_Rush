@@ -5,17 +5,17 @@ using UnityEngine;
 /// </summary>
 public class Bullet : MonoBehaviour
 {
-    public bool canDamagePlayer = false;
-    [SerializeField] private float speed;
+    public bool canDamagePlayer { get; private set; } = false; 
+    [SerializeField] protected float speed;
     [SerializeField] private Vector3 trajectory;
-    private int dmg = 2;
+    protected int dmg = 2;
 
     private void Start()
     {
         Destroy(gameObject, 7);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         SetTrajectory(trajectory);
     }
@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
     /// Action may vary, depending on what object the bullet hit.
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (!canDamagePlayer)
         {
