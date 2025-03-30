@@ -126,5 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f5f6f5d0b23874a9b5f55ab80c5262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  canDamagePlayer: 0
+  moveSpeed: 3
   trajectory: {x: 0, y: 1, z: 0}
+  rotationSpeed: 150
+  boxSize: {x: 4, y: 10}
+  distanceFromPosition: 3

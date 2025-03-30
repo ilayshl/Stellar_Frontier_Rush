@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDamagePlayer: 0
-  speed: 15
+  moveSpeed: 15
   trajectory: {x: 0, y: 1, z: 0}
 --- !u!50 &6757852737748191267
 Rigidbody2D:
