@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f5f6f5d0b23874a9b5f55ab80c5262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  trajectory: {x: 0, y: 0, z: 0}
+  speed: 3
+  trajectory: {x: 0, y: 1, z: 0}

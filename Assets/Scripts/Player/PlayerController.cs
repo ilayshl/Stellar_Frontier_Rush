@@ -55,6 +55,14 @@ public class PlayerController : MonoBehaviour
                 lastShotFromRight=!lastShotFromRight;
             }
         }
+
+       //For Missiles
+       if (Input.GetMouseButtonDown(1))
+        {
+            shoot.ShootMissile(GetActiveCannon());
+            animator.SetTrigger("isShooting");
+            lastShotFromRight=!lastShotFromRight;
+        }
     }
 
     private IEnumerator Shoot()

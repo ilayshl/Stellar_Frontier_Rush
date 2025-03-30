@@ -1875,6 +1875,10 @@ PrefabInstance:
       value: Ship
       objectReference: {fileID: 0}
     - target: {fileID: 1603676721609524398, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: missile
+      value: 
+      objectReference: {fileID: -7061148483982240266, guid: 4f64392d371ae7e4fb5d9d2f5fe3a680, type: 3}
+    - target: {fileID: 1603676721609524398, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
       propertyPath: bullet.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -1953,6 +1957,10 @@ PrefabInstance:
     - target: {fileID: 5698739343533279995, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8651820078208107908, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: moveSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

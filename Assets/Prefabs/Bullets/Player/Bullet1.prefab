@@ -93,6 +93,10 @@ PrefabInstance:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7199258613969055354, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199258613969055354, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
       propertyPath: trajectory.y
       value: 1
       objectReference: {fileID: 0}

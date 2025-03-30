@@ -7,6 +7,7 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] private GameObject[] bullet;
     [SerializeField] private AudioClip[] shootingSounds;
+    [SerializeField] private Missile missile;
 
     /// <summary>
     /// Returns read-only of the length of the array of bullets.
@@ -43,6 +44,13 @@ public class Shoot : MonoBehaviour
             bulletScript.SetDamage(index + 1); //Index starts at 0, therefore +1.
         }
         PlayShootingSound(index);
+    }
+
+    //To be continued, shooting missile
+    public void ShootMissile(Vector3 position)
+    {
+        Instantiate(missile, position, missile.transform.localRotation);
+        PlayShootingSound(0);
     }
 
     //Plays sound of a specific index in shootingSounds.

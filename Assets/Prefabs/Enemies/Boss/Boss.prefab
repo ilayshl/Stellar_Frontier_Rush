@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1405860194004362589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shoot Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5779299945988362247}
   - component: {fileID: 1113018428945736751}
   - component: {fileID: 6043599359211369213}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,3 +363,4 @@ MonoBehaviour:
   - {fileID: 3923303819207962161, guid: 9729e413637772d44bc9f19796c1bc85, type: 3}
   shootingSounds:
   - {fileID: 8300000, guid: 57ab4fc099689b241b013ee7442ecf8e, type: 3}
+  missile: {fileID: 0}

@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private Vector3 trajectory;
     protected int dmg = 2;
 
-    private void Start()
+    protected virtual void Start()
     {
         Destroy(gameObject, 7);
     }
