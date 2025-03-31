@@ -185,7 +185,6 @@ public class WaveManager : MonoBehaviour
         else if (enemyInstance.TryGetComponent<BossManager>(out BossManager bossManager))
         {
             bossManager.InitiateBoss(true);
-            Debug.Log("boss initiated");
         }
         return enemyInstance;
     }

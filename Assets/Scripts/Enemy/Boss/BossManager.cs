@@ -41,7 +41,7 @@ public class BossManager : Enemy
     }
 
     /// <summary>
-    /// For the pre-split boss- initiate the fight.
+    /// Gets the information whether it's the original boss or split ones, then sets health accordingly.
     /// </summary>
     /// <param name="healthMultiplier"></param>
     public void InitiateBoss(bool isFirstBoss)
@@ -246,13 +246,14 @@ public class BossManager : Enemy
     /// <returns></returns>
     private IEnumerator SpawnSplits()
     {
-        Vector3 offset = new Vector3(0.5f, 0, 0);
+        Vector3 offset = new Vector3(1f, 0, 0);
         for (int i = 0; i < 2; i++)
         {
             offset *= -1;
             var splitBoss = Instantiate(this.gameObject, transform.position + offset, Quaternion.identity, _waveManager.gameObject.transform);
             splitBoss.GetComponent<BossManager>().InitiateBoss(false);
             splitBoss.transform.localScale *= 0.7f;
+
         }
         yield return new WaitForEndOfFrame();
     }
@@ -300,7 +301,6 @@ public class BossManager : Enemy
     {
         animator.SetTrigger("onHit");
         base.OnHit(dmg);
-        Debug.Log("current hp: " + hp.currentHP);
     }
 
     /// <summary>
