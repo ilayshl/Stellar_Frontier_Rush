@@ -10,9 +10,8 @@ public class Missile : Bullet
     [Header("Hitbox Settings")]
     [SerializeField] private Vector2 boxSize = new Vector2(4, 10);
     [SerializeField] private int distanceFromPosition = 3;
-
-
-    private bool hasTarget = false;
+    [Header("Additional Settings")]
+    [SerializeField] private ParticleSystem explosionParticles;
 
     protected override void Start()
     {
@@ -23,9 +22,6 @@ public class Missile : Bullet
     protected override void Update()
     {
         transform.position += transform.up * Time.deltaTime * moveSpeed;
-        if (!hasTarget)
-        {
-        }
     }
 
     private IEnumerator CheckRaycast()
@@ -38,7 +34,6 @@ public class Missile : Bullet
             hit = Physics2D.BoxCast(position, boxSize, angle, transform.up, distanceFromPosition, LayerMask.GetMask("Enemy"));
             yield return new WaitForSeconds(0.20f);
         }
-        hasTarget = true;
         StartCoroutine("MoveTowardsTarget", hit.collider.transform);
     }
 
@@ -54,7 +49,6 @@ public class Missile : Bullet
         if (target == null)
         {
             StartCoroutine("CheckRaycast");
-            hasTarget = !hasTarget;
         }
     }
 
@@ -63,6 +57,12 @@ public class Missile : Bullet
         Vector2 direction = target.position - start.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         return angle;
+    }
+
+    protected override void OnHit(Vector2 position)
+    {
+        var particle = Instantiate(explosionParticles.gameObject, position, Quaternion.identity);
+        Destroy(particle, 2f);
     }
 
 }

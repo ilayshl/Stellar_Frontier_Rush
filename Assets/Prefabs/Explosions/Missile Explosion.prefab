@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -1367,9 +1367,9 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.78431374}
-        key1: {r: 0.9019475, g: 1, b: 0, a: 0}
-        key2: {r: 1, g: 0.52214503, b: 0, a: 0}
-        key3: {r: 1, g: 0.2554821, b: 0, a: 0}
+        key1: {r: 0.2971698, g: 0.81910974, b: 1, a: 0}
+        key2: {r: 0.068841234, g: 0.5423254, b: 0.8584906, a: 0}
+        key3: {r: 0.03702387, g: 0.30644885, b: 0.6037736, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -4916,8 +4916,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5089226611813080460}
   - {fileID: 6558947966707759507}
@@ -4940,7 +4940,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9829,7 +9829,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -11146,8 +11146,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.78431374}
-        key1: {r: 1, g: 0.84308827, b: 0, a: 0}
-        key2: {r: 1, g: 0.52214503, b: 0, a: 0}
+        key1: {r: 0, g: 0.75550485, b: 1, a: 0}
+        key2: {r: 0, g: 0.3885045, b: 1, a: 0}
         key3: {r: 1, g: 0.2554821, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -11170,7 +11170,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:

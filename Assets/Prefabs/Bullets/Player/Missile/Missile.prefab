@@ -132,3 +132,4 @@ MonoBehaviour:
   rotationSpeed: 150
   boxSize: {x: 4, y: 10}
   distanceFromPosition: 3
+  explosionParticles: {fileID: 7047838003272070804, guid: 8d4c30ac964dc014691c9583925e150b, type: 3}

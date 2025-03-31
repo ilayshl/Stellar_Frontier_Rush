@@ -17,4 +17,9 @@ public class Bullet : Projectile
     {
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
+
+    protected override void OnHit(Vector2 position)
+    {
+        
+    }
 }
