@@ -72,6 +72,18 @@ PrefabInstance:
       propertyPath: myScore
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 4532073460556418563, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532073460556418563, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532073460556418563, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8262569903007054022, guid: 53ac2b604ae56469f815c038dfedf141, type: 3}
       propertyPath: m_Color.b
       value: 0

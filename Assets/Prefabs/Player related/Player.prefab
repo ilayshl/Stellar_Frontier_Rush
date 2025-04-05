@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db52180a34843472c9799c1d38f06521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   rightCannon: {fileID: 879790192094356110}
   leftCannon: {fileID: 6765603360615544073}
 --- !u!114 &1603676721609524398
@@ -93,6 +93,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f039b3d5d3c864e4fb60fa39173d1268, type: 3}
   - {fileID: 8300000, guid: 8b921ec5e5e9d144f92889a180eae6a9, type: 3}
   - {fileID: 8300000, guid: 103707570f5348f46bca6560a5dbdd77, type: 3}
+  missile: {fileID: -7061148483982240266, guid: 4f64392d371ae7e4fb5d9d2f5fe3a680, type: 3}
 --- !u!82 &3892986841428730985
 AudioSource:
   m_ObjectHideFlags: 0
@@ -264,6 +265,7 @@ GameObject:
   - component: {fileID: 3341277834702882706}
   - component: {fileID: 128056344545050496}
   - component: {fileID: 2718205047862859327}
+  - component: {fileID: 4829786630580471528}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -327,7 +329,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 74805a8b1d537644c996f3c4c92977c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0acb3ee7ca09eff4088f5cd86298b1f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -413,3 +415,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtSound: {fileID: 8300000, guid: 27e47c66d32581c4f883f93abfae1ad8, type: 3}
+--- !u!95 &4829786630580471528
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118831707287716502}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbc0f3808c508cf498fb3b091d37824c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

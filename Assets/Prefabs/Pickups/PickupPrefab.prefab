@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5426482557208354260}
   - component: {fileID: 3040697421737443276}
   - component: {fileID: 2290305306014915920}
-  - component: {fileID: 71385293561908499}
   - component: {fileID: -6205394686659070122}
   m_Layer: 7
   m_Name: PickupPrefab
@@ -32,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 4666819109605821779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3040697421737443276
@@ -114,13 +114,62 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!61 &71385293561908499
-BoxCollider2D:
+--- !u!114 &-6205394686659070122
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4543510150676968934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a95a0c6a01784334a6ca69fe934c3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: b62b13b9995334d0f96391ebee6fc5a4, type: 3}
+  - {fileID: 21300000, guid: 09c9e2dd781928543b9a87dc4d8a8034, type: 3}
+  - {fileID: 21300000, guid: 5a664689bd3fd4e28a3b0fde30de8a23, type: 3}
+  - {fileID: 21300000, guid: 80351d7d85c3f4c859f4f977ee1a0835, type: 3}
+--- !u!1 &8694889790447489333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4666819109605821779}
+  - component: {fileID: 7804135067437214609}
+  m_Layer: 7
+  m_Name: Pickup Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4666819109605821779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694889790447489333}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5426482557208354260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7804135067437214609
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694889790447489333}
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
@@ -159,20 +208,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.12, y: 1.24}
   m_EdgeRadius: 0
---- !u!114 &-6205394686659070122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4543510150676968934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a95a0c6a01784334a6ca69fe934c3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: b62b13b9995334d0f96391ebee6fc5a4, type: 3}
-  - {fileID: 21300000, guid: 09c9e2dd781928543b9a87dc4d8a8034, type: 3}
-  - {fileID: 21300000, guid: 5a664689bd3fd4e28a3b0fde30de8a23, type: 3}
-  - {fileID: 21300000, guid: 80351d7d85c3f4c859f4f977ee1a0835, type: 3}

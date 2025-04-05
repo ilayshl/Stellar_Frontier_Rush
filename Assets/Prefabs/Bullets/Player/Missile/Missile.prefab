@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1685910267245242305, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Size.y
+      value: 2.409965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685910267245242305, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0028708796
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685910267245242305, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.01670365
+      objectReference: {fileID: 0}
     - target: {fileID: 5276325052766506951, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
       propertyPath: m_Name
       value: Missile
@@ -106,7 +118,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5276325052766506951, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
-      insertIndex: 3
+      insertIndex: -1
       addedObject: {fileID: -7061148483982240266}
   m_SourcePrefab: {fileID: 100100000, guid: 33eba791b566148c4b15482f16efe02d, type: 3}
 --- !u!1 &7703365899002648281 stripped

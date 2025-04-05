@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -30,7 +29,7 @@ public abstract class Projectile : MonoBehaviour
     {
         if (!canDamagePlayer)
         {
-            if (other.TryGetComponent<Enemy>(out Enemy enemy))
+            if (other.transform.parent.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 OnHit(transform.position);
                 enemy.OnHit(dmg);

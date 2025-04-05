@@ -24,10 +24,11 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         enemyManager = GetComponentInParent<EnemyManager>();
-        sr = GetComponent<SpriteRenderer>();
-        if(TryGetComponent<Animator>(out Animator anim))
+        sr = GetComponentInChildren<SpriteRenderer>();
+        //if(TryGetComponent<Animator>(out Animator anim))
+        if(GetComponentInChildren<Animator>() != null)
         {
-        animator = anim;
+        animator = GetComponentInChildren<Animator>();
         }
 
     }

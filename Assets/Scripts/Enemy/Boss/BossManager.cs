@@ -22,7 +22,7 @@ public class BossManager : Enemy
         playerTransform = FindFirstObjectByType<PlayerController>().transform;
         _waveManager = enemyManager.GetComponent<WaveManager>();
         _shoot = GetComponent<Shoot>();
-        GetComponent<Collider2D>().enabled = true;
+        GetComponentInChildren<Collider2D>().enabled = true;
     }
 
     protected override void Start()
@@ -216,7 +216,7 @@ public class BossManager : Enemy
     /// <returns></returns>
     private IEnumerator Split()
     {
-        GetComponent<Collider2D>().enabled = false;
+        GetComponentInChildren<Collider2D>().enabled = false;
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(SpawnSplits());
         OnDeath();

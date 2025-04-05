@@ -65,7 +65,7 @@ public class PickupManager : MonoBehaviour
         }
     }
 
-    //Activates the Collider component os the player can collide with it.
+    //Activates the Collider component so the player can collide with it.
     private void ActivateCollider()
     {
         if (TryGetComponent<Collider2D>(out Collider2D collider))

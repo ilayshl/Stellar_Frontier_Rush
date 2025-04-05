@@ -22,21 +22,21 @@ public class Base : MonoBehaviour
         hp = new HitPoints(initialHP);
         sr = GetComponent<SpriteRenderer>();
         soundManager = GetComponent<SoundManager>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Damages the object upon collision.
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
+        if (other.transform.parent.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
         {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);
             OnHit();
 
         }
-        else if (other.TryGetComponent<Meteor>(out Meteor meteor))
+        else if (other.transform.parent.TryGetComponent<Meteor>(out Meteor meteor))
         {
             ChangeHealth(-meteor.Damage());
             meteor.OnHit(100);
@@ -95,7 +95,7 @@ public class Base : MonoBehaviour
     /// </summary>
     public void SpawnDeathParticles()
     {
-        Collider2D baseCollider = GetComponent<Collider2D>();
+        Collider2D baseCollider = GetComponentInChildren<Collider2D>();
         float randomX = Random.Range(baseCollider.bounds.min.x, baseCollider.bounds.max.x);
         float randomY = Random.Range(baseCollider.bounds.min.y, baseCollider.bounds.max.y);
         Vector3 spawnPosition = new Vector3(randomX, randomY, 0);
