@@ -64,8 +64,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0028708668, y: 0.020570649}
-  m_Size: {x: 0.6153087, y: 0.94832534}
+  m_Offset: {x: -0.0028708796, y: 0.01670365}
+  m_Size: {x: 0.6153087, y: 2.409965}
   m_Direction: 0
 --- !u!1 &5276325052766506951
 GameObject:
@@ -77,8 +77,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5415901169780058736}
   - component: {fileID: 5785930903324354105}
-  - component: {fileID: 7199258613969055354}
   - component: {fileID: 6757852737748191267}
+  - component: {fileID: -1792034180468617228}
   m_Layer: 0
   m_Name: BulletsPrefab
   m_TagString: Untagged
@@ -96,7 +96,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.28615218, y: 0.28615218, z: 0.28615218}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7104737317746562776}
@@ -148,27 +148,12 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.28, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7199258613969055354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276325052766506951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bae853a1e1c04faf90ae4486de22500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canDamagePlayer: 0
-  moveSpeed: 15
-  trajectory: {x: 0, y: 1, z: 0}
 --- !u!50 &6757852737748191267
 Rigidbody2D:
   serializedVersion: 4
@@ -196,3 +181,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-1792034180468617228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276325052766506951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bae853a1e1c04faf90ae4486de22500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canDamagePlayer: 0
+  moveSpeed: 15
+  trajectory: {x: 0, y: 1, z: 0}

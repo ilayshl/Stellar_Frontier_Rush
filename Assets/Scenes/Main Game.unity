@@ -1874,6 +1874,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 1603676721609524398, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: missile
+      value: 
+      objectReference: {fileID: 6608397255414117088, guid: ef2bdebdc3a287e4290d8a70430c8643, type: 3}
     - target: {fileID: 1889978082082108153, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

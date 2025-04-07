@@ -74,7 +74,7 @@ public class PickupManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Couldn't activate the collider of the pickup.");
+            Debug.LogWarning("Couldn't activate the collider of the pickup.");
         }
     }
 }

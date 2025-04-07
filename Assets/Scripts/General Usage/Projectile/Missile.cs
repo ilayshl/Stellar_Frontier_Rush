@@ -13,6 +13,9 @@ public class Missile : Bullet
     [Header("Additional Settings")]
     [SerializeField] private ParticleSystem explosionParticles;
 
+    private bool hasTarget = false;
+    private const float HAS_TARGET_MULT = 1.5f;
+
     protected override void Start()
     {
         base.Start();
@@ -21,7 +24,14 @@ public class Missile : Bullet
 
     protected override void Update()
     {
-        transform.position += transform.up * Time.deltaTime * moveSpeed;
+        if (hasTarget)
+        {
+            transform.position += transform.up * Time.deltaTime * moveSpeed * HAS_TARGET_MULT;
+        }
+        else
+        {
+            transform.position += transform.up * Time.deltaTime * moveSpeed;
+        }
     }
 
     private IEnumerator CheckRaycast()
@@ -35,6 +45,7 @@ public class Missile : Bullet
             yield return new WaitForSeconds(0.20f);
         }
         StartCoroutine("MoveTowardsTarget", hit.collider.transform);
+        hasTarget = true;
     }
 
     private IEnumerator MoveTowardsTarget(Transform target)
@@ -49,6 +60,7 @@ public class Missile : Bullet
         if (target == null)
         {
             StartCoroutine("CheckRaycast");
+            hasTarget = false;
         }
     }
 
