@@ -709,6 +709,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &842298083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2018812444691193395, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+  m_PrefabInstance: {fileID: 3527368297051872718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &842298089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842298083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f957687e8d974457eaf2052e79c66158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &850074601 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7195031119734729167, guid: 6ae2c1af1b4994b6f91fae0a9b75c193, type: 3}
@@ -2754,6 +2771,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 540
       objectReference: {fileID: 0}
+    - target: {fileID: 2018812444691193395, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      propertyPath: m_Name
+      value: Base Collider
+      objectReference: {fileID: 0}
     - target: {fileID: 3046993686809930169, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
       propertyPath: uiManager
       value: 
@@ -2765,7 +2786,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2018812444691193395, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 842298089}
   m_SourcePrefab: {fileID: 100100000, guid: b834c31e8eef69b44be23562f480e49a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

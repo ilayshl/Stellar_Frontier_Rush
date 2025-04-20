@@ -25,7 +25,6 @@ public class Enemy : MonoBehaviour
     {
         enemyManager = GetComponentInParent<EnemyManager>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        //if(TryGetComponent<Animator>(out Animator anim))
         if(GetComponentInChildren<Animator>() != null)
         {
         animator = GetComponentInChildren<Animator>();

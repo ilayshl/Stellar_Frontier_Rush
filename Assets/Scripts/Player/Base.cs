@@ -1,6 +1,4 @@
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Responsible for the player's base. With each enemy striking the base, hp will be lost, until reaching 0.
@@ -28,20 +26,22 @@ public class Base : MonoBehaviour
     // Damages the object upon collision.
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (other.transform.parent.TryGetComponent<SwingEnemy>(out SwingEnemy enemy))
+        if (other.transform.parent.TryGetComponent<Enemy>(out Enemy enemy) && other.transform.parent.GetComponent<BossManager>() == null)
         {
+
+            Debug.Log("Got on the first try");
+        }
+        if(other.GetComponentInParent<Enemy>() != null && other.GetComponentInParent<BossManager>() == null)
+        {
+            Debug.Log("got the second one");
+        }
+    }
+
+    public void EnemyHit(Enemy enemy)
+    {
             ChangeHealth(-enemy.Damage());
             enemy.OnHit(100);
             OnHit();
-
-        }
-        else if (other.transform.parent.TryGetComponent<Meteor>(out Meteor meteor))
-        {
-            ChangeHealth(-meteor.Damage());
-            meteor.OnHit(100);
-            OnHit();
-        }
     }
 
     /// <summary>
@@ -93,9 +93,8 @@ public class Base : MonoBehaviour
     /// <summary>
     /// Spawns death particles at random position inside the object's collider.
     /// </summary>
-    public void SpawnDeathParticles()
+    public void SpawnDeathParticles(Collider2D baseCollider)
     {
-        Collider2D baseCollider = GetComponentInChildren<Collider2D>();
         float randomX = Random.Range(baseCollider.bounds.min.x, baseCollider.bounds.max.x);
         float randomY = Random.Range(baseCollider.bounds.min.y, baseCollider.bounds.max.y);
         Vector3 spawnPosition = new Vector3(randomX, randomY, 0);
