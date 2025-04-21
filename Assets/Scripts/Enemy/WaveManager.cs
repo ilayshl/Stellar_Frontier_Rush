@@ -18,8 +18,8 @@ public class WaveManager : MonoBehaviour
     private float difficultyTimer;
     private bool isSpawningWave = false;
 
-    private const int DIRECT_WAVE_RATE = 4;
-    private const int BOSS_WAVE_RATE = 10;
+    private const int DIRECT_WAVE_RATE = 3;
+    private const int BOSS_WAVE_RATE = 8;
     private const int SCREEN = 16;
 
     void Start()
@@ -31,6 +31,7 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         difficultyTimer += Time.deltaTime;
+        //Debug tools:
         if(Input.GetKeyDown(KeyCode.A))
         {
             foreach(Transform enemyObject in transform)
@@ -185,6 +186,7 @@ public class WaveManager : MonoBehaviour
         else if (enemyInstance.TryGetComponent<BossManager>(out BossManager bossManager))
         {
             bossManager.InitiateBoss(true);
+            difficultyTimer-=60;
         }
         return enemyInstance;
     }
