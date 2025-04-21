@@ -1,4 +1,4 @@
-using System; //idk why it's dark gray, it is used in the script
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,9 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Transform rightCannon, leftCannon;
     private float shootInterval = 0.7f;
-    private float lastShotTime;
     private int bulletType = 0;
     private bool lastShotFromRight = false;
+    private int missileAmmo = 0;
+    private Coroutine activeShooting;
 
     private Shoot shoot;
     private UIManager uiManager;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"Debug commands:\nQ: Add to wave count\nA: Clear all living enemies\nS: Spawn a random pickup\nD: Damage player");   
+        Debug.Log($"Debug commands:\nQ: Add to wave count\nA: Clear all living enemies\nS: Spawn a random pickup\nD: Damage player");
     }
 
     void Update()
@@ -52,30 +53,43 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (Time.time > lastShotTime + shootInterval)
+            if (activeShooting == null)
             {
-                lastShotTime = Time.time;
-                shoot.ShootBullet(GetActiveCannon(), bulletType);
-                animator.SetTrigger("isShooting");
-                lastShotFromRight=!lastShotFromRight;
+                activeShooting = StartCoroutine(Shoot(shootInterval));
             }
         }
 
-       //For Missiles
-       if (Input.GetMouseButtonDown(1))
+        //For Missiles
+        if (Input.GetMouseButtonDown(1))
         {
-            shoot.ShootMissile(GetActiveCannon());
-            animator.SetTrigger("isShooting");
-            lastShotFromRight=!lastShotFromRight;
+            if (missileAmmo > 0)
+            {
+                ShootMissile();
+            }
         }
     }
 
-    private IEnumerator Shoot()
+    /// <summary>
+    /// Shoots a bullet, then resets activeShooting so it could be fired again.
+    /// </summary>
+    /// <param name="timeInterval"></param>
+    /// <returns></returns>
+    private IEnumerator Shoot(float timeInterval)
     {
-        //while the pressed key is MouseButton 0, shoot.
-        //yield return shootInterval;
-        //outside the while scope- activeCoroutine = null;
-        yield return null;
+        shoot.ShootBullet(GetActiveCannon(), bulletType);
+        animator.SetTrigger("isShooting");
+        lastShotFromRight = !lastShotFromRight;
+        yield return new WaitForSeconds(timeInterval);
+        activeShooting = null;
+    }
+
+    private void ShootMissile()
+    {
+        shoot.ShootMissile(GetActiveCannon());
+        animator.SetTrigger("isShooting");
+        missileAmmo--;
+        uiManager.SetText(4, missileAmmo.ToString());
+        lastShotFromRight = !lastShotFromRight;
     }
 
     //Returns which cannon to shot from based on the last cannon that shot.
@@ -111,7 +125,7 @@ public class PlayerController : MonoBehaviour
         shootInterval *= bonusPercentage;
         shootInterval = Mathf.Max(0.1f, shootInterval);
         float dps = 1 / shootInterval;
-        uiManager.SetText(2, System.Math.Round(dps, 2).ToString());
+        uiManager.SetText(2, Math.Round(dps, 2).ToString());
     }
 
     /// <summary>
@@ -134,8 +148,18 @@ public class PlayerController : MonoBehaviour
         playerBase.ChangeHealth(value);
     }
 
+    /// <summary>
+    /// Increases the missile ammo by the amount given.
+    /// </summary>
+    /// <param name="value"></param>
+    public void IncreaseMissileAmmo(int value)
+    {
+        missileAmmo += value;
+        uiManager.SetText(4, missileAmmo.ToString());
+    }
+
     public int Damage()
     {
-        return bulletType+1;
+        return bulletType + 1;
     }
 }

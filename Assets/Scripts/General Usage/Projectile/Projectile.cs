@@ -18,8 +18,6 @@ public abstract class Projectile : MonoBehaviour
 
     protected abstract void Update();
 
-    protected abstract void OnHit(Vector2 position);
-
     /// <summary>
     /// Damages whatever the object hits, then gets destroyed.
     /// Action may vary, depending on what object the bullet hit.
@@ -31,7 +29,6 @@ public abstract class Projectile : MonoBehaviour
         {
             if (other.transform.parent.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                OnHit(transform.position);
                 enemy.OnHit(dmg);
                 Destroy(gameObject);
             }
@@ -40,7 +37,6 @@ public abstract class Projectile : MonoBehaviour
         {
             if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
             {
-                OnHit(transform.position);
                 pCollider.OnHit(dmg);
                 Destroy(gameObject);
             }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class PickupManager : MonoBehaviour
 {
-    [SerializeField] private Sprite[] sprites; //0- Health, 1- Damage, 2- Fire rate, 3- Move speed;
+    [SerializeField] private Sprite[] sprites; //0- Health, 1- Damage, 2- Fire rate, 3- Move speed, 4- Missile;
     private int pickupType;
     private SpriteRenderer sr;
 
@@ -59,6 +59,9 @@ public class PickupManager : MonoBehaviour
                     break;
                 case 3:
                     pController.IncreaseSpeed(1);
+                    break;
+                case 4:
+                    pController.IncreaseMissileAmmo(1);
                     break;
             }
             Destroy(gameObject);

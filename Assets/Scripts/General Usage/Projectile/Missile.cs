@@ -71,9 +71,10 @@ public class Missile : Bullet
         return angle;
     }
 
-    protected override void OnHit(Vector2 position)
+    //Explodes on destroy.
+    void OnDestroy()
     {
-        var particle = Instantiate(explosionParticles.gameObject, position, Quaternion.identity);
+        var particle = Instantiate(explosionParticles.gameObject, transform.position, Quaternion.identity);
         Destroy(particle, 2f);
     }
 

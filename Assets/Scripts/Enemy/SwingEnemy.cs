@@ -3,6 +3,7 @@ using UnityEngine;
 public class SwingEnemy : Enemy
 {
     private const float EDGEX = 7.5f;
+    private const int BERSERK_INITIATE_HP = 1;
  
     void Update()
     {
@@ -41,7 +42,7 @@ public class SwingEnemy : Enemy
     {
         animator.SetTrigger("onHit");
         base.OnHit(dmg);
-        if (hp.currentHP == 1)
+        if (hp.currentHP == BERSERK_INITIATE_HP)
         {
             if (sr.color == Color.green) //If enemy is Berserker
             {
