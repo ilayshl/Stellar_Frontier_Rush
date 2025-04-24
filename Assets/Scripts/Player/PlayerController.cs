@@ -9,23 +9,20 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private Transform rightCannon, leftCannon;
-    private float shootInterval = 0.7f;
-    private int bulletType = 0;
-    private bool lastShotFromRight = false;
-    private int missileAmmo = 0;
     private Coroutine activeShooting;
+    private bool lastShotFromRight;
 
     private Shoot shoot;
-    private UIManager uiManager;
     private Base playerBase;
     private Animator animator;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
         shoot = GetComponent<Shoot>();
-        uiManager = FindFirstObjectByType<UIManager>();
         playerBase = FindFirstObjectByType<Base>();
         animator = GetComponentInChildren<Animator>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     void Start()
@@ -55,14 +52,14 @@ public class PlayerController : MonoBehaviour
         {
             if (activeShooting == null)
             {
-                activeShooting = StartCoroutine(Shoot(shootInterval));
+                activeShooting = StartCoroutine(Shoot(playerStats.stats[StatType.FireRate]));
             }
         }
 
         //For Missiles
         if (Input.GetMouseButtonDown(1))
         {
-            if (missileAmmo > 0)
+            if (playerStats.stats[StatType.Missile] > 0)
             {
                 ShootMissile();
             }
@@ -76,7 +73,7 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Shoot(float timeInterval)
     {
-        shoot.ShootBullet(GetActiveCannon(), bulletType);
+        shoot.ShootBullet(GetActiveCannon(), (int)playerStats.stats[StatType.Damage]);
         animator.SetTrigger("isShooting");
         lastShotFromRight = !lastShotFromRight;
         yield return new WaitForSeconds(timeInterval);
@@ -87,8 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         shoot.ShootMissile(GetActiveCannon());
         animator.SetTrigger("isShooting");
-        missileAmmo--;
-        uiManager.SetText(4, missileAmmo.ToString());
+        playerStats.ChangeStat(StatType.Missile, -1);
         lastShotFromRight = !lastShotFromRight;
     }
 
@@ -105,6 +101,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+/*
     /// <summary>
     /// Increases moveSpeed by the amount given.
     /// </summary>
@@ -135,8 +132,8 @@ public class PlayerController : MonoBehaviour
     public void IncreaseDamage(int increase)
     {
         bulletType += increase;
-        bulletType = Mathf.Min(bulletType, shoot.BulletTypes() - 1);
-        uiManager.SetText(1, (bulletType + 1).ToString());
+        bulletType = Mathf.Min(bulletType, shoot.BulletTypes());
+        uiManager.SetText(1, bulletType.ToString());
     }
 
     /// <summary>
@@ -158,8 +155,10 @@ public class PlayerController : MonoBehaviour
         uiManager.SetText(4, missileAmmo.ToString());
     }
 
+    */
+
     public int Damage()
     {
-        return bulletType + 1;
+        return (int)playerStats.stats[StatType.Damage];
     }
 }

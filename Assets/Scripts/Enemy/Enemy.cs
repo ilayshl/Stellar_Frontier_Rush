@@ -6,10 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int myScore = 50;
-
+    
+    [Header("Basic Stats")]
     [SerializeField] protected float moveSpeed = 1;
     [SerializeField] protected int initialHP = 4;
     [SerializeField] private int dmg;
+    [Header("Basic Assets")]
     [SerializeField] private AudioClip[] hitSounds;
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private GameObject deathParticle;
@@ -70,7 +72,7 @@ public class Enemy : MonoBehaviour
         else
         {
             int randomIndex = hitSounds.Length > 1 ? Random.Range(0, hitSounds.Length) : 0;
-            enemyManager.PlaySound(hitSounds[randomIndex]);
+            SoundManager.PlaySound(hitSounds[randomIndex]);
         }
     }
 
@@ -79,7 +81,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     protected virtual void OnDeath()
     {
-        enemyManager.PlaySound(deathSound);
+        SoundManager.PlaySound(deathSound);
         enemyManager.EnemyKilled(this);
         enemyManager.AddScore(myScore);
         enemyManager.SpawnDeathParticles(this.transform, deathParticle);

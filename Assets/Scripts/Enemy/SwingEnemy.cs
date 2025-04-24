@@ -54,7 +54,7 @@ public class SwingEnemy : Enemy
 
     protected override void OnDeath()
     {
-        if(Random.Range(0, 100)<=25)
+        if(Random.Range(0, 100)<=33)
         {
             enemyManager.SpawnPickup(transform);
         }

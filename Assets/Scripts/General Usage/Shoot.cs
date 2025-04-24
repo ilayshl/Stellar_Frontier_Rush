@@ -35,15 +35,16 @@ public class Shoot : MonoBehaviour
     /// <param name="index"></param>
     /// <param name="position"></param>
     /// <param name="direction"></param>
-    public void ShootBullet(Vector3 position, int index)
+    public void ShootBullet(Vector3 position, int bulletType)
     {
-        int cappedBulletType = Mathf.Min(index, bullet.Length);
+        int bulletIndex = bulletType - 1;
+        int cappedBulletType = Mathf.Min(bulletIndex, bullet.Length);
         var newBullet = Instantiate(bullet[cappedBulletType], position, bullet[cappedBulletType].transform.localRotation);
         if (newBullet.TryGetComponent<Bullet>(out Bullet bulletScript))
         {
-            bulletScript.SetDamage(index + 1); //Index starts at 0, therefore +1.
+            bulletScript.SetDamage(bulletType);
         }
-        PlayShootingSound(index);
+        PlayShootingSound(bulletIndex);
     }
 
     //To be continued, shooting missile
@@ -56,8 +57,6 @@ public class Shoot : MonoBehaviour
     //Plays sound of a specific index in shootingSounds.
     private void PlayShootingSound(int index)
     {
-        if (TryGetComponent<SoundManager>(out SoundManager soundManager)){
-            soundManager.PlaySound(shootingSounds[index]);
-        }
+            SoundManager.PlaySound(shootingSounds[index], true);
     }
 }

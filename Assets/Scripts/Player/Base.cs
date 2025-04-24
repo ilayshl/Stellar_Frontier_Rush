@@ -5,36 +5,19 @@ using UnityEngine;
 /// </summary>
 public class Base : MonoBehaviour
 {
-    [SerializeField] private int initialHP = 10;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private AudioClip[] impactSounds;
     [SerializeField] private GameObject deathExplosion;
 
-    private HitPoints hp;
     private SpriteRenderer sr;
-    private SoundManager soundManager;
     private Animator animator;
+    private PlayerStats playerStats;
 
     private void Awake()
     {
-        hp = new HitPoints(initialHP);
         sr = GetComponent<SpriteRenderer>();
-        soundManager = GetComponent<SoundManager>();
         animator = GetComponentInChildren<Animator>();
-    }
-
-    // Damages the object upon collision.
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform.parent.TryGetComponent<Enemy>(out Enemy enemy) && other.transform.parent.GetComponent<BossManager>() == null)
-        {
-
-            Debug.Log("Got on the first try");
-        }
-        if(other.GetComponentInParent<Enemy>() != null && other.GetComponentInParent<BossManager>() == null)
-        {
-            Debug.Log("got the second one");
-        }
+        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     public void EnemyHit(Enemy enemy)
@@ -50,19 +33,7 @@ public class Base : MonoBehaviour
     /// <param name="amount"></param>
     public void ChangeHealth(int amount)
     {
-        if (amount > 0)
-        {
-            hp.GainHealth(amount);
-        }
-        else if (amount < 0)
-        {
-            hp.LoseHealth(amount);
-        }
-        else
-        {
-            Debug.LogError("Healing for a value of 0. Check your code.");
-        }
-        UpdateHealthText(hp.currentHP);
+        playerStats.ChangeStat(StatType.Health, amount);
         CheckIfDead();
     }
 
@@ -76,14 +47,14 @@ public class Base : MonoBehaviour
     private void OnHit()
     {
         int randomIndex = Random.Range(0, impactSounds.Length);
-        soundManager.PlaySound(impactSounds[randomIndex]);
+        SoundManager.PlaySound(impactSounds[randomIndex], true);
         animator.SetTrigger("isHurt");
     }
 
     //Checks if HP equals or is lower than 0.
     private void CheckIfDead()
     {
-        if (hp.IsDead())
+        if (playerStats.IsDead())
         {
             animator.SetTrigger("isDead");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -103,6 +74,6 @@ public class Base : MonoBehaviour
         particles.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
         Destroy(particles, 2);
         int randomIndex = Random.Range(0, impactSounds.Length);
-        soundManager.PlaySound(impactSounds[randomIndex]);
+        SoundManager.PlaySound(impactSounds[randomIndex], true);
     }
 }

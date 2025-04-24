@@ -361,9 +361,17 @@ MonoBehaviour:
   dmg: 2
   hitSounds:
   - {fileID: 8300000, guid: 1f39afb49d04b124d82b8eda577d908a, type: 3}
-  deathSound: {fileID: 8300000, guid: 49f42719482ff2342b33caed061ca24c, type: 3}
+  deathSound: {fileID: 8300000, guid: ab7533419c6650144b699cbb16b7fc6d, type: 3}
   deathParticle: {fileID: 7047838003272070809, guid: 3e48be1b2e8806c41a8b2f0196e7456b, type: 3}
   shootTransform: {fileID: 1405860194004362589}
+  introSound: {fileID: 8300000, guid: 2b539c755ac27d54cb5d016d3fb586b8, type: 3}
+  fireSound: {fileID: 8300000, guid: a55e27a122a80234cb5ae701a27270ed, type: 3}
+  sweepSound:
+  - {fileID: 8300000, guid: 69774b1b85b835042bb19873e8cbc31b, type: 3}
+  - {fileID: 8300000, guid: 49bfde40da63aad45803aef4e87eccdd, type: 3}
+  chargeSound: {fileID: 8300000, guid: bd4524626ed8f57458e4946622722b49, type: 3}
+  spawnSound: {fileID: 8300000, guid: c49ae062de21b84489943551ce343ea0, type: 3}
+  swingSound: {fileID: 8300000, guid: c6606010e950a4046bbdba255daaa7de, type: 3}
 --- !u!114 &7425480731395661312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,5 +402,5 @@ MonoBehaviour:
   bullet:
   - {fileID: 3923303819207962161, guid: 9729e413637772d44bc9f19796c1bc85, type: 3}
   shootingSounds:
-  - {fileID: 8300000, guid: 57ab4fc099689b241b013ee7442ecf8e, type: 3}
+  - {fileID: 8300000, guid: a55e27a122a80234cb5ae701a27270ed, type: 3}
   missile: {fileID: 0}

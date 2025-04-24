@@ -9,13 +9,11 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject pickup;
     private List<Enemy> currentWave = new List<Enemy>();
     private WaveManager waveManager;
-    private SoundManager soundManager;
     private ScoreManager scoreManager;
 
     private void Awake()
     {
         waveManager = GetComponent<WaveManager>();
-        soundManager = GetComponent<SoundManager>();
         scoreManager = GetComponent<ScoreManager>();
     }
 
@@ -84,14 +82,5 @@ public class EnemyManager : MonoBehaviour
     /// <param name="addition"></param>
     public void AddScore(int addition){
         scoreManager.AddScore(addition);
-    }
-
-    /// <summary>
-    /// Plays an AudioClip via SoundManager.
-    /// </summary>
-    /// <param name="sound"></param>
-    public void PlaySound(AudioClip sound)
-    {
-        soundManager.PlaySound(sound);
     }
 }

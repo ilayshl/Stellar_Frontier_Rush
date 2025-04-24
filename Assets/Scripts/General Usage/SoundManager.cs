@@ -5,12 +5,15 @@ using UnityEngine;
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
+    private static SoundManager Instance;
+
     private AudioSource source;
 
-    private const int PITCHDEFAULT = 1;
+    private const int DEFAULT_PITCH = 1;
 
     private void Awake()
     {
+        Instance = this;
         source = GetComponent<AudioSource>();
     }
 
@@ -18,23 +21,30 @@ public class SoundManager : MonoBehaviour
     /// Plays the given sound once with a randomized pitch to prevent sound fatigue.
     /// </summary>
     /// <param name="sound"></param>
-    public void PlaySound(AudioClip sound)
+    public static void PlaySound(AudioClip sound, bool newPitch = false)
     {
-        ResetPitch();
-        ChangePitch();
-        source.PlayOneShot(sound);
+        if (newPitch)
+        {
+            Instance.ResetPitch();
+            Instance.ChangePitch();
+        }
+        else
+        {
+            Instance.ResetPitch();
+        }
+        Instance.source.PlayOneShot(sound);
     }
 
     //Resets the pitch back to its original value.
     private void ResetPitch()
     {
-        source.pitch = PITCHDEFAULT;
+        source.pitch = DEFAULT_PITCH;
     }
 
     //Changes the pitch by an offset of 0.1 in either direction.
     private void ChangePitch()
     {
-        float offset = Random.Range(-0.1f, 0.1f);
+        float offset = Random.Range(-0.15f, 0.15f);
         source.pitch += offset;
     }
 }

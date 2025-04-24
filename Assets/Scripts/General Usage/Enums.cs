@@ -1,8 +1,8 @@
-public enum TextBoxType
+public enum StatType
 {
     Health,
     Damage,
     FireRate,
     MoveSpeed,
-    WaveNumber,
+    Missile,
 }

@@ -7,6 +7,14 @@ using UnityEngine;
 public class BossManager : Enemy
 {
     [SerializeField] private Transform shootTransform; //Shooting starting position
+    [Header("Sounds")]
+    [SerializeField] private AudioClip introSound;
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip[] sweepSound;
+    [SerializeField] private AudioClip chargeSound;
+    [SerializeField] private AudioClip spawnSound;
+    [SerializeField] private AudioClip swingSound;
+
     private Transform playerTransform;
     private Shoot _shoot;
     private Vector2 startingPosition;
@@ -87,10 +95,11 @@ public class BossManager : Enemy
     /// <returns></returns>
     private IEnumerator Intro()
     {
+        SoundManager.PlaySound(introSound);
         Vector2 currentPosition = transform.position;
         while (Vector2.Distance(currentPosition, startingPosition) > 0.05f)
         {
-            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
+            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime / 2);
             transform.position = currentPosition;
             yield return null;
         }
@@ -99,6 +108,7 @@ public class BossManager : Enemy
 
     private IEnumerator Swing()
     {
+        SoundManager.PlaySound(swingSound, true);
         int randomTime = Random.Range(3, 5);
         float timePassed = 0;
         while (timePassed < randomTime)
@@ -145,6 +155,7 @@ public class BossManager : Enemy
         int random = Random.Range(1, 4);
         for (int i = 0; i < random; i++)
         {
+            SoundManager.PlaySound(fireSound, true);
             ShootProjectile();
             yield return new WaitForSeconds(0.75f);
         }
@@ -157,8 +168,9 @@ public class BossManager : Enemy
     /// <returns></returns>
     private IEnumerator Charge()
     {
+        SoundManager.PlaySound(chargeSound);
         Vector2 targetPosition = playerTransform.position;
-        Vector2 currentPosition = transform.position;
+        Vector2 currentPosition = this.transform.position;
         while (Vector2.Distance(currentPosition, targetPosition) > 0.1f)
         {
             currentPosition = Vector2.Lerp(currentPosition, targetPosition, moveSpeed * Time.deltaTime);
@@ -179,6 +191,7 @@ public class BossManager : Enemy
         Vector2 offset = new Vector3(16, 0);
         for (int i = 0; i < random; i++)
         {
+            SoundManager.PlaySound(sweepSound[i]);
             Vector2 targetPosition = (Vector2)playerTransform.position + (offset * moveDir);
             Vector2 currentPosition = (Vector2)playerTransform.position + (-offset * moveDir);
             while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
@@ -202,6 +215,7 @@ public class BossManager : Enemy
         int random = Random.Range(1, 4);
         for (int i = 0; i < random; i++)
         {
+            SoundManager.PlaySound(spawnSound, true);
             Vector3 spawnPosition = transform.position - new Vector3(0, 1.2f, 0);
             _waveManager.SpawnEnemy(null, spawnPosition, moveDir);
             yield return new WaitForSeconds(.5f);
@@ -229,7 +243,7 @@ public class BossManager : Enemy
     private IEnumerator GoUp()
     {
         Vector2 targetPosition = transform.position + new Vector3(0, 4, 0);
-        Vector2 currentPosition = transform.position;
+        Vector2 currentPosition = this.transform.position;
         //Goes up from the screen
         while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
         {
