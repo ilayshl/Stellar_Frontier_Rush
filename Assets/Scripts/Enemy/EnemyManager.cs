@@ -21,7 +21,9 @@ public class EnemyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S)) //Meant for play-testing
         {
-            SpawnPickup(this.transform);
+            var pickupSpawned = SpawnPickup(this.transform);
+            Pickup pickup = pickupSpawned.GetComponent<Pickup>();
+            StartCoroutine(pickup.RandomizePickup());
         }
     }
 

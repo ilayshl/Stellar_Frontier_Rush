@@ -56,7 +56,9 @@ public class SwingEnemy : Enemy
     {
         if(Random.Range(0, 100)<=33)
         {
-            enemyManager.SpawnPickup(transform);
+            var pickupSpawned = enemyManager.SpawnPickup(transform);
+            Pickup pickup = pickupSpawned.GetComponent<Pickup>();
+            StartCoroutine(pickup.RandomizePickup());
         }
         base.OnDeath();
     }

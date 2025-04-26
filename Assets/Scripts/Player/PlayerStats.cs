@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public Dictionary<StatType, float> stats {get; private set;}
+    /*public Dictionary<StatType, float> stats { get; private set; }
     private HitPoints playerHealth;
 
     private const int PLAYER_MAXIMUM_HEALTH = 10;
@@ -13,16 +13,12 @@ public class PlayerStats : MonoBehaviour
     private const int PLAYER_MOVE_SPEED = 5;
     private const int PLAYER_MISSILE = 0;
 
-    private UIManager uiManager;
-
-    void Awake()
+    public PlayerStats(StatType[] statsToAdd)
     {
-        uiManager = FindObjectOfType<UIManager>();
-    }
-
-    void Start()
-    {
-        InitializeStats();
+        foreach(var stat in stats)
+        {
+            stats.Add(stat, );
+        }
     }
 
     private void InitializeStats()
@@ -43,25 +39,37 @@ public class PlayerStats : MonoBehaviour
     /// <param name="amount"></param>
     public void ChangeStat(StatType type, int amount)
     {
-        switch(type){
+        switch (type)
+        {
             case StatType.Health:
-            if(amount > 0) { playerHealth.GainHealth(amount); }
-            else if(amount < 0) { playerHealth.LoseHealth(amount);}
+                if (amount > 0) { playerHealth.GainHealth(amount); }
+                else if (amount < 0) { playerHealth.LoseHealth(amount); }
+                stats[type] = playerHealth.currentHP;
+                UpdateText(type);
+                break;
+
+            /**case StatType.Damage:
+            bulletType += amount;
+            bulletType = Mathf.Min(bulletType, shoot.BulletTypes());
+            UpdateText(type);
             break;
 
             case StatType.FireRate:
-            amount = 5; //For now- to make sure the increases in fire rate are persistent.
-            float bonusPercentage = 1 - (amount / 100);
-            stats[type] *= bonusPercentage;
-            stats[type] = Mathf.Max(0.1f, stats[StatType.FireRate]);
-            float dps = 1 / stats[StatType.FireRate];
-            UpdateText(type, Math.Round(dps, 2).ToString());
-            break; 
+                //For now- to make sure the increases in fire rate are persistent. 5 = amount
+                float bonusPercentage = 1 - (5 / 100);
+                Debug.Log("Old is " + stats[type]);
+                Debug.Log("Bonus percentage is " + bonusPercentage);
+                stats[type] *= bonusPercentage;
+                stats[type] = Mathf.Max(0.1f, stats[StatType.FireRate]);
+                Debug.Log("new is " + stats[type]);
+                float dps = 1 / stats[StatType.FireRate];
+                UpdateText(type, Math.Round(dps, 2).ToString());
+                break;
 
             default:
-            stats[type] += amount;
-            UpdateText(type);
-            break;
+                stats[type] += amount;
+                UpdateText(type);
+                break;
         }
     }
 
@@ -86,4 +94,5 @@ public class PlayerStats : MonoBehaviour
     {
         return playerHealth.IsDead();
     }
+    */
 }

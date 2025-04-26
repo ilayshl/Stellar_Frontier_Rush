@@ -1490,7 +1490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1102503994
 Transform:
   m_ObjectHideFlags: 0
@@ -1569,7 +1569,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1998,10 +1998,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1261334338129550176, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1752980867}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
 --- !u!1 &1529391875
 GameObject:
@@ -2729,23 +2726,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676649281}
   m_CullTransparentMesh: 1
---- !u!1 &1752980863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1261334338129550176, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
-  m_PrefabInstance: {fileID: 1438319417}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1752980867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752980863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c8bd1c519f17304d9a72fc9a94e720b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2038912087
 GameObject:
   m_ObjectHideFlags: 0

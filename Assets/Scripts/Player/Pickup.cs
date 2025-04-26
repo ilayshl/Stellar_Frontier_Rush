@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -12,19 +13,31 @@ public class Pickup : MonoBehaviour
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        SetRandomPickupType(sprites.Length - 1); //To not get Missile
     }
 
     private void Start()
     {
         Destroy(gameObject, 10);
-        Invoke("ActivateCollider", 1);
+    }
+    
+    public IEnumerator RandomizePickup()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+        SetRandomPickupType(sprites.Length);
+        yield return new WaitForSeconds(0.25f);
+        }
+        ActivateCollider();
     }
 
     //Rolls for random index from 0 to a given int.
     private void SetRandomPickupType(int range)
     {
-        pickupType = (StatType)Random.Range(0, range);
+        int newType = (int)pickupType;
+        while(newType == (int)pickupType){
+            newType = Random.Range(0, range);
+        }
+        pickupType = (StatType)newType;
         sr.sprite = sprites[(int)pickupType];
     }
 
@@ -45,8 +58,25 @@ public class Pickup : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
         {
-            PlayerStats pStats = pCollider.GetComponentInParent<PlayerStats>();
-            pStats.ChangeStat(pickupType, 1);
+            PlayerController pController = pCollider.GetComponentInParent<PlayerController>();
+            switch (pickupType)
+            {
+                case StatType.Health:
+                pController.IncreaseHealth(1);
+                break;
+                case StatType.Damage:
+                pController.IncreaseDamage(1);
+                break;
+                case StatType.FireRate:
+                pController.IncreaseFireRate(5);
+                break;
+                case StatType.MoveSpeed:
+                pController.IncreaseSpeed(1);
+                break;
+                case StatType.Missile:
+                pController.ChangeMissileAmmo(1);
+                break;
+            }
             Destroy(gameObject);
         }
     }

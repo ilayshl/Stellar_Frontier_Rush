@@ -8,21 +8,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
-    [SerializeField] private Transform rightCannon, leftCannon;
+    [SerializeField] private ParticleSystem rightCannon, leftCannon;
     private Coroutine activeShooting;
     private bool lastShotFromRight;
 
     private Shoot shoot;
     private Base playerBase;
     private Animator animator;
-    private PlayerStats playerStats;
+    private UIManager uiManager;
+
+
+    private int damage = 1;
+    private float shootInterval = 0.7f;
+    private int missileAmmo = 0;
 
     private void Awake()
     {
         shoot = GetComponent<Shoot>();
         playerBase = FindFirstObjectByType<Base>();
         animator = GetComponentInChildren<Animator>();
-        playerStats = GetComponent<PlayerStats>();
+        uiManager = FindAnyObjectByType<UIManager>();
     }
 
     void Start()
@@ -52,14 +57,14 @@ public class PlayerController : MonoBehaviour
         {
             if (activeShooting == null)
             {
-                activeShooting = StartCoroutine(Shoot(playerStats.stats[StatType.FireRate]));
+                activeShooting = StartCoroutine(Shoot(shootInterval));
             }
         }
 
         //For Missiles
         if (Input.GetMouseButtonDown(1))
         {
-            if (playerStats.stats[StatType.Missile] > 0)
+            if (missileAmmo > 0)
             {
                 ShootMissile();
             }
@@ -73,7 +78,9 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator Shoot(float timeInterval)
     {
-        shoot.ShootBullet(GetActiveCannon(), (int)playerStats.stats[StatType.Damage]);
+        var activeCannon = GetActiveCannon();
+        shoot.ShootBullet(activeCannon.transform.position, damage);
+        activeCannon.Play();
         animator.SetTrigger("isShooting");
         lastShotFromRight = !lastShotFromRight;
         yield return new WaitForSeconds(timeInterval);
@@ -82,58 +89,25 @@ public class PlayerController : MonoBehaviour
 
     private void ShootMissile()
     {
-        shoot.ShootMissile(GetActiveCannon());
+        var activeCannon = GetActiveCannon();
+        shoot.ShootMissile(activeCannon.transform.position);
+        activeCannon.Play();
         animator.SetTrigger("isShooting");
-        playerStats.ChangeStat(StatType.Missile, -1);
+        ChangeMissileAmmo(-1);
         lastShotFromRight = !lastShotFromRight;
     }
 
     //Returns which cannon to shot from based on the last cannon that shot.
-    private Vector3 GetActiveCannon()
+    private ParticleSystem GetActiveCannon()
     {
         if (lastShotFromRight)
         {
-            return leftCannon.position;
+            return leftCannon;
         }
         else
         {
-            return rightCannon.position;
+            return rightCannon;
         }
-    }
-
-/*
-    /// <summary>
-    /// Increases moveSpeed by the amount given.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseSpeed(float increase)
-    {
-        moveSpeed += increase;
-        uiManager.SetText(3, moveSpeed.ToString());
-    }
-
-    /// <summary>
-    /// Percentage of how faster the player will shoot; lower shootInterval = faster fire rate.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseFireRate(float increase)
-    {
-        float bonusPercentage = 1 - (increase / 100);
-        shootInterval *= bonusPercentage;
-        shootInterval = Mathf.Max(0.1f, shootInterval);
-        float dps = 1 / shootInterval;
-        uiManager.SetText(2, Math.Round(dps, 2).ToString());
-    }
-
-    /// <summary>
-    /// Increases the damage impact of the object's bullets.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseDamage(int increase)
-    {
-        bulletType += increase;
-        bulletType = Mathf.Min(bulletType, shoot.BulletTypes());
-        uiManager.SetText(1, bulletType.ToString());
     }
 
     /// <summary>
@@ -146,19 +120,51 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Increases the damage impact of the object's bullets.
+    /// </summary>
+    /// <param name="increase"></param>
+    public void IncreaseDamage(int increase)
+    {
+        damage += increase;
+        damage = Mathf.Min(damage, shoot.BulletTypes());
+        uiManager.SetText((int)StatType.Damage, damage.ToString());
+    }
+
+    /// <summary>
+    /// Percentage of how faster the player will shoot; lower shootInterval = faster fire rate.
+    /// </summary>
+    /// <param name="increase"></param>
+    public void IncreaseFireRate(float increase)
+    {
+        float bonusPercentage = 1 - (increase / 100);
+        shootInterval *= bonusPercentage;
+        shootInterval = Mathf.Max(0.1f, shootInterval);
+        float dps = 1 / shootInterval;
+        uiManager.SetText((int)StatType.FireRate, Math.Round(dps, 2).ToString());
+    }
+
+    /// <summary>
+    /// Increases moveSpeed by the amount given.
+    /// </summary>
+    /// <param name="increase"></param>
+    public void IncreaseSpeed(float increase)
+    {
+        moveSpeed += increase;
+        uiManager.SetText((int)StatType.MoveSpeed, moveSpeed.ToString());
+    }
+
+    /// <summary>
     /// Increases the missile ammo by the amount given.
     /// </summary>
     /// <param name="value"></param>
-    public void IncreaseMissileAmmo(int value)
+    public void ChangeMissileAmmo(int value)
     {
         missileAmmo += value;
-        uiManager.SetText(4, missileAmmo.ToString());
+        uiManager.SetText((int)StatType.Missile, missileAmmo.ToString());
     }
-
-    */
 
     public int Damage()
     {
-        return (int)playerStats.stats[StatType.Damage];
+        return damage;
     }
 }

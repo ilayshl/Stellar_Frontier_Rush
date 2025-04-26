@@ -5,26 +5,27 @@ using UnityEngine;
 /// </summary>
 public class Base : MonoBehaviour
 {
+    [SerializeField] private int initialHP = 10;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private AudioClip[] impactSounds;
     [SerializeField] private GameObject deathExplosion;
 
+    private HitPoints hp;
     private SpriteRenderer sr;
     private Animator animator;
-    private PlayerStats playerStats;
 
     private void Awake()
     {
+        hp = new HitPoints(initialHP);
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
-        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     public void EnemyHit(Enemy enemy)
     {
-            ChangeHealth(-enemy.Damage());
-            enemy.OnHit(100);
-            OnHit();
+        ChangeHealth(-enemy.Damage());
+        enemy.OnHit(100);
+        OnHit();
     }
 
     /// <summary>
@@ -33,14 +34,25 @@ public class Base : MonoBehaviour
     /// <param name="amount"></param>
     public void ChangeHealth(int amount)
     {
-        playerStats.ChangeStat(StatType.Health, amount);
+        if (amount > 0)
+        {
+            hp.GainHealth(amount);
+        }
+        else if (amount < 0)
+        {
+            hp.LoseHealth(amount);
+        }
+        else
+        {
+            Debug.LogError("Healing for a value of 0. Check your code.");
+        }
+        UpdateHealthText(hp.currentHP);
         CheckIfDead();
     }
 
-    //Updates the text UI of Health to match the given value.
     private void UpdateHealthText(int value)
     {
-        uiManager.SetText(0, value.ToString());
+        uiManager.SetText((int)StatType.Health, value.ToString());
     }
 
     //For when the base takes damage.
@@ -54,7 +66,7 @@ public class Base : MonoBehaviour
     //Checks if HP equals or is lower than 0.
     private void CheckIfDead()
     {
-        if (playerStats.IsDead())
+        if (hp.IsDead())
         {
             animator.SetTrigger("isDead");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
