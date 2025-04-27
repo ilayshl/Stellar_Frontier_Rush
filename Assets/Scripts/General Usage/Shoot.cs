@@ -25,7 +25,7 @@ public class Shoot : MonoBehaviour
     /// <param name="direction"></param>
     public void ShootBullet(Vector3 position)
     {
-        var newBullet = Instantiate(bullet[0], position, bullet[0].transform.localRotation);
+        Instantiate(bullet[0], position, bullet[0].transform.localRotation);
         PlayShootingSound(0);
     }
 
@@ -35,22 +35,23 @@ public class Shoot : MonoBehaviour
     /// <param name="index"></param>
     /// <param name="position"></param>
     /// <param name="direction"></param>
-    public void ShootBullet(Vector3 position, int bulletType)
+    public void ShootBullet(Vector3 position, int damage)
     {
-        int bulletIndex = bulletType - 1;
+        int bulletIndex = damage - 1;
         int cappedBulletType = Mathf.Min(bulletIndex, bullet.Length);
         var newBullet = Instantiate(bullet[cappedBulletType], position, bullet[cappedBulletType].transform.localRotation);
         if (newBullet.TryGetComponent<Bullet>(out Bullet bulletScript))
         {
-            bulletScript.SetDamage(bulletType);
+            bulletScript.SetDamage(damage);
         }
         PlayShootingSound(bulletIndex);
     }
 
-    //To be continued, shooting missile
-    public void ShootMissile(Vector3 position)
+    //Shoots a missile for a given damage value * 2.
+    public void ShootMissile(Vector3 position, int damage)
     {
-        Instantiate(missile, position, missile.transform.localRotation);
+        Missile newMissile = Instantiate(missile, position, missile.transform.localRotation);
+        newMissile.SetDamage(damage * 2);
         PlayShootingSound(0);
     }
 

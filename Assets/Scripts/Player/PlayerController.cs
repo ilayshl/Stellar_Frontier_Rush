@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
 
     private int damage = 1;
+    public int Damage {get => damage;}
     private float shootInterval = 0.7f;
     private int missileAmmo = 0;
 
@@ -87,10 +88,13 @@ public class PlayerController : MonoBehaviour
         activeShooting = null;
     }
 
+    /// <summary>
+    /// Shoots a missle in the active cannon if there's ammo
+    /// </summary>
     private void ShootMissile()
     {
         var activeCannon = GetActiveCannon();
-        shoot.ShootMissile(activeCannon.transform.position);
+        shoot.ShootMissile(activeCannon.transform.position, damage);
         activeCannon.Play();
         animator.SetTrigger("isShooting");
         ChangeMissileAmmo(-1);
@@ -161,10 +165,5 @@ public class PlayerController : MonoBehaviour
     {
         missileAmmo += value;
         uiManager.SetText((int)StatType.Missile, missileAmmo.ToString());
-    }
-
-    public int Damage()
-    {
-        return damage;
     }
 }

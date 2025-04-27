@@ -44,7 +44,7 @@ public class BossManager : Enemy
     /// <returns></returns>
     private int StartingHealth()
     {
-        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage();
+        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage;
         return playerDamage * initialHP;
     }
 
@@ -322,7 +322,9 @@ public class BossManager : Enemy
     /// </summary>
     protected override void OnDeath()
     {
-        enemyManager.SpawnPickup(transform);
+        var pickupSpawned = enemyManager.SpawnPickup(transform);
+        Pickup pickup = pickupSpawned.GetComponent<Pickup>();
+        pickup.StartCoroutine(pickup.RandomizePickup());
         base.OnDeath();
     }
 }

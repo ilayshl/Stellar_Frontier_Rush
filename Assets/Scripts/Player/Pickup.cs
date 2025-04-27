@@ -6,8 +6,9 @@ using UnityEngine;
 /// </summary>
 public class Pickup : MonoBehaviour
 {
-    public StatType pickupType {get; private set;}
     [SerializeField] private Sprite[] sprites; //0- Health, 1- Damage, 2- Fire rate, 3- Move speed, 4- Missile;
+    [SerializeField] private AudioClip obtainSound;
+    private StatType pickupType;
     private SpriteRenderer sr;
 
     private void Awake()
@@ -20,6 +21,10 @@ public class Pickup : MonoBehaviour
         Destroy(gameObject, 10);
     }
     
+    /// <summary>
+    /// Randomizes the pickup type with a minor animation.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator RandomizePickup()
     {
         for(int i = 0; i < 4; i++)
@@ -46,10 +51,12 @@ public class Pickup : MonoBehaviour
     /// 0- Health, 1- Damage, 2- Fire rate, 3- Movement speed.
     /// </summary>
     /// <param name="index"></param>
-    public void SetPickupType(StatType type)
+    public IEnumerator SetPickupType(StatType type)
     {
         pickupType = type;
         sr.sprite = sprites[(int)type];
+        yield return new WaitForSeconds(1);
+        ActivateCollider();
     }
 
     //Checks for the pickup type and collision object's type on collision with another object
@@ -77,6 +84,7 @@ public class Pickup : MonoBehaviour
                 pController.ChangeMissileAmmo(1);
                 break;
             }
+            SoundManager.PlaySound(obtainSound, true);
             Destroy(gameObject);
         }
     }

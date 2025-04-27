@@ -73,7 +73,7 @@ public class Meteor : Enemy
         {
             var pickupSpawned = enemyManager.SpawnPickup(transform);
             Pickup pickup = pickupSpawned.GetComponent<Pickup>();
-            pickup.SetPickupType((StatType)variantIndex);
+            pickup.StartCoroutine(pickup.SetPickupType((StatType)variantIndex));
         }
         base.OnDeath();
     }

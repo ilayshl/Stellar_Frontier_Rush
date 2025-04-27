@@ -134,6 +134,7 @@ MonoBehaviour:
   boxSize: {x: 4, y: 10}
   distanceFromPosition: 3
   explosionParticles: {fileID: 7047838003272070804, guid: 8d4c30ac964dc014691c9583925e150b, type: 3}
+  explosionSound: {fileID: 8300000, guid: b6d80a898358f9348a276bb69b96ebdb, type: 3}
 --- !u!1 &6159028514348165981
 GameObject:
   m_ObjectHideFlags: 0

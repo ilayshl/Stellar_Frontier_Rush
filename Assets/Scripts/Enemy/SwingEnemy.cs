@@ -58,7 +58,7 @@ public class SwingEnemy : Enemy
         {
             var pickupSpawned = enemyManager.SpawnPickup(transform);
             Pickup pickup = pickupSpawned.GetComponent<Pickup>();
-            StartCoroutine(pickup.RandomizePickup());
+            pickup.StartCoroutine(pickup.RandomizePickup());
         }
         base.OnDeath();
     }

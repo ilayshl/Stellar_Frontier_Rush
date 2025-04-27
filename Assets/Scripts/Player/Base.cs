@@ -21,6 +21,10 @@ public class Base : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    /// <summary>
+    /// Enemy enters the collision of the base.
+    /// </summary>
+    /// <param name="enemy"></param>
     public void EnemyHit(Enemy enemy)
     {
         ChangeHealth(-enemy.Damage());
@@ -41,15 +45,19 @@ public class Base : MonoBehaviour
         else if (amount < 0)
         {
             hp.LoseHealth(amount);
+            CheckIfDead();
         }
         else
         {
             Debug.LogError("Healing for a value of 0. Check your code.");
         }
         UpdateHealthText(hp.currentHP);
-        CheckIfDead();
     }
 
+    /// <summary>
+    /// Updates the health text with the given value.
+    /// </summary>
+    /// <param name="value"></param>
     private void UpdateHealthText(int value)
     {
         uiManager.SetText((int)StatType.Health, value.ToString());
@@ -70,6 +78,10 @@ public class Base : MonoBehaviour
         {
             animator.SetTrigger("isDead");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            animator.SetTrigger("isHurt");
         }
     }
 

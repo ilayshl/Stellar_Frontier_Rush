@@ -12,6 +12,7 @@ public class Missile : Bullet
     [SerializeField] private int distanceFromPosition = 3;
     [Header("Additional Settings")]
     [SerializeField] private ParticleSystem explosionParticles;
+    [SerializeField] private AudioClip explosionSound;
 
     private bool hasTarget = false;
     private const float HAS_TARGET_MULT = 1.5f;
@@ -34,6 +35,10 @@ public class Missile : Bullet
         }
     }
 
+    /// <summary>
+    /// Checks for any enemies in a rectangle in front of the missile.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CheckRaycast()
     {
         RaycastHit2D hit = new();
@@ -48,6 +53,11 @@ public class Missile : Bullet
         hasTarget = true;
     }
 
+    /// <summary>
+    /// Moves towards the set target.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
     private IEnumerator MoveTowardsTarget(Transform target)
     {
         while (target != null && Vector2.Distance(this.transform.position, target.position) > 0.05f)
@@ -64,6 +74,12 @@ public class Missile : Bullet
         }
     }
 
+    /// <summary>
+    /// Moves horizontally towards the target.
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="target"></param>
+    /// <returns></returns>
     private float RotateTowardsTarget(Transform start, Transform target)
     {
         Vector2 direction = target.position - start.position;
@@ -76,6 +92,7 @@ public class Missile : Bullet
     {
         var particle = Instantiate(explosionParticles.gameObject, transform.position, Quaternion.identity);
         Destroy(particle, 2f);
+        SoundManager.PlaySound(explosionSound);
     }
 
 }

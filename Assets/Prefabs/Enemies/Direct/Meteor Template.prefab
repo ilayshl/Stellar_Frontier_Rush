@@ -175,7 +175,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c72511f96b4d0948b1ff5a9555187d4, type: 3}
   deathSound: {fileID: 8300000, guid: 49f42719482ff2342b33caed061ca24c, type: 3}
   deathParticle: {fileID: 7047838003272070809, guid: 65d2dd81ada3ec74bb4ca6a3d917b0c6, type: 3}
-  rotationSpeed: 3
+  rotationSpeed: 10
   variants: []
 --- !u!50 &-7553677185009021467
 Rigidbody2D:
