@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S)) //Meant for play-testing
         {
-            var pickupSpawned = SpawnPickup(this.transform);
+            var pickupSpawned = SpawnPickup(this.transform.position);
             Pickup pickup = pickupSpawned.GetComponent<Pickup>();
             StartCoroutine(pickup.RandomizePickup());
         }
@@ -57,14 +57,22 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     /// <param name="enemyTransform"></param>
     public void EnemyKilled(Enemy enemy)
-    { 
+    {
         RemoveFromCurrentWave(enemy);
+        if (currentWave.Count == 0)
+        {
+            int randomPickups = Random.Range(0, 3);
+            for (int i = 0; i < randomPickups; i++)
+            {
+                SpawnMissilePickup();
+            }
+        }
     }
 
     //Spawns a pickup in the given position and returns itself as a variable.
-    public GameObject SpawnPickup(Transform transform)
+    public GameObject SpawnPickup(Vector2 position)
     {
-        return Instantiate(pickup, transform.position, Quaternion.identity);
+        return Instantiate(pickup, position, Quaternion.identity);
     }
 
     /// <summary>
@@ -76,6 +84,15 @@ public class EnemyManager : MonoBehaviour
     {
         var particles = Instantiate(particleSystem, enemy.position, Quaternion.identity);
         Destroy(particles.gameObject, 2f);
+    }
+
+    private void SpawnMissilePickup()
+    {
+        float xPosition = Random.Range(-7f, 8f);
+        float yPosition = 5.5f + Random.Range(0f, 2f);
+        var newPickup = SpawnPickup(new Vector2(xPosition, yPosition));
+        Pickup pickup = newPickup.GetComponent<Pickup>();
+        pickup.StartCoroutine(pickup.SetPickupType(StatType.Missile));
     }
 
     /// <summary>

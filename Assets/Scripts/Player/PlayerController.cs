@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Debug.Log($"Debug commands:\nQ: Add to wave count\nA: Clear all living enemies\nS: Spawn a random pickup\nD: Damage player");
+        Cursor.visible = false;
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void Update()

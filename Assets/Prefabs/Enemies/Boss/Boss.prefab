@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myScore: 300
   moveSpeed: 3
-  initialHP: 70
+  initialHP: 60
   dmg: 2
   hitSounds:
   - {fileID: 8300000, guid: 1f39afb49d04b124d82b8eda577d908a, type: 3}

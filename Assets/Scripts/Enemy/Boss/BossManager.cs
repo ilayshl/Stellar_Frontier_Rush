@@ -322,7 +322,7 @@ public class BossManager : Enemy
     /// </summary>
     protected override void OnDeath()
     {
-        var pickupSpawned = enemyManager.SpawnPickup(transform);
+        var pickupSpawned = enemyManager.SpawnPickup(transform.position);
         Pickup pickup = pickupSpawned.GetComponent<Pickup>();
         pickup.StartCoroutine(pickup.RandomizePickup());
         base.OnDeath();
