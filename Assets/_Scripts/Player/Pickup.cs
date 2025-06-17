@@ -65,26 +65,8 @@ public class Pickup : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
         {
-            PlayerController pController = pCollider.GetComponentInParent<PlayerController>();
-            switch (pickupType)
-            {
-                case StatType.Health:
-                pController.IncreaseHealth(1);
-                break;
-                case StatType.Damage:
-                pController.IncreaseDamage(1);
-                break;
-                case StatType.FireRate:
-                pController.IncreaseFireRate(5);
-                break;
-                case StatType.MoveSpeed:
-                pController.IncreaseSpeed(1);
-                break;
-                case StatType.Missile:
-                pController.ChangeMissileAmmo(1);
-                break;
-            }
-            SoundManager.PlaySound(obtainSound, true);
+            pCollider.OnPickupObtained((StatType)pickupType);
+            SoundManager.PlaySound(obtainSound, true); 
             Destroy(gameObject);
         }
     }

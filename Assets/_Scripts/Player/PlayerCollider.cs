@@ -4,19 +4,17 @@ public class PlayerCollider : MonoBehaviour
 {
     [SerializeField] private AudioClip hurtSound;
     private Animator animator;
-    private Base playerBase;
 
     private const int PLAYER_DAMAGE = 1;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerBase = FindFirstObjectByType<Base>();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             OnHit(1);
         }
@@ -42,7 +40,29 @@ public class PlayerCollider : MonoBehaviour
     /// <param name="damage"></param>
     public void OnHit(int damage)
     {
-        playerBase.ChangeHealth(-damage);
+        PlayerManager.Instance.ChangeStat(StatType.Health, -damage);
         SoundManager.PlaySound(hurtSound, true);
+    }
+
+    public void OnPickupObtained(StatType stat)
+    {
+        switch (stat)
+            {
+                case StatType.Health:
+                PlayerManager.Instance.ChangeStat(StatType.Health, 1);
+                break;
+                case StatType.Damage:
+                PlayerManager.Instance.ChangeStat(StatType.Damage, 1);
+                break;
+                case StatType.FireRate:
+                PlayerManager.Instance.ChangeStat(StatType.FireRate, 5);
+                break;
+                case StatType.MoveSpeed:
+                PlayerManager.Instance.ChangeStat(StatType.MoveSpeed, 1);
+                break;
+                case StatType.Missile:
+                PlayerManager.Instance.ChangeStat(StatType.Missile, 1);
+                break;
+            }
     }
 }

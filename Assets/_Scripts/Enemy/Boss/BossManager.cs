@@ -44,7 +44,7 @@ public class BossManager : Enemy
     /// <returns></returns>
     private int StartingHealth()
     {
-        int playerDamage = playerTransform.GetComponent<PlayerController>().Damage;
+        int playerDamage = (int)PlayerManager.Instance.GetStatValue(StatType.Damage);
         return playerDamage * initialHP;
     }
 

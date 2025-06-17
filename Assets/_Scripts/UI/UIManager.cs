@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,11 +7,32 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Canvas gameplayHUD;
     [SerializeField] private TextMeshProUGUI[] textsGUI;
 
-    private void StatChanged()
+    private void Start()
     {
-        
+        PlayerManager.Instance.OnStatChanged += StatChanged;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.Instance.OnStatChanged -= StatChanged;
+    }
+
+    private void StatChanged(StatType stat)
+    {
+        if (stat == StatType.FireRate)
+        {
+            float dps = 1 / PlayerManager.Instance.GetStatValue(StatType.FireRate);
+            dps = (float)Math.Round(dps, 2);
+            textsGUI[(int)stat].SetText(dps.ToString());
+        }
+        else
+        {
+            textsGUI[(int)stat].SetText(PlayerManager.Instance.GetStatValue(stat).ToString());
+        }
     }
 
     /// <summary>

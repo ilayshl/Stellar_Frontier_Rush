@@ -7,28 +7,19 @@ using UnityEngine;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    public int damageCap { get => shoot.bullet.Length * 2; }
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private ParticleSystem rightCannon, leftCannon;
     private Coroutine activeShooting;
     private bool lastShotFromRight;
 
     private Shoot shoot;
-    private Base playerBase;
     private Animator animator;
-    private UIManager uiManager;
-
-
-    private int damage = 1;
-    public int Damage {get => damage;}
-    private float shootInterval = 0.7f;
-    private int missileAmmo = 0;
 
     private void Awake()
     {
         shoot = GetComponent<Shoot>();
-        playerBase = FindFirstObjectByType<Base>();
         animator = GetComponentInChildren<Animator>();
-        uiManager = FindAnyObjectByType<UIManager>();
     }
 
     void Start()
@@ -63,14 +54,15 @@ public class PlayerController : MonoBehaviour
         {
             if (activeShooting == null)
             {
-                activeShooting = StartCoroutine(Shoot(shootInterval));
+                float fireInterval = PlayerManager.Instance.GetStatValue(StatType.FireRate);
+                activeShooting = StartCoroutine(Shoot(fireInterval));
             }
         }
 
         //For Missiles
         if (Input.GetMouseButtonDown(1))
         {
-            if (missileAmmo > 0)
+            if (PlayerManager.Instance.GetStatValue(StatType.Missile) > 0)
             {
                 ShootMissile();
             }
@@ -85,10 +77,18 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Shoot(float timeInterval)
     {
         var activeCannon = GetActiveCannon();
-        shoot.ShootBullet(activeCannon.transform.position, damage);
+        int maxDamageBullet = Math.Min(shoot.bullet.Length, (int)PlayerManager.Instance.GetStatValue(StatType.Damage));
+        shoot.ShootBullet(activeCannon.transform.position, maxDamageBullet, true);
         activeCannon.Play();
         animator.SetTrigger("isShooting");
         lastShotFromRight = !lastShotFromRight;
+        if (PlayerManager.Instance.GetStatValue(StatType.Damage) > shoot.bullet.Length)
+        {
+            int newBulletDamage = (int)PlayerManager.Instance.GetStatValue(StatType.Damage) - shoot.bullet.Length;
+            int maxNewDamageBullet = Math.Min(shoot.bullet.Length, newBulletDamage);
+            var newActiveCannon = GetActiveCannon();
+            shoot.ShootBullet(newActiveCannon.transform.position, maxNewDamageBullet, false);
+        }
         yield return new WaitForSeconds(timeInterval);
         activeShooting = null;
     }
@@ -99,10 +99,10 @@ public class PlayerController : MonoBehaviour
     private void ShootMissile()
     {
         var activeCannon = GetActiveCannon();
-        shoot.ShootMissile(activeCannon.transform.position, damage);
+        shoot.ShootMissile(activeCannon.transform.position, (int)PlayerManager.Instance.GetStatValue(StatType.Damage));
         activeCannon.Play();
         animator.SetTrigger("isShooting");
-        ChangeMissileAmmo(-1);
+        PlayerManager.Instance.ChangeStat(StatType.Missile, -1);
         lastShotFromRight = !lastShotFromRight;
     }
 
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
+    /* /// <summary>
     /// Increases Health amount by an int, but can't surpass the initial Health amount.
     /// </summary>
     /// <param name="value"></param>
@@ -170,5 +170,5 @@ public class PlayerController : MonoBehaviour
     {
         missileAmmo += value;
         uiManager.SetText((int)StatType.Missile, missileAmmo.ToString());
-    }
+    } */
 }

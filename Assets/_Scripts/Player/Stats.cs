@@ -2,19 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PlayerStats
+public class Stats
 {
-    public Dictionary<StatType, float> stats { get; private set; }
+    public Dictionary<StatType, float> stats { get; private set; } = new();
     private int initialHP;
-
-    /*  public PlayerStats(int health, int damage, int firerate, int movespeed, int missile)
-      {
-          stats.Add(StatType.Health, health);
-          stats.Add(StatType.Damage, damage);
-          stats.Add(StatType.FireRate, firerate);
-          stats.Add(StatType.MoveSpeed, movespeed);
-          stats.Add(StatType.Missile, missile);
-      } */
 
     public void ChangeStat(StatType stat, float addition)
     {
@@ -31,21 +22,21 @@ public class PlayerStats
             switch (stat)
             {
                 case StatType.Health:
-                    ChangeHealth((int)addition);
+                    ChangeHealth(addition);
                     break;
                 case StatType.Damage:
                     ChangeDamage(addition);
                     break;
                 case StatType.FireRate:
-
+                    ChangeFireRate(addition);
                     break;
                 case StatType.MoveSpeed:
-
+                    ChangeMoveSpeed(addition);
                     break;
                 case StatType.Missile:
-
+                    ChangeMissileAmmo(addition);
                     break;
-            }
+            };
         }
     }
 
@@ -60,7 +51,7 @@ public class PlayerStats
     /// <param name="value"></param>
     private void ChangeHealth(float value)
     {
-        //playerBase.ChangeHealth(value);
+        stats[StatType.Health] = Math.Min(stats[StatType.Health]+value, initialHP);
     }
 
     /// <summary>
@@ -69,7 +60,8 @@ public class PlayerStats
     /// <param name="increase"></param>
     private void ChangeDamage(float increase)
     {
-        stats[StatType.Damage] += increase;
+        //Hard coded 14 for now
+        stats[StatType.Damage] = Math.Min(stats[StatType.Damage]+increase, 14);
     }
 
     /// <summary>
@@ -81,15 +73,13 @@ public class PlayerStats
         float bonusPercentage = 1 - (increase / 100);
         stats[StatType.FireRate] *= bonusPercentage;
         stats[StatType.FireRate] = UnityEngine.Mathf.Max(0.1f, stats[StatType.FireRate]);
-        float dps = 1 / stats[StatType.FireRate];
-        dps = (float)Math.Round(dps, 2);
     }
 
     /// <summary>
     /// Increases moveSpeed by the amount given.
     /// </summary>
     /// <param name="increase"></param>
-    private void ChangeSpeed(float increase)
+    private void ChangeMoveSpeed(float increase)
     {
         stats[StatType.MoveSpeed] += increase;
     }
@@ -102,5 +92,5 @@ public class PlayerStats
     {
         stats[StatType.Missile] += value;
     }
-    
+
 }

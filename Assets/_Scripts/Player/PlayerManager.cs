@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private readonly int[] DEFAULT_STATS = { 10, 1, 1, 5, 0 };
+    //0- Health, 1- Damage, 2- Firerate, 3- Movespeed, 4- Missile.
+    private readonly float[] DEFAULT_STATS = { 10, 1, 0.7f, 5, 0 };
 
     public static PlayerManager Instance;
-    public Action OnStatChanged;
+    public Action<StatType> OnStatChanged;
 
-    public PlayerStats playerStats;
+    public Stats playerStats;
 
     void Awake()
     {
@@ -27,26 +28,30 @@ public class PlayerManager : MonoBehaviour
 
     public void InitiateStats()
     {
-        playerStats = new PlayerStats();
+        playerStats = new Stats();
         for (int i = 0; i < DEFAULT_STATS.Length; i++)
         {
             playerStats.ChangeStat((StatType)i, DEFAULT_STATS[i]);
-            Debug.Log($"Added {(StatType)i} to the stats with the value of {DEFAULT_STATS[i]}!");
+            OnStatChanged?.Invoke((StatType)i);
         }
-        OnStatChanged?.Invoke();
     }
 
     public void ChangeStat(StatType stat, int addition)
     {
         playerStats.ChangeStat(stat, addition);
-        OnStatChanged?.Invoke();
-        
+        OnStatChanged?.Invoke(stat);
+
         if (stat == StatType.Health && CheckIfDead())
         {
-                GameManager.Instance.ChangeGameState(GameState.Dead);
+            GameManager.Instance.ChangeGameState(GameState.Dead);
         }
     }
-    
+
+    public float GetStatValue(StatType stat)
+    {
+        return playerStats.stats[stat];
+    }
+
     private bool CheckIfDead()
     {
         return playerStats.stats[StatType.Health] == 0;

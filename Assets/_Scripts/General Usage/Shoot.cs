@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] private GameObject[] bullet;
+    [SerializeField] public GameObject[] bullet;
     [SerializeField] private AudioClip[] shootingSounds;
     [SerializeField] private Missile missile;
 
@@ -35,7 +35,7 @@ public class Shoot : MonoBehaviour
     /// <param name="index"></param>
     /// <param name="position"></param>
     /// <param name="direction"></param>
-    public void ShootBullet(Vector3 position, int damage)
+    public void ShootBullet(Vector3 position, int damage, bool playSound)
     {
         int bulletIndex = damage - 1;
         int cappedBulletType = Mathf.Min(bulletIndex, bullet.Length);
@@ -44,7 +44,7 @@ public class Shoot : MonoBehaviour
         {
             bulletScript.SetDamage(damage);
         }
-        PlayShootingSound(bulletIndex);
+        if (playSound) PlayShootingSound(bulletIndex);
     }
 
     //Shoots a missile for a given damage value * 2.
