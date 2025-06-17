@@ -40,8 +40,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.state == GameState.Active)
+        {   
         MoveToMouse();
         CheckForFiring();
+        }
     }
 
     //Moves the object towards the cursor location with moveSpeed.

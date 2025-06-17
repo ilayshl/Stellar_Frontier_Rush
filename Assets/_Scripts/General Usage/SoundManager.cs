@@ -5,11 +5,10 @@ using UnityEngine;
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager Instance;
-
-    private AudioSource source;
-
     private const int DEFAULT_PITCH = 1;
+    private const float PITCH_OFFSET = .25f;
+    private static SoundManager Instance;
+    private AudioSource source;
 
     private void Awake()
     {
@@ -44,7 +43,7 @@ public class SoundManager : MonoBehaviour
     //Changes the pitch by an offset of 0.1 in either direction.
     private void ChangePitch()
     {
-        float offset = Random.Range(-0.15f, 0.15f);
+        float offset = Random.Range(-PITCH_OFFSET, PITCH_OFFSET);
         source.pitch += offset;
     }
 }

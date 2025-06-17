@@ -8,6 +8,11 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] textsGUI;
 
+    private void StatChanged()
+    {
+        
+    }
+
     /// <summary>
     /// Updates the given text UI with given value, by the index:
     /// 0 = Health, 1 = Damage, 2 = Fire rate, 3 = Movement speed, 4 = Missile;
