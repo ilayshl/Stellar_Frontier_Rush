@@ -12,6 +12,16 @@ public class PlayerCollider : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        GameManager.Instance.OnGameStateChanged += OnPlayerDeath;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= OnPlayerDeath;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.D))
@@ -47,22 +57,30 @@ public class PlayerCollider : MonoBehaviour
     public void OnPickupObtained(StatType stat)
     {
         switch (stat)
-            {
-                case StatType.Health:
+        {
+            case StatType.Health:
                 PlayerManager.Instance.ChangeStat(StatType.Health, 1);
                 break;
-                case StatType.Damage:
+            case StatType.Damage:
                 PlayerManager.Instance.ChangeStat(StatType.Damage, 1);
                 break;
-                case StatType.FireRate:
+            case StatType.FireRate:
                 PlayerManager.Instance.ChangeStat(StatType.FireRate, 5);
                 break;
-                case StatType.MoveSpeed:
+            case StatType.MoveSpeed:
                 PlayerManager.Instance.ChangeStat(StatType.MoveSpeed, 1);
                 break;
-                case StatType.Missile:
+            case StatType.Missile:
                 PlayerManager.Instance.ChangeStat(StatType.Missile, 1);
                 break;
-            }
+        }
+    }
+
+    private void OnPlayerDeath(GameState state)
+    {
+        if (state == GameState.Dead)
+        {
+            GetComponent<Collider2D>().enabled = false;
+        }
     }
 }

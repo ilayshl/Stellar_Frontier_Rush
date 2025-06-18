@@ -5,20 +5,29 @@ using UnityEngine;
 /// </summary>
 public class Base : MonoBehaviour
 {
-    [SerializeField] private int initialHP = 10;
-    [SerializeField] private UIManager uiManager;
     [SerializeField] private AudioClip[] impactSounds;
     [SerializeField] private GameObject deathExplosion;
 
-    private HitPoints hp;
     private SpriteRenderer sr;
     private Animator animator;
 
     private void Awake()
     {
-        hp = new HitPoints(initialHP);
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    void Start()
+    {
+        GameManager.Instance.OnGameStateChanged += OnDeath;
+        PlayerManager.Instance.OnHealthChanged += OnHit;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= OnDeath;
+        PlayerManager.Instance.OnHealthChanged -= OnHit;
+
     }
 
     /// <summary>
@@ -27,61 +36,27 @@ public class Base : MonoBehaviour
     /// <param name="enemy"></param>
     public void EnemyHit(Enemy enemy)
     {
-        ChangeHealth(-enemy.Damage());
+        PlayerManager.Instance.ChangeStat(StatType.Health, -enemy.Damage());
         enemy.OnHit(100);
-        OnHit();
-    }
-
-    /// <summary>
-    /// Changes and updates the value of HP by the amount given- either negative (decreases hp) or positive (increases hp).
-    /// </summary>
-    /// <param name="amount"></param>
-    public void ChangeHealth(int amount)
-    {
-        if (amount > 0)
-        {
-            hp.GainHealth(amount);
-        }
-        else if (amount < 0)
-        {
-            hp.LoseHealth(amount);
-            CheckIfDead();
-        }
-        else
-        {
-            Debug.LogError("Healing for a value of 0. Check your code.");
-        }
-        UpdateHealthText(hp.currentHP);
-    }
-
-    /// <summary>
-    /// Updates the health text with the given value.
-    /// </summary>
-    /// <param name="value"></param>
-    private void UpdateHealthText(int value)
-    {
-        uiManager.SetText((int)StatType.Health, value.ToString());
     }
 
     //For when the base takes damage.
-    private void OnHit()
+    private void OnHit(StatType stat, int damage)
     {
-        int randomIndex = Random.Range(0, impactSounds.Length);
-        SoundManager.PlaySound(impactSounds[randomIndex], true);
-        animator.SetTrigger("isHurt");
+        if (stat == StatType.Health)
+        {
+            int randomIndex = Random.Range(0, impactSounds.Length);
+            SoundManager.PlaySound(impactSounds[randomIndex], true);
+            animator.SetTrigger("isHurt");
+        }
     }
 
     //Checks if HP equals or is lower than 0.
-    private void CheckIfDead()
+    private void OnDeath(GameState state)
     {
-        if (hp.IsDead())
+        if (state == GameState.Dead)
         {
             animator.SetTrigger("isDead");
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        else
-        {
-            animator.SetTrigger("isHurt");
         }
     }
 

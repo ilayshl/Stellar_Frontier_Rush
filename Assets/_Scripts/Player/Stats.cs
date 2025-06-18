@@ -5,7 +5,7 @@ using System.Linq;
 public class Stats
 {
     public Dictionary<StatType, float> stats { get; private set; } = new();
-    private int initialHP;
+    public int initialHP { get; private set; }
 
     public void ChangeStat(StatType stat, float addition)
     {
@@ -36,7 +36,11 @@ public class Stats
                 case StatType.Missile:
                     ChangeMissileAmmo(addition);
                     break;
-            };
+            }
+            if (stats[stat] < 0)
+            {
+                stats[stat] = 0;
+            }
         }
     }
 

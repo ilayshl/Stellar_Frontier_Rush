@@ -39,7 +39,8 @@ public class Pickup : MonoBehaviour
     private void SetRandomPickupType(int range)
     {
         int newType = (int)pickupType;
-        while(newType == (int)pickupType){
+        while (newType == (int)pickupType)
+        {
             newType = Random.Range(0, range);
         }
         pickupType = (StatType)newType;

@@ -4,11 +4,16 @@ using UnityEngine.SceneManagement;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Animator blackScreen;
+    private bool isTransitioning;
 
     public void StartButton()
     {
-        blackScreen.SetTrigger("startButton");
-        Invoke("StartGame", 2);
+        if (!isTransitioning)
+        {
+            blackScreen.SetTrigger("startButton");
+            Invoke("StartGame", 2);
+            isTransitioning = !isTransitioning;
+        }
     }
 
     public void AboutButton()
@@ -21,7 +26,8 @@ public class MainMenuUI : MonoBehaviour
         Application.Quit();
     }
 
-    public void StartGame(){
+    public void StartGame()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

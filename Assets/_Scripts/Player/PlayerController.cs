@@ -24,14 +24,15 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.ChangeGameState(GameState.Active);
         Debug.Log($"Debug commands:\nQ: Add to wave count\nA: Clear all living enemies\nS: Spawn a random pickup\nD: Damage player");
-        Cursor.visible = false;
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void Update()
     {
-        if (GameManager.Instance.state == GameState.Active)
+        if (GameManager.Instance.state == GameState.Active || 
+        GameManager.Instance.state == GameState.Dead)
         {   
         MoveToMouse();
         CheckForFiring();
@@ -118,57 +119,4 @@ public class PlayerController : MonoBehaviour
             return rightCannon;
         }
     }
-
-    /* /// <summary>
-    /// Increases Health amount by an int, but can't surpass the initial Health amount.
-    /// </summary>
-    /// <param name="value"></param>
-    public void IncreaseHealth(int value)
-    {
-        playerBase.ChangeHealth(value);
-    }
-
-    /// <summary>
-    /// Increases the damage impact of the object's bullets.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseDamage(int increase)
-    {
-        damage += increase;
-        damage = Mathf.Min(damage, shoot.BulletTypes());
-        uiManager.SetText((int)StatType.Damage, damage.ToString());
-    }
-
-    /// <summary>
-    /// Percentage of how faster the player will shoot; lower shootInterval = faster fire rate.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseFireRate(float increase)
-    {
-        float bonusPercentage = 1 - (increase / 100);
-        shootInterval *= bonusPercentage;
-        shootInterval = Mathf.Max(0.1f, shootInterval);
-        float dps = 1 / shootInterval;
-        uiManager.SetText((int)StatType.FireRate, Math.Round(dps, 2).ToString());
-    }
-
-    /// <summary>
-    /// Increases moveSpeed by the amount given.
-    /// </summary>
-    /// <param name="increase"></param>
-    public void IncreaseSpeed(float increase)
-    {
-        moveSpeed += increase;
-        uiManager.SetText((int)StatType.MoveSpeed, moveSpeed.ToString());
-    }
-
-    /// <summary>
-    /// Increases the missile ammo by the amount given.
-    /// </summary>
-    /// <param name="value"></param>
-    public void ChangeMissileAmmo(int value)
-    {
-        missileAmmo += value;
-        uiManager.SetText((int)StatType.Missile, missileAmmo.ToString());
-    } */
 }

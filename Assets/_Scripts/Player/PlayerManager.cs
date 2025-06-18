@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager Instance;
     public Action<StatType> OnStatChanged;
+    public Action<StatType, int> OnHealthChanged;
 
     public Stats playerStats;
 
@@ -41,10 +42,15 @@ public class PlayerManager : MonoBehaviour
         playerStats.ChangeStat(stat, addition);
         OnStatChanged?.Invoke(stat);
 
-        if (stat == StatType.Health && CheckIfDead())
+        if (stat == StatType.Health && addition < 0)
         {
-            GameManager.Instance.ChangeGameState(GameState.Dead);
+            OnHealthChanged?.Invoke(stat, addition);    
+        if (CheckIfDead())
+            {
+                GameManager.Instance.ChangeGameState(GameState.Dead);
+            }
         }
+
     }
 
     public float GetStatValue(StatType stat)
@@ -55,5 +61,10 @@ public class PlayerManager : MonoBehaviour
     private bool CheckIfDead()
     {
         return playerStats.stats[StatType.Health] == 0;
+    }
+
+    public bool IsFullHealth()
+    {
+        return playerStats.stats[StatType.Health] == playerStats.initialHP;
     }
 }
