@@ -25,8 +25,8 @@ public class PointerCrosshair : MonoBehaviour
     {
         CheckForClick();
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        cursorSpinner.transform.eulerAngles += Vector3.forward * rotationSpeed * Time.deltaTime;
-        cursorPointer.transform.eulerAngles -= Vector3.forward * rotationSpeed * Time.deltaTime / 2;
+        cursorSpinner.transform.eulerAngles += Vector3.forward * rotationSpeed * Time.unscaledDeltaTime;
+        cursorPointer.transform.eulerAngles -= Vector3.forward * rotationSpeed * Time.unscaledDeltaTime / 2;
     }
 
     private void SetVisible(GameState state)
