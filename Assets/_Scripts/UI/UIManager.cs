@@ -7,18 +7,21 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private Canvas gameplayHUD;
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private TextMeshProUGUI[] textsGUI;
 
     private void Start()
     {
         PlayerManager.Instance.OnStatChanged += StatChanged;
+        GameManager.Instance.OnGameStateChanged += GameStateChanged;
     }
 
     private void OnDestroy()
     {
         PlayerManager.Instance.OnStatChanged -= StatChanged;
+        GameManager.Instance.OnGameStateChanged -= GameStateChanged;
     }
 
     private void StatChanged(StatType stat)
@@ -32,6 +35,26 @@ public class UIManager : MonoBehaviour
         else
         {
             textsGUI[(int)stat].SetText(PlayerManager.Instance.GetStatValue(stat).ToString());
+        }
+    }
+
+    private void GameStateChanged(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.Active:
+                gameplayHUD.gameObject.SetActive(true);
+                gameOverCanvas.gameObject.SetActive(false);
+                pauseCanvas.gameObject.SetActive(false);
+                break;
+            case GameState.Paused:
+                gameplayHUD.gameObject.SetActive(false);
+                pauseCanvas.gameObject.SetActive(true);
+                break;
+            case GameState.GameOver:
+                gameplayHUD.gameObject.SetActive(false);
+                gameOverCanvas.gameObject.SetActive(true);
+                break;
         }
     }
 
