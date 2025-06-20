@@ -54,10 +54,7 @@ public class Base : MonoBehaviour
     //Checks if HP equals or is lower than 0.
     private void OnDeath(GameState state)
     {
-        if (state == GameState.Dead)
-        {
-            animator.SetTrigger("isDead");
-        }
+            animator.SetBool("isDead", state == GameState.Dead);
     }
 
     /// <summary>

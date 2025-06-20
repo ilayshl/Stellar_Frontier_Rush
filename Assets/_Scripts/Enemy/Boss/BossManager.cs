@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class BossManager : Enemy
 {
+    private const float EDGEX = 7.5f;
+    
     [SerializeField] private Transform shootTransform; //Shooting starting position
     [Header("Sounds")]
     [SerializeField] private AudioClip introSound;
@@ -15,19 +17,18 @@ public class BossManager : Enemy
     [SerializeField] private AudioClip spawnSound;
     [SerializeField] private AudioClip swingSound;
 
-    private Transform playerTransform;
+    private Transform _playerTransform;
     private Shoot _shoot;
-    private Vector2 startingPosition;
-    private bool isOriginalBoss;
+    private Vector2 _startingPosition;
+    private bool _isOriginalBoss;
     private WaveManager _waveManager;
     private Coroutine _currentCoroutine;
 
-    private const float EDGEX = 7.5f;
 
     protected override void Awake()
     {
         base.Awake();
-        playerTransform = FindFirstObjectByType<PlayerController>().transform;
+        _playerTransform = FindFirstObjectByType<PlayerController>().transform;
         _waveManager = enemyManager.GetComponent<WaveManager>();
         _shoot = GetComponent<Shoot>();
         GetComponentInChildren<Collider2D>().enabled = true;
@@ -55,7 +56,7 @@ public class BossManager : Enemy
     public void InitiateBoss(bool isFirstBoss)
     {
         this.hp = new HitPoints(StartingHealth());
-        startingPosition = transform.position;
+        _startingPosition = transform.position;
         if (isFirstBoss)
         {
             transform.position += (Vector3)new Vector2(0, 10);
@@ -66,7 +67,7 @@ public class BossManager : Enemy
             hp.SetHealth(hp.currentHP / 2);
             ChangeState(BossStates.Swing);
         }
-        this.isOriginalBoss = isFirstBoss;
+        _isOriginalBoss = isFirstBoss;
     }
 
     /// <summary>
@@ -97,9 +98,9 @@ public class BossManager : Enemy
     {
         SoundManager.PlaySound(introSound);
         Vector2 currentPosition = transform.position;
-        while (Vector2.Distance(currentPosition, startingPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, _startingPosition) > 0.05f)
         {
-            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime / 2);
+            currentPosition = Vector2.Lerp(currentPosition, _startingPosition, moveSpeed * Time.deltaTime / 2);
             transform.position = currentPosition;
             yield return null;
         }
@@ -118,7 +119,7 @@ public class BossManager : Enemy
             timePassed += Time.deltaTime;
             yield return null;
         }
-        if (isOriginalBoss)
+        if (_isOriginalBoss)
         {
             if (hp.currentHP <= hp.initialHP / 2)
             {
@@ -126,6 +127,7 @@ public class BossManager : Enemy
                 yield break;
             }
         }
+        _startingPosition = transform.position;
         RandomAttack();
     }
 
@@ -136,9 +138,9 @@ public class BossManager : Enemy
     private IEnumerator Return()
     {
         Vector2 currentPosition = transform.position;
-        while (Vector2.Distance(currentPosition, startingPosition) > 0.05f)
+        while (Vector2.Distance(currentPosition, _startingPosition) > 0.05f)
         {
-            currentPosition = Vector2.Lerp(currentPosition, startingPosition, moveSpeed * Time.deltaTime);
+            currentPosition = Vector2.Lerp(currentPosition, _startingPosition, moveSpeed * Time.deltaTime);
             transform.position = currentPosition;
             yield return null;
         }
@@ -169,7 +171,7 @@ public class BossManager : Enemy
     private IEnumerator Charge()
     {
         SoundManager.PlaySound(chargeSound);
-        Vector2 targetPosition = playerTransform.position;
+        Vector2 targetPosition = _playerTransform.position;
         Vector2 currentPosition = this.transform.position;
         while (Vector2.Distance(currentPosition, targetPosition) > 0.1f)
         {
@@ -192,8 +194,8 @@ public class BossManager : Enemy
         for (int i = 0; i < random; i++)
         {
             SoundManager.PlaySound(sweepSound[i]);
-            Vector2 targetPosition = (Vector2)playerTransform.position + (offset * moveDir);
-            Vector2 currentPosition = (Vector2)playerTransform.position + (-offset * moveDir);
+            Vector2 targetPosition = (Vector2)_playerTransform.position + (offset * moveDir);
+            Vector2 currentPosition = (Vector2)_playerTransform.position + (-offset * moveDir);
             while (Vector2.Distance(currentPosition, targetPosition) > 0.05f)
             {
                 currentPosition = Vector2.MoveTowards(currentPosition, targetPosition, moveSpeed * Time.deltaTime * 7);

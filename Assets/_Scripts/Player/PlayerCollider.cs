@@ -83,7 +83,8 @@ public class PlayerCollider : MonoBehaviour
     {
         if (state == GameState.Dead)
         {
-            GetComponent<Collider2D>().enabled = false;
+            GetComponent<Collider2D>().enabled = state != GameState.Dead;
+            animator.SetBool("isDead", true);
         }
     }
 }

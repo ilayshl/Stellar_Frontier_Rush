@@ -11,11 +11,12 @@ public class PointerCrosshair : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
+        Cursor.visible = false;
     }
 
     void Start()
     {
+        SetVisible(GameManager.Instance.state);
         GameManager.Instance.OnGameStateChanged += SetVisible;
     }
 

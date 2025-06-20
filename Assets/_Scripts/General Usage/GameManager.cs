@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    void Start()
     {
         ChangeGameState(GameState.MainMenu);
     }
