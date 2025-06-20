@@ -31,11 +31,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.state == GameState.Active || 
+        //While active or dead the player can move
+        if (GameManager.Instance.state == GameState.Active ||
         GameManager.Instance.state == GameState.Dead)
-        {   
-        MoveToMouse();
-        CheckForFiring();
+        {
+            MoveToMouse();
+        }
+        //Player can shoot only if active
+        if (GameManager.Instance.state == GameState.Active)
+        {
+            CheckForFiring();
         }
     }
 

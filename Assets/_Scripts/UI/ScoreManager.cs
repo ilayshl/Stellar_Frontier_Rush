@@ -4,7 +4,18 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI gameoverScoreText;
     private int score;
+
+    void Start()
+    {
+        GameManager.Instance.OnGameStateChanged += OnGameStateChange;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.Instance.OnGameStateChanged -= OnGameStateChange;
+    }
 
     /// <summary>
     /// Adds score and updates the text ui.
@@ -12,7 +23,16 @@ public class ScoreManager : MonoBehaviour
     /// <param name="addition"></param>
     public void AddScore(int addition)
     {
-        score+=addition;
+        score += addition;
         scoreText.text = score.ToString();
+    }
+
+    private void OnGameStateChange(GameState state)
+    {
+        if (state == GameState.GameOver)
+        {
+            string currentText = gameoverScoreText.text;
+            gameoverScoreText.SetText($"{currentText}\n{score}");
+        }
     }
 }

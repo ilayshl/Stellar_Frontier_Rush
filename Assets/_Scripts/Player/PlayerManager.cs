@@ -37,6 +37,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Changes a specific stat with the int given. If Health, checks if dead.
+    /// </summary>
+    /// <param name="stat"></param>
+    /// <param name="addition"></param>
     public void ChangeStat(StatType stat, int addition)
     {
         playerStats.ChangeStat(stat, addition);
@@ -44,8 +49,8 @@ public class PlayerManager : MonoBehaviour
 
         if (stat == StatType.Health && addition < 0)
         {
-            OnHealthChanged?.Invoke(stat, addition);    
-        if (CheckIfDead())
+            OnHealthChanged?.Invoke(stat, addition);
+            if (CheckIfDead())
             {
                 GameManager.Instance.ChangeGameState(GameState.Dead);
             }
@@ -53,9 +58,22 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Returns the value of the requested stat.
+    /// </summary>
+    /// <param name="stat"></param>
+    /// <returns></returns>
     public float GetStatValue(StatType stat)
     {
-        return playerStats.stats[stat];
+        if (playerStats.stats.ContainsKey(stat))
+        {
+            return playerStats.stats[stat];
+        }
+        else
+        {
+            Debug.LogWarning($"Requested stat of {stat} not found.");
+            return float.NaN;
+        }
     }
 
     private bool CheckIfDead()

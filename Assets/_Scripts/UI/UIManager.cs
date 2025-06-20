@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Responsible for the Canvas and sets the text in its TextMeshGUI.
@@ -12,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private TextMeshProUGUI[] textsGUI;
 
-    private void Start()
+    private void Awake()
     {
         PlayerManager.Instance.OnStatChanged += StatChanged;
         GameManager.Instance.OnGameStateChanged += GameStateChanged;
@@ -24,6 +25,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.OnGameStateChanged -= GameStateChanged;
     }
 
+    /// <summary>
+    /// Updates the stat texboxes
+    /// </summary>
+    /// <param name="stat"></param>
     private void StatChanged(StatType stat)
     {
         if (stat == StatType.FireRate)
@@ -67,5 +72,18 @@ public class UIManager : MonoBehaviour
     public void SetText(int index, string value)
     {
         textsGUI[index].text = value;
+    }
+
+    /// <summary>
+    /// To be used by the Restart buttons.
+    /// </summary>
+    public void RestartScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
