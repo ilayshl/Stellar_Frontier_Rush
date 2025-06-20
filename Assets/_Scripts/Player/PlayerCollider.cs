@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Responsible for the player's collider and damaging the base.
+/// </summary>
 public class PlayerCollider : MonoBehaviour
 {
     [SerializeField] private AudioClip hurtSound;
@@ -40,7 +43,7 @@ public class PlayerCollider : MonoBehaviour
         {
             enemy.OnHit(PLAYER_DAMAGE);
             animator.SetTrigger("isHurt");
-            OnHit(enemy.Damage());
+            OnHit(enemy.Damage);
         }
     }
 

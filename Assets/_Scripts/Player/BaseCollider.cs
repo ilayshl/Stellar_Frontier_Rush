@@ -12,16 +12,6 @@ public class BaseCollider : MonoBehaviour
         baseCollider = this.GetComponent<Collider2D>();
     }
 
-    void Start()
-    {
-
-    }
-
-    void OnDestroy()
-    {
-
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!isDead)

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Responsible for the cursor.
+/// </summary>
 public class PointerCrosshair : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 20;

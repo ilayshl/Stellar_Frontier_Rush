@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for holding the player's stats.
+/// </summary>
 public class PlayerManager : MonoBehaviour
 {
     //0- Health, 1- Damage, 2- Firerate, 3- Movespeed, 4- Missile.

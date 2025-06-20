@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int myScore = 50;
+    public int Damage { get => dmg; }
     
     [Header("Basic Stats")]
     [SerializeField] protected float moveSpeed = 1;
@@ -38,15 +39,6 @@ public class Enemy : MonoBehaviour
     {
         hp = new HitPoints(initialHP);
         enemyManager.AddToCurrentWave(this);
-    }
-
-    /// <summary>
-    /// Returns the damage of the enemy.
-    /// </summary>
-    /// <returns></returns>
-    public int Damage()
-    {
-        return dmg;
     }
 
     /// <summary>

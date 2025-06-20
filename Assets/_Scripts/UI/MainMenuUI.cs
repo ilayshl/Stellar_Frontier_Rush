@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Responsible for the Main Menu UI and buttons functionality.
+/// </summary>
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Animator blackScreen;

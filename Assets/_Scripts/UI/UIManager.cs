@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Responsible for the Canvas and sets the text in its TextMeshGUI.
+/// Responsible for the in game canvases and sets the text in their TextMeshGUI.
 /// </summary>
 public class UIManager : MonoBehaviour
 {

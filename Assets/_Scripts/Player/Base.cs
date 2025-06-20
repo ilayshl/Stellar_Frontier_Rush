@@ -36,7 +36,7 @@ public class Base : MonoBehaviour
     /// <param name="enemy"></param>
     public void EnemyHit(Enemy enemy)
     {
-        PlayerManager.Instance.ChangeStat(StatType.Health, -enemy.Damage());
+        PlayerManager.Instance.ChangeStat(StatType.Health, -enemy.Damage);
         enemy.OnHit(100);
     }
 

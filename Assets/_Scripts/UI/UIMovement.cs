@@ -9,20 +9,23 @@ public class UIMovement : MonoBehaviour
     private Vector2 screenMiddle;
     private RectTransform rectTransform;
 
-private void Awake() {
-    rectTransform = GetComponent<RectTransform>();
-}
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+    
     void Start()
     {
-    screenMiddle = rectTransform.anchoredPosition;
+        screenMiddle = rectTransform.anchoredPosition;
     }
 
     /// <summary>
     /// Takes the delta movement of the mouse and compares it to the UI location in the opposite direction.
     /// </summary>
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 deltaMovement = screenMiddle-mousePosition;
-        rectTransform.transform.position=new Vector3(deltaMovement.x*movementMultiplier.x, deltaMovement.y*movementMultiplier.y, 0);
+        Vector3 deltaMovement = screenMiddle - mousePosition;
+        rectTransform.transform.position = new Vector3(deltaMovement.x * movementMultiplier.x, deltaMovement.y * movementMultiplier.y, 0);
     }
 }

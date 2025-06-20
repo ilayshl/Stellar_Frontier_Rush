@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Holds the Dictionary of stats, is used by PlayerManager.
+/// </summary>
 public class Stats
 {
     public Dictionary<StatType, float> stats { get; private set; } = new();
@@ -55,7 +58,7 @@ public class Stats
     /// <param name="value"></param>
     private void ChangeHealth(float value)
     {
-        stats[StatType.Health] = Math.Min(stats[StatType.Health]+value, initialHP);
+        stats[StatType.Health] = Math.Min(stats[StatType.Health] + value, initialHP);
     }
 
     /// <summary>
@@ -65,7 +68,7 @@ public class Stats
     private void ChangeDamage(float increase)
     {
         //Hard coded 14 for now
-        stats[StatType.Damage] = Math.Min(stats[StatType.Damage]+increase, 14);
+        stats[StatType.Damage] = Math.Min(stats[StatType.Damage] + increase, 14);
     }
 
     /// <summary>

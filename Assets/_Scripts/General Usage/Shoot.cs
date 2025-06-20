@@ -47,7 +47,11 @@ public class Shoot : MonoBehaviour
         if (playSound) PlayShootingSound(bulletIndex);
     }
 
-    //Shoots a missile for a given damage value * 2.
+    /// <summary>
+    /// Shoots a missile for a given damage value * 2.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="damage"></param>
     public void ShootMissile(Vector3 position, int damage)
     {
         Missile newMissile = Instantiate(missile, position, missile.transform.localRotation);

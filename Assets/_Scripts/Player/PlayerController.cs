@@ -8,7 +8,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public int damageCap { get => shoot.bullet.Length * 2; }
-    [SerializeField] private float moveSpeed = 5;
     [SerializeField] private ParticleSystem rightCannon, leftCannon;
     private Coroutine activeShooting;
     private bool lastShotFromRight;
@@ -49,7 +48,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 currentPosition = transform.position;
-        transform.position =
+        int moveSpeed = (int)PlayerManager.Instance.GetStatValue(StatType.MoveSpeed);
+        transform.position = 
         Vector2.MoveTowards(currentPosition, mousePosition, moveSpeed * Time.deltaTime);
     }
 
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     /// <summary>
     /// Shoots a bullet, then resets activeShooting so it could be fired again.
+    /// If damage surpasses the initial bullet type amount- shoot the remainder from the other cannon.
     /// </summary>
     /// <param name="timeInterval"></param>
     /// <returns></returns>
@@ -115,13 +116,6 @@ public class PlayerController : MonoBehaviour
     //Returns which cannon to shot from based on the last cannon that shot.
     private ParticleSystem GetActiveCannon()
     {
-        if (lastShotFromRight)
-        {
-            return leftCannon;
-        }
-        else
-        {
-            return rightCannon;
-        }
+        return lastShotFromRight ? leftCannon : rightCannon;
     }
 }

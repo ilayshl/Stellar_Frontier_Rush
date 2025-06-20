@@ -20,17 +20,17 @@ public class Pickup : MonoBehaviour
     {
         Destroy(gameObject, 10);
     }
-    
+
     /// <summary>
     /// Randomizes the pickup type with a minor animation.
     /// </summary>
     /// <returns></returns>
     public IEnumerator RandomizePickup()
     {
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-        SetRandomPickupType(sprites.Length);
-        yield return new WaitForSeconds(0.25f);
+            SetRandomPickupType(sprites.Length);
+            yield return new WaitForSeconds(0.25f);
         }
         ActivateCollider();
     }
@@ -67,7 +67,7 @@ public class Pickup : MonoBehaviour
         if (other.TryGetComponent<PlayerCollider>(out PlayerCollider pCollider))
         {
             pCollider.OnPickupObtained((StatType)pickupType);
-            SoundManager.PlaySound(obtainSound, true); 
+            SoundManager.PlaySound(obtainSound, true);
             Destroy(gameObject);
         }
     }

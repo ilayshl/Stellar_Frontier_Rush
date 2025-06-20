@@ -1,10 +1,13 @@
 using UnityEngine;
 
+/// <summary>
+/// Swing enemies are the basic enemies in the game.
+/// </summary>
 public class SwingEnemy : Enemy
 {
     private const float EDGEX = 7.5f;
     private const int BERSERK_INITIATE_HP = 1;
- 
+
     void Update()
     {
         Move();
@@ -16,7 +19,7 @@ public class SwingEnemy : Enemy
     {
         transform.position += new Vector3(moveDir * moveSpeed * Time.deltaTime, 0, 0);
     }
-    
+
     //Changes direction when touching screen edges.
     private void CheckForScreenEdges()
     {
@@ -54,7 +57,7 @@ public class SwingEnemy : Enemy
 
     protected override void OnDeath()
     {
-        if(Random.Range(0, 100)<=33)
+        if (Random.Range(0, 100) <= 33)
         {
             var pickupSpawned = enemyManager.SpawnPickup(transform.position);
             Pickup pickup = pickupSpawned.GetComponent<Pickup>();

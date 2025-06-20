@@ -86,6 +86,9 @@ public class EnemyManager : MonoBehaviour
         Destroy(particles.gameObject, 2f);
     }
 
+    /// <summary>
+    /// Spawns a missile pickup in a random position above the screen.
+    /// </summary>
     private void SpawnMissilePickup()
     {
         float xPosition = Random.Range(-7f, 8f);

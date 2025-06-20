@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for GameState.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -48,6 +51,5 @@ public class GameManager : MonoBehaviour
         }
         Cursor.visible = false;
         OnGameStateChanged?.Invoke(newState);
-        Debug.Log($"GameState changed to {newState.ToString()}");
     }
 }

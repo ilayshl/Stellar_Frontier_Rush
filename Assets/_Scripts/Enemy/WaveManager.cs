@@ -18,7 +18,7 @@ public class WaveManager : MonoBehaviour
     private float difficultyTimer;
     private bool isSpawningWave = false;
 
-    private const int DIRECT_WAVE_RATE = 6;
+    private const int DIRECT_WAVE_RATE = 5;
     private const int BOSS_WAVE_RATE = 8;
     private const int SCREEN = 16;
 
