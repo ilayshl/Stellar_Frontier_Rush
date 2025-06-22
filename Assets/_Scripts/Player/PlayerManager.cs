@@ -88,4 +88,12 @@ public class PlayerManager : MonoBehaviour
     {
         return playerStats.stats[StatType.Health] == playerStats.initialHP;
     }
+
+    public void UpdateStats()
+    {
+        foreach (var stat in playerStats.stats)
+        {
+                    OnStatChanged?.Invoke(stat.Key);
+        }
+    }
 }

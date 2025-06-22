@@ -13,10 +13,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private TextMeshProUGUI[] textsGUI;
 
-    private void Awake()
+    private void Start()
     {
         PlayerManager.Instance.OnStatChanged += StatChanged;
         GameManager.Instance.OnGameStateChanged += GameStateChanged;
+        PlayerManager.Instance.UpdateStats();
     }
 
     private void OnDestroy()
