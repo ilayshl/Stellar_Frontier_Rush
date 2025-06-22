@@ -7,7 +7,7 @@ public class BackgroundScroller : MonoBehaviour
 {
     [SerializeField] private float scrollSpeed;
     [SerializeField] private bool isAffectedByTime;
-    [SerializeField] private int secondsPerIncrement;
+    [SerializeField] private int secondsPerIncrease;
     private float textureUnitSize;
     private float timePassed;
 
@@ -33,7 +33,7 @@ public class BackgroundScroller : MonoBehaviour
         if (isAffectedByTime)
         {
             timePassed += Time.deltaTime;
-            if ((int)timePassed % secondsPerIncrement == 0 && (int)timePassed != 0)
+            if ((int)timePassed % secondsPerIncrease == 0 && (int)timePassed != 0)
             {
                 timePassed = 0;
                 scrollSpeed *= SPEEDMULTIPLY;

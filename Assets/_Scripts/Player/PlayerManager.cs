@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     //0- Health, 1- Damage, 2- Firerate, 3- Movespeed, 4- Missile.
-    private readonly float[] DEFAULT_STATS = { 10, 1, 0.7f, 5, 0 };
+    private readonly float[] DEFAULT_STATS = { 10, 1, 0.5f, 5, 0 };
 
     public static PlayerManager Instance;
     public Action<StatType> OnStatChanged;

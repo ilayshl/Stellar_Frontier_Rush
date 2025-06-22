@@ -21,14 +21,14 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    void Start()
+    private void Start()
     {
         GameManager.Instance.ChangeGameState(GameState.Active);
         Debug.Log($"Debug commands:\nQ: Add to wave count\nA: Clear all living enemies\nS: Spawn a random pickup\nD: Damage player");
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    void Update()
+    private void Update()
     {
         //While active or dead the player can move
         if (GameManager.Instance.state == GameState.Active ||

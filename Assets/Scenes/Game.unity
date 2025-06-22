@@ -1921,9 +1921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 2
+  scrollSpeed: 1
   isAffectedByTime: 1
-  secondsPerIncrement: 15
+  secondsPerIncrease: 15
 --- !u!1 &1074816143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,9 +1969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1.9
+  scrollSpeed: 0.85
   isAffectedByTime: 1
-  secondsPerIncrement: 14
+  secondsPerIncrease: 15
 --- !u!212 &1074816146
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2769,6 +2769,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5698739343533279995, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8651820078208107908, guid: 1fe149535791c3f4b88be6de6a6a6f1c, type: 3}
       propertyPath: moveSpeed
       value: 7
@@ -3374,9 +3378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 2.2
+  scrollSpeed: 1.1
   isAffectedByTime: 1
-  secondsPerIncrement: 12
+  secondsPerIncrease: 15
 --- !u!212 &1618596611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3826,7 +3830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1855423136
 RectTransform:
   m_ObjectHideFlags: 0

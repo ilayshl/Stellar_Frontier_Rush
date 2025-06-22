@@ -167,9 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1.2
+  scrollSpeed: 1
   isAffectedByTime: 0
-  secondsPerIncrement: 0
+  secondsPerIncrease: 15
 --- !u!212 &87505254
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -884,9 +884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1
+  scrollSpeed: 0.8
   isAffectedByTime: 0
-  secondsPerIncrement: 0
+  secondsPerIncrease: 15
 --- !u!212 &684700005
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1119,9 +1119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156fe95ebe1ce457b965310cec217d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.8
+  scrollSpeed: 0.65
   isAffectedByTime: 0
-  secondsPerIncrement: 0
+  secondsPerIncrease: 15
 --- !u!212 &737384846
 SpriteRenderer:
   m_ObjectHideFlags: 0
